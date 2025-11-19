@@ -1,0 +1,104 @@
+/* Modern Hero Section */
+.hero-modern {
+  position: relative;
+  padding: 150px 0;
+  color: white;
+  overflow: hidden;
+}
+
+.hero-overlay img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  filter: brightness(50%);
+}
+
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* NEW Perfect Matching Professional Overlay */
+  background: linear-gradient(
+      rgba(8, 28, 68, 0.75),   /* deep navy (matches dark blue UI) */
+      rgba(45, 25, 58, 0.75)   /* plum-medical tone (subtle blood feel) */
+  );
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Heading */
+.hero-heading {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.hero-tagline {
+  font-size: 18px;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+/* Hero Feature Cards */
+.hero-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 30px 20px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+  text-align: center;
+}
+
+.hero-card i {
+  font-size: 42px;
+  margin-bottom: 12px;
+
+  /* NEW blended blood-rose color */
+  color: #d9485b;
+}
+
+.hero-card h4 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.hero-card p {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+.hero-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+
+.hero-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: #2EC4B6; /* calming medical teal */
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #27b3a6; /* slightly darker teal */
+  transform: translateY(-3px);
+}

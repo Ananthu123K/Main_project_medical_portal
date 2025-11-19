@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Categories</title>
+    <style>
+        /* Container styling */
+        .container {
+            max-width: 1000px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+
+        /* Heading */
+        h2 {
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+            transition: 0.3s;
+        }
+
+        /* Buttons */
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            color: #fff;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            color: #fff;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            color: #fff;
+        }
+
+        /* Image styling */
+        .img-thumbnail {
+            border-radius: 8px;
+            max-width: 80px;
+            height: auto;
+        }
+
+        /* Alert message */
+        .alert-info {
+            font-weight: 500;
+            background-color: #e2f0fb;
+            color: #31708f;
+            border: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Service Categories</h2>
+
+    <table>
+        <thead>
+            <tr>
+<!--                <th>#</th>-->
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+<!--                <td>{{ forloop.counter }}</td>-->
+                <td>{{ category.name }}</td>
+                <td>{{ category.description|default:"-" }}</td>
+                <td>
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-thumbnail">
+                    {% endif %}
+                </td>
+                <td>{{ category.created_at|date:"d M Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'edit_service_category' category.id %}" class="btn-warning">Edit</a>
+                    <a href="{% url 'delete_service_category' category.id %}" class="btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
+
+{% endblock %}
