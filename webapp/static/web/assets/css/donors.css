@@ -1,0 +1,66 @@
+/* Section Heading */
+.donor-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #d9534f;
+  letter-spacing: 0.5px;
+}
+
+/* Filter Box Styling */
+.donor-filter-box {
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  transition: 0.3s ease;
+  border-radius: 12px;
+}
+
+/* Dropdowns */
+.donor-select {
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  padding: 10px;
+}
+
+/* Apply Button */
+.donor-btn {
+  border-radius: 12px;
+  font-weight: 600;
+  background-color: #dc3545 !important; /* red */
+  border: none;
+  transition: 0.3s;
+}
+
+.donor-btn:hover {
+  background-color: #ff6f6f !important; /* light red hover */
+}
+
+/* Donor Image */
+.donor-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Card Hover Effect */
+.donor-card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.donor-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 10px 25px rgba(255, 100, 100, 0.25); /* light red shadow */
+  cursor: pointer;
+}
+
+/* Text Styling */
+.donor-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.donor-card p {
+  margin-bottom: 4px;
+  color: #444;
+}

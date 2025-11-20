@@ -99,99 +99,53 @@
 
   </header>
 
-  <link rel="stylesheet" href="{% static 'css/donors.css' %}">
+      <section id="about" class="about section">
 
-<section id="donors" class="donors section">
-  <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="container">
 
-    <!-- Modern Heading -->
-    <div class="text-center mb-4">
-      <h2 class="fw-bold">Find the Right Donor</h2>
-      <p class="text-muted">Filter donors based on district and blood group</p>
-    </div>
+        <div class="row gy-4 gx-5">
 
-    <!-- Filter Bar -->
-    <div class="donor-filter mb-5">
-      <div class="filter-bar p-3 p-md-4 rounded-3 shadow-sm donor-filter-box">
-        <div class="row g-3 align-items-center justify-content-center">
-
-          <div class="col-md-4">
-            <select class="form-select donor-select">
-              <option selected disabled>Filter by District</option>
-              <option>Trivandrum</option>
-              <option>Kollam</option>
-              <option>Kottayam</option>
-              <option>Ernakulam</option>
-            </select>
+          <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'web/assets/img/about.jpg' %}" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
           </div>
 
-          <div class="col-md-4">
-
-            <select class="form-select donor-select">
-              <option selected disabled>Filter by Blood Group</option>
-
-              <option>A+</option>
-
-
-            </select>
-
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <h3>About Us</h3>
+            <p>
+              Dolor iure expedita id fuga asperiores qui sunt consequatur minima. Quidem voluptas deleniti. Sit quia molestiae quia quas qui magnam itaque veritatis dolores. Corrupti totam ut eius incidunt reiciendis veritatis asperiores placeat.
+            </p>
+            <ul>
+              <li>
+                <i class="fa-solid fa-vial-circle-check"></i>
+                <div>
+                  <h5>Ullamco laboris nisi ut aliquip consequat</h5>
+                  <p>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</p>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-pump-medical"></i>
+                <div>
+                  <h5>Magnam soluta odio exercitationem reprehenderi</h5>
+                  <p>Quo totam dolorum at pariatur aut distinctio dolorum laudantium illo direna pasata redi</p>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-heart-circle-xmark"></i>
+                <div>
+                  <h5>Voluptatem et qui exercitationem</h5>
+                  <p>Et velit et eos maiores est tempora et quos dolorem autem tempora incidunt maxime veniam</p>
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <div class="col-md-2">
-            <button class="btn btn-danger w-100 donor-btn">Apply</button>
-          </div>
-
         </div>
-      </div>
-    </div>
 
-    <!-- Donor Cards -->
-    <div class="row gy-4">
-
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile1.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">John Doe</h4>
-          <p><strong>Blood Group:</strong> O+</p>
-          <p><strong>District:</strong> Ernakulam</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
       </div>
 
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile2.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Maria James</h4>
-          <p><strong>Blood Group:</strong> A+</p>
-          <p><strong>District:</strong> Kottayam</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
+    </section><!-- /About Section -->
 
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile3.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Rohit Kumar</h4>
-          <p><strong>Blood Group:</strong> B-</p>
-          <p><strong>District:</strong> Trivandrum</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
-
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile4.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Anjali Nair</h4>
-          <p><strong>Blood Group:</strong> AB+</p>
-          <p><strong>District:</strong> Kollam</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
 
 
 
