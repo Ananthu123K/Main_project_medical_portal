@@ -30,6 +30,7 @@
   <link href="{% static 'web/assets/css/main.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/css/style2.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/css/donors.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/status_dot.css' %}" rel="stylesheet">
 
 
 </head>
@@ -64,11 +65,11 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="{% url 'Home' %}" class="active">Home<br></a></li>
+            <li><a href="{% url 'Home' %}">Home<br></a></li>
             <li><a href="{% url 'About' %}">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#departments">Departments</a></li>
-            <li><a href="{% url 'Donors' %}">Donors</a></li>
+            <li><a href="{% url 'Donors' %}" class="active">Donors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a href="#">Dropdown 1</a></li>
@@ -147,46 +148,55 @@
 
     <!-- Donor Cards -->
     <div class="row gy-4">
-
+  {% for i in donors %}
       <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile1.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">John Doe</h4>
-          <p><strong>Blood Group:</strong> O+</p>
-          <p><strong>District:</strong> Ernakulam</p>
+        <div class="donor-card card p-3 text-center shadow-sm position-relative">
+          <div class="donor-img-wrapper">
+            <img src="{{ i.Image.url }}" class="donor-img rounded-circle">
+            <!-- Status Dot -->
+            <span class="status-dot {% if i.is_active %}active{% else %}inactive{% endif %}"></span>
+          </div>
+
+          <h4 class="mt-3">{{ i.Name }}</h4>
+          <p><strong>Blood Group:</strong> {{ i.BloodGroup }}</p>
+          <p><strong>District:</strong> {{ i.Location }}</p>
+          <p><strong>Gender:</strong> {{ i.Gender }}</p>
+          <p><strong>Active:</strong> {% if i.is_active %}Yes{% else %}No{% endif %}</p>
+
           <button class="btn btn-outline-danger mt-2">Contact</button>
         </div>
       </div>
+  {% endfor %}
 
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile2.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Maria James</h4>
-          <p><strong>Blood Group:</strong> A+</p>
-          <p><strong>District:</strong> Kottayam</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
+<!--      <div class="col-xl-3 col-md-6">-->
+<!--        <div class="donor-card card p-3 text-center shadow-sm">-->
+<!--          <img src="{% static 'web/assets/img/profile2.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">-->
+<!--          <h4 class="mt-3">Maria James</h4>-->
+<!--          <p><strong>Blood Group:</strong> A+</p>-->
+<!--          <p><strong>District:</strong> Kottayam</p>-->
+<!--          <button class="btn btn-outline-danger mt-2">Contact</button>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile3.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Rohit Kumar</h4>
-          <p><strong>Blood Group:</strong> B-</p>
-          <p><strong>District:</strong> Trivandrum</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
+<!--      <div class="col-xl-3 col-md-6">-->
+<!--        <div class="donor-card card p-3 text-center shadow-sm">-->
+<!--          <img src="{% static 'web/assets/img/profile3.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">-->
+<!--          <h4 class="mt-3">Rohit Kumar</h4>-->
+<!--          <p><strong>Blood Group:</strong> B-</p>-->
+<!--          <p><strong>District:</strong> Trivandrum</p>-->
+<!--          <button class="btn btn-outline-danger mt-2">Contact</button>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="col-xl-3 col-md-6">
-        <div class="donor-card card p-3 text-center shadow-sm">
-          <img src="{% static 'web/assets/img/profile4.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">
-          <h4 class="mt-3">Anjali Nair</h4>
-          <p><strong>Blood Group:</strong> AB+</p>
-          <p><strong>District:</strong> Kollam</p>
-          <button class="btn btn-outline-danger mt-2">Contact</button>
-        </div>
-      </div>
+<!--      <div class="col-xl-3 col-md-6">-->
+<!--        <div class="donor-card card p-3 text-center shadow-sm">-->
+<!--          <img src="{% static 'web/assets/img/profile4.jpg' %}" class="card-img-top rounded-circle mx-auto donor-img">-->
+<!--          <h4 class="mt-3">Anjali Nair</h4>-->
+<!--          <p><strong>Blood Group:</strong> AB+</p>-->
+<!--          <p><strong>District:</strong> Kollam</p>-->
+<!--          <button class="btn btn-outline-danger mt-2">Contact</button>-->
+<!--        </div>-->
+<!--      </div>-->
 
     </div>
 

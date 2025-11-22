@@ -1,0 +1,180 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body styling */
+body {
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 50px; /* space from top */
+}
+
+/* Profile container */
+.profile-container {
+    width: 100%;
+    max-width: 520px;
+    padding: 25px;
+}
+
+/* Profile card */
+.profile-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    overflow: hidden;
+    text-align: center;
+    padding: 30px 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* Profile header */
+.profile-header img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid #74ebd5;
+}
+
+.profile-header h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.profile-header p {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Edit Profile button */
+.profile-actions .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background-color: #6C63FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-actions .btn:hover {
+    background-color: #5548C8;
+    transform: translateY(-2px);
+}
+
+/* Toggle Active/Inactive button */
+.btn-toggle {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Active state */
+.btn-toggle.active {
+    background-color: #28a745; /* Green */
+}
+
+.btn-toggle.active:hover {
+    background-color: #218838;
+}
+
+/* Inactive state */
+.btn-toggle.inactive {
+    background-color: #dc3545; /* Red */
+}
+
+.btn-toggle.inactive:hover {
+    background-color: #c82333;
+}
+
+/* Mark as Donated button */
+.btn-donate {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #FF4B5C, #E03D4F);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-donate:hover {
+    background: linear-gradient(90deg, #E03D4F, #C3313C);
+    transform: translateY(-2px);
+}
+
+/* Logout button */
+.logout .btn-logout {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background-color: #FF6B6B;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout .btn-logout:hover {
+    background-color: #E04E4E;
+    transform: translateY(-2px);
+}
+
+/* Cooldown message */
+.profile-card p.cooldown-msg {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #E04E4E;
+    font-weight: bold;
+}
+/* Logout button */
+.profile-actions .btn-logout {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #FF9A56, #FF6B35); /* new orange gradient */
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.profile-actions .btn-logout:hover {
+    background: linear-gradient(90deg, #FF6B35, #E04E00);
+    transform: translateY(-2px);
+}

@@ -1,0 +1,88 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Body styling */
+body {
+    background: #f5f5f5; /* Standard professional light grey */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top with margin */
+}
+
+/* Container for both login & signup */
+.signup-container {
+    background-color: #ffffff; /* White card */
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    width: 400px;
+    text-align: center;
+    margin-top: 60px; /* Added top margin for spacing */
+}
+
+/* Form title */
+.signup-container h2 {
+    margin-bottom: 25px;
+    color: #333333;
+    font-weight: 600;
+}
+
+/* Inputs and select boxes */
+.signup-container form input,
+.signup-container form select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.signup-container form input:focus,
+.signup-container form select:focus {
+    border-color: #ff4b5c;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255,75,92,0.3);
+}
+
+/* Submit button */
+.signup-container form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff4b5c;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.signup-container form button:hover {
+    background-color: #e03d4f;
+}
+
+/* Paragraph and links */
+.signup-container p {
+    margin-top: 18px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-container p a {
+    color: #ff4b5c;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-container p a:hover {
+    text-decoration: underline;
+}

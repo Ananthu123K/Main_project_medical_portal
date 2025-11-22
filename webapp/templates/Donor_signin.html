@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Login</title>
+    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_login.css' %}">
+
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Donor Login</h2>
+        <form method="POST" action="{% url 'donor_login' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="email" name="Email" placeholder="Enter your Email" required>
+            <input type="password" name="Password" placeholder="Enter your Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'donor_signup_page' %}">Register here</a></p>
+    </div>
+</body>
+</html>

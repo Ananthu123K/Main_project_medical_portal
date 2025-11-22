@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Profile</title>
+    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile.css' %}">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                {% if donor.Image %}
+                    <img src="{{ donor.Image.url }}" alt="{{ donor.Name }}">
+                {% else %}
+                    <img src="{% static 'images/default-avatar.png' %}" alt="Default Avatar">
+                {% endif %}
+                <h2>{{ donor.Name }}</h2>
+                <p>{{ donor.Email }}</p>
+                <p>Blood Group: {{ donor.BloodGroup }}</p>
+                <p>Location: {{ donor.Location }}</p>
+                <p>Phone: {{ donor.phone }}</p>
+                <p>Age: {{ donor.Age }}</p>
+                <p>Gender: {{ donor.Gender }}</p>
+                <p>Status: {% if donor.is_active %}Active{% else %}Inactive{% endif %}</p>
+            </div>
+
+            <div class="profile-actions" style="margin-top: 20px;">
+                <a href="#" class="btn">Edit Profile</a>
+            </div>
+
+
+           <!-- Toggle Active/Inactive -->
+                <form method="POST" action="{% url 'toggle_donor_status' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-toggle {% if donor.is_active %}active{% else %}inactive{% endif %}">
+                        {% if donor.is_active %}Active{% else %}Inactive{% endif %}
+                    </button>
+                </form>
+
+                <!-- Mark as Donated -->
+                <form method="POST" action="{% url 'mark_donated' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-donate">I Donated Blood</button>
+                </form>
+            <div class="profile-actions" style="margin-top: 20px;">
+                <a href="{% url 'donor_logout' %}" class="btn-logout">Logout</a>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</body>
+</html>
