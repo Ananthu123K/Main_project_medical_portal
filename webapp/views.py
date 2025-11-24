@@ -3,7 +3,7 @@ from admin_panel.models import ServiceCategoryDb,BloodCategory
 from webapp.models import UserRegistration,DonorRegistrationDb
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
-from django.contrib import messages
+# from django.contrib import messages
 from datetime import date, timedelta
 
 
@@ -17,7 +17,10 @@ def service_page(request):
 def donors_page(request):
     services = ServiceCategoryDb.objects.all()
     donors=DonorRegistrationDb.objects.all()
-    return render(request,"Donors.html",{"services":services,"donors":donors})
+    locations = DonorRegistrationDb.objects.values_list("Location", flat=True).distinct()
+    # Get unique blood groups
+    blood_groups = DonorRegistrationDb.objects.values_list("BloodGroup", flat=True).distinct()
+    return render(request,"Donors.html",{"services":services,"donors":donors,"locations":locations,"blood_groups":blood_groups})
 def contact_page(request):
     return render(request,"Contact.html")
 def about_page(request):
@@ -57,7 +60,7 @@ def user_signup(request):
             # print("User created successfully")
             return redirect('signin_page')
 
-    return render(request, 'signup.html')
+    return redirect('signup_page')
 
 
 
@@ -126,10 +129,10 @@ def donor_signup(request):
 
         # Validations
         if DonorRegistrationDb.objects.filter(Email=email).exists():
-            messages.error(request, "Email already exists")
+            # messages.error(request, "Email already exists")
             return redirect('donor_signup')
         elif password != confirm_password:
-            messages.error(request, "Passwords do not match")
+            # messages.error(request, "Passwords do not match")
             return redirect('donor_signup')
 
         # Hash password
@@ -149,7 +152,7 @@ def donor_signup(request):
             is_active=True
         )
         donor.save()
-        messages.success(request, "Donor registered successfully! Please login.")
+        # messages.success(request, "Donor registered successfully! Please login.")
         return redirect('donor_login_page')
 
     return redirect('donor_signup_page')
@@ -168,11 +171,6 @@ def donor_login(request):
         except DonorRegistrationDb.DoesNotExist:
             # messages.error(request, "Invalid credentials")
             return redirect('donor_login_page')
-
-        # Check if donor is active
-        # if not donor.is_active:
-        #     messages.error(request, "Your account is inactive.")
-        #     return redirect('donor_login')
 
         # Check hashed password
         if check_password(password, donor.Password):
@@ -269,3 +267,31 @@ def mark_donated(request):
         donor.save()
     return redirect('donor_profile')
 
+
+# filter donors based on location and blood group
+
+def filtered_donors(request):
+    location = request.GET.get("location")
+    blood = request.GET.get("blood")
+
+    donors = DonorRegistrationDb.objects.all()
+    locations = DonorRegistrationDb.objects.values_list("Location", flat=True).distinct()
+
+
+    # Get unique blood groups
+    blood_groups = DonorRegistrationDb.objects.values_list("BloodGroup", flat=True).distinct()
+
+    if location and location != "":
+        donors = donors.filter(Location=location)
+
+    if blood and blood != "":
+        donors = donors.filter(BloodGroup=blood)
+
+    return render(request, "Filter_donors.html", {
+        "donors": donors,
+        "location": location,
+        "blood": blood,
+        "locations":locations,
+        "blood_groups":blood_groups
+
+    })

@@ -5,52 +5,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Profile</title>
-    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile.css' %}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile1.css' %}">
 </head>
 <body>
     <div class="profile-container">
         <div class="profile-card">
+
             <div class="profile-header">
                 {% if donor.Image %}
                     <img src="{{ donor.Image.url }}" alt="{{ donor.Name }}">
                 {% else %}
                     <img src="{% static 'images/default-avatar.png' %}" alt="Default Avatar">
                 {% endif %}
-                <h2>{{ donor.Name }}</h2>
-                <p>{{ donor.Email }}</p>
-                <p>Blood Group: {{ donor.BloodGroup }}</p>
-                <p>Location: {{ donor.Location }}</p>
-                <p>Phone: {{ donor.phone }}</p>
-                <p>Age: {{ donor.Age }}</p>
-                <p>Gender: {{ donor.Gender }}</p>
-                <p>Status: {% if donor.is_active %}Active{% else %}Inactive{% endif %}</p>
+
+                <h2><i class="fa-solid fa-user"></i> {{ donor.Name }}</h2>
+                <p><i class="fa-solid fa-envelope"></i> {{ donor.Email }}</p>
+
             </div>
 
-            <div class="profile-actions" style="margin-top: 20px;">
-                <a href="#" class="btn">Edit Profile</a>
+            <!-- Donor Details -->
+            <div class="details-box">
+                <p class="blood"><i class="fa-solid fa-droplet"></i> Blood Group: {{ donor.BloodGroup }}</p>
+
+<p class="location"><i class="fa-solid fa-location-dot"></i> Location: {{ donor.Location }}</p>
+
+<p class="phone"><i class="fa-solid fa-phone"></i> Phone: {{ donor.phone }}</p>
+
+<p class="age"><i class="fa-solid fa-cake-candles"></i> Age: {{ donor.Age }}</p>
+
+<p class="gender"><i class="fa-solid fa-venus-mars"></i> Gender: {{ donor.Gender }}</p>
+
+<p class="status"><i class="fa-solid fa-circle-info"></i> Status: {{ donor.is_active|yesno:"Active,Inactive" }}</p>
+
             </div>
 
-
-           <!-- Toggle Active/Inactive -->
-                <form method="POST" action="{% url 'toggle_donor_status' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-toggle {% if donor.is_active %}active{% else %}inactive{% endif %}">
-                        {% if donor.is_active %}Active{% else %}Inactive{% endif %}
-                    </button>
-                </form>
-
-                <!-- Mark as Donated -->
-                <form method="POST" action="{% url 'mark_donated' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn-donate">I Donated Blood</button>
-                </form>
-            <div class="profile-actions" style="margin-top: 20px;">
-                <a href="{% url 'donor_logout' %}" class="btn-logout">Logout</a>
+            <!-- Edit Profile -->
+            <div class="profile-actions">
+                <a href="#" class="btn button-standard">
+                    <i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit Profile
+                </a>
             </div>
 
+            <!-- Toggle Active/Inactive -->
+            <form method="POST" action="{% url 'toggle_donor_status' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-toggle button-standard {% if donor.is_active %}active{% else %}inactive{% endif %}">
+                    <i class="fa-solid fa-power-off"></i>&nbsp;
+                    {% if donor.is_active %}Active{% else %}Inactive{% endif %}
+                </button>
+            </form>
 
+            <!-- Mark Donated -->
+            <form method="POST" action="{% url 'mark_donated' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-donate button-standard">
+                    <i class="fa-solid fa-heart-circle-bolt"></i>&nbsp; I Donated Blood
+                </button>
+            </form>
 
+            <!-- Logout -->
+            <div class="profile-actions">
+                <a href="{% url 'donor_logout' %}" class="btn-logout button-standard">
+                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout
+                </a>
+            </div>
 
+            <!-- Home -->
+            <div class="profile-actions">
+                <a href="{% url 'Home' %}" class="btn button-standard">
+                    <i class="fa-solid fa-house"></i>&nbsp; Home
+                </a>
+            </div>
 
         </div>
     </div>

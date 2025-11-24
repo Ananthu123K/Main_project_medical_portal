@@ -13,4 +13,6 @@ urlpatterns=[
     path('admin_login_page/',views.admin_login_page,name="admin_login_page"),
     path('admin_login/',views.admin_login,name="admin_login"),
     path('admin_logout/',views.admin_logout,name="admin_logout"),
+    path('display_donors/',views.display_donors,name="display_donors"),
+    path('delete_donors/<int:d_id>/',views.delete_donors,name="delete_donors"),
 ]

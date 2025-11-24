@@ -20,4 +20,5 @@ urlpatterns=[
     path('donor_profile/',views.donor_profile,name="donor_profile"),
     path('toggle_donor_status/',views.toggle_donor_status,name="toggle_donor_status"),
     path('mark_donated/',views.mark_donated,name="mark_donated"),
+    path('filtered_donors/',views.filtered_donors,name="filtered_donors"),
 ]

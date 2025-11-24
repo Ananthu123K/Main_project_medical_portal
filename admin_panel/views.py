@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
+from webapp.models import DonorRegistrationDb
 
 
 # Create your views here.
@@ -86,4 +87,14 @@ def admin_logout(request):
     del request.session['username']
     del request.session['password']
     return redirect(admin_login_page)
+
+#to display all Donors
+
+def display_donors(request):
+    donors=DonorRegistrationDb.objects.all()
+    return render(request,"Display_donors.html",{"donors":donors})
+
+def delete_donors(request,d_id):
+    data=DonorRegistrationDb.objects.filter(id=d_id)
+    data.delete()
 
