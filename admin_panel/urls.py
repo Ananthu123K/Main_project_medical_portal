@@ -15,4 +15,5 @@ urlpatterns=[
     path('admin_logout/',views.admin_logout,name="admin_logout"),
     path('display_donors/',views.display_donors,name="display_donors"),
     path('delete_donors/<int:d_id>/',views.delete_donors,name="delete_donors"),
+    path('display_messages/',views.display_messages,name="display_messages"),
 ]

@@ -36,7 +36,7 @@
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+     <header id="header" class="header sticky-top">
 
     <div class="topbar d-flex align-items-center">
       <div class="container d-flex justify-content-center justify-content-md-between">
@@ -45,10 +45,18 @@
           <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
-          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          {% if request.session.user_id %}
+                    <a href="{% url 'user_logout' %}" class="user-account for-buy">
+                        <i class="icon icon-user"></i>
+                        <span>Welcome {{ request.session.Name }} / Logout</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'signin_page' %}" class="user-account for-buy">
+                        <i class="icon icon-user"></i>
+                        <span>Login</span>
+                    </a>
+                {% endif %}
+
         </div>
       </div>
     </div><!-- End Top Bar -->
@@ -64,11 +72,11 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-           <li><a href="{% url 'Home' %}" class="active">Home<br></a></li>
+            <li><a href="{% url 'Home' %}" >Home<br></a></li>
             <li><a href="{% url 'About' %}">About</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#departments">Departments</a></li>
-            <li><a href="{% url 'Donors' %}">Donors</a></li>
+            <li><a href="">Departments</a></li>
+            <li><a href="{% url 'Donors' %}" >Donors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
                 <li><a href="#">Dropdown 1</a></li>
@@ -86,7 +94,7 @@
                 <li><a href="#">Dropdown 4</a></li>
               </ul>
             </li>
-            <li><a href="{% url 'Contact' %}">About</a></li>
+            <li><a href="{% url 'Contact' %}" class="active">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -98,6 +106,7 @@
     </div>
 
   </header>
+
 
 
 
@@ -147,7 +156,8 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form action="{% url 'save_contact' %}" method="post" class="contact_form">
+              {% csrf_token %}
               <div class="row gy-4">
 
                 <div class="col-md-6">

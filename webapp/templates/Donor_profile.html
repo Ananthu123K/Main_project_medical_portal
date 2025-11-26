@@ -4,84 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donor Profile</title>
+    <title>Donor Dashboard</title>
 
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile1.css' %}">
+    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile_main.css' %}">
 </head>
+
 <body>
-    <div class="profile-container">
-        <div class="profile-card">
 
-            <div class="profile-header">
-                {% if donor.Image %}
-                    <img src="{{ donor.Image.url }}" alt="{{ donor.Name }}">
-                {% else %}
-                    <img src="{% static 'images/default-avatar.png' %}" alt="Default Avatar">
-                {% endif %}
+<div class="full-dashboard-wrapper">
 
-                <h2><i class="fa-solid fa-user"></i> {{ donor.Name }}</h2>
-                <p><i class="fa-solid fa-envelope"></i> {{ donor.Email }}</p>
+    <!-- Main container-->
+    <div class="dashboard-container">
 
+
+    <div class="dashboard-container">
+
+    <!-- ================= PROFILE HEADER CARD ================= -->
+    <div class="profile-header-card">
+
+        {% if donor.Image %}
+        <img src="{{ donor.Image.url }}" class="profile-img" alt="{{ donor.Name }}">
+        {% else %}
+        <img src="{% static 'images/default-avatar.png' %}" class="profile-img" alt="Avatar">
+        {% endif %}
+
+        <h2 class="profile-name">{{ donor.Name }}</h2>
+        <p class="profile-email"><i class="fa-solid fa-envelope"></i> {{ donor.Email }}</p>
+
+        <!-- Status -->
+        <span class="status-badge {% if donor.is_active %}active-badge{% else %}inactive-badge{% endif %}">
+            {{ donor.is_active|yesno:"Active,Inactive" }}
+        </span>
+
+    </div>
+
+    <!-- ================= MY IMPACT CARD ================= -->
+    <div class="card impact-card">
+        <h3 class="card-title">My Impact</h3>
+
+        <div class="impact-grid">
+
+            <div class="impact-box">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <h4>Lives Saved</h4>
+                <p>15+</p>
             </div>
 
-            <!-- Donor Details -->
-            <div class="details-box">
-                <p class="blood"><i class="fa-solid fa-droplet"></i> Blood Group: {{ donor.BloodGroup }}</p>
-
-<p class="location"><i class="fa-solid fa-location-dot"></i> Location: {{ donor.Location }}</p>
-
-<p class="phone"><i class="fa-solid fa-phone"></i> Phone: {{ donor.phone }}</p>
-
-<p class="age"><i class="fa-solid fa-cake-candles"></i> Age: {{ donor.Age }}</p>
-
-<p class="gender"><i class="fa-solid fa-venus-mars"></i> Gender: {{ donor.Gender }}</p>
-
-<p class="status"><i class="fa-solid fa-circle-info"></i> Status: {{ donor.is_active|yesno:"Active,Inactive" }}</p>
-
+            <div class="impact-box">
+                <i class="fa-solid fa-hand-holding-medical"></i>
+                <h4>Times Donated</h4>
+                <p>4+</p>
             </div>
 
-            <!-- Edit Profile -->
-            <div class="profile-actions">
-                <a href="#" class="btn button-standard">
-                    <i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit Profile
-                </a>
-            </div>
-
-            <!-- Toggle Active/Inactive -->
-            <form method="POST" action="{% url 'toggle_donor_status' %}">
-                {% csrf_token %}
-                <button type="submit" class="btn-toggle button-standard {% if donor.is_active %}active{% else %}inactive{% endif %}">
-                    <i class="fa-solid fa-power-off"></i>&nbsp;
-                    {% if donor.is_active %}Active{% else %}Inactive{% endif %}
-                </button>
-            </form>
-
-            <!-- Mark Donated -->
-            <form method="POST" action="{% url 'mark_donated' %}">
-                {% csrf_token %}
-                <button type="submit" class="btn-donate button-standard">
-                    <i class="fa-solid fa-heart-circle-bolt"></i>&nbsp; I Donated Blood
-                </button>
-            </form>
-
-            <!-- Logout -->
-            <div class="profile-actions">
-                <a href="{% url 'donor_logout' %}" class="btn-logout button-standard">
-                    <i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout
-                </a>
-            </div>
-
-            <!-- Home -->
-            <div class="profile-actions">
-                <a href="{% url 'Home' %}" class="btn button-standard">
-                    <i class="fa-solid fa-house"></i>&nbsp; Home
-                </a>
+            <div class="impact-box">
+                <i class="fa-solid fa-people-group"></i>
+                <h4>People Impacted</h4>
+                <p>200+</p>
             </div>
 
         </div>
     </div>
+
+    <!-- ================= DONOR DETAILS ================= -->
+    <div class="card details-card">
+        <h3 class="card-title">My Details</h3>
+
+        <div class="detail-item"><i class="fa-solid fa-droplet"></i> Blood Group: {{ donor.BloodGroup }}</div>
+        <div class="detail-item"><i class="fa-solid fa-phone"></i> Phone: {{ donor.phone }}</div>
+        <div class="detail-item"><i class="fa-solid fa-cake-candles"></i> Age: {{ donor.Age }}</div>
+        <div class="detail-item"><i class="fa-solid fa-venus-mars"></i> Gender: {{ donor.Gender }}</div>
+        <div class="detail-item"><i class="fa-solid fa-location-dot"></i> Location: {{ donor.Location }}</div>
+    </div>
+
+    <!-- ================= RECENT DONATIONS ================= -->
+    <div class="card donation-card">
+        <h3 class="card-title">Recent Donations</h3>
+
+        <ul class="donation-list">
+            <li><strong>October 26, 2024</strong> — Education</li>
+            <li><strong>September 15</strong> — Education</li>
+            <li><strong>July 15</strong> — Environment</li>
+            <li><strong>July 30</strong> — Healthcare</li>
+        </ul>
+    </div>
+
+    <!-- ================= BADGES CARD ================= -->
+    <div class="card badges-card">
+        <h3 class="card-title">My Badges</h3>
+
+        <div class="badge-container">
+            <span class="badge bronze">Donor</span>
+            <span class="badge silver">Contributor</span>
+            <span class="badge gold">Super Donor</span>
+            <span class="badge green">Community Hero</span>
+        </div>
+    </div>
+
+    <!-- ================= STORIES ================= -->
+    <div class="card stories-card">
+        <h3 class="card-title">My Stories</h3>
+
+        <div class="story-item"><i class="fa-solid fa-circle-check"></i> Supported Alex Surgery</div>
+        <div class="story-item"><i class="fa-solid fa-circle-check"></i> Helped Expat in Village</div>
+    </div>
+
+    <!-- ================= ACTION BUTTONS ================= -->
+    <div class="card action-card">
+
+        <a href="{% url 'edit_donor_profile' donor.id %}" class="main-btn edit-btn">
+            <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+        </a>
+
+        <form method="POST" action="{% url 'toggle_donor_status' %}">
+            {% csrf_token %}
+            <button type="submit" class="main-btn {% if donor.is_active %}active-btn{% else %}inactive-btn{% endif %}">
+                <i class="fa-solid fa-power-off"></i>
+                {{ donor.is_active|yesno:"Active,Inactive" }}
+            </button>
+        </form>
+
+        <form method="POST" action="{% url 'mark_donated' %}">
+            {% csrf_token %}
+            <button class="main-btn donate-btn">
+                <i class="fa-solid fa-heart-circle-bolt"></i> I Donated Blood
+            </button>
+        </form>
+
+        <a href="{% url 'donor_logout' %}" class="main-btn logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+
+        <a href="{% url 'Home' %}" class="main-btn home-btn">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+
+    </div>
+
+    </div>
+    </div>
+
+</div>
+
 </body>
 </html>

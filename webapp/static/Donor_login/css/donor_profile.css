@@ -178,3 +178,229 @@ body {
     background: linear-gradient(90deg, #FF6B35, #E04E00);
     transform: translateY(-2px);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* Body */
+body {
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+/* Container */
+.profile-container {
+    width: 100%;
+    max-width: 430px;
+    padding: 10px;
+}
+
+/* Card */
+.profile-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* Header */
+.profile-header {
+    background: #FF8ABA;
+    text-align: center;
+    padding: 30px 20px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.profile-header img {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+}
+
+/* NAME + EMAIL (fixed alignment & color) */
+.profile-header h2,
+.profile-header p {
+    display: flex;
+    align-items: center;     /* Perfect vertical alignment */
+    justify-content: center; /* Center aligned */
+    gap: 8px;
+}
+
+/* Name */
+.profile-header h2 {
+    color: #fff;
+    margin-top: 10px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.profile-header h2 i {
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Email */
+.profile-header p {
+    color: #FFF2FA;
+    font-size: 14px;
+}
+
+.profile-header p i {
+    font-size: 15px;
+    color: #FFF2FA;
+}
+
+/* Donor Details Box */
+.details-box {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.details-box p {
+    font-size: 15px;
+    margin-bottom: 14px;
+    color: #444C57;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ICON COLORS — matching each detail */
+.details-box p i {
+    font-size: 18px;
+}
+
+/* Blood */
+.blood i {
+    color: #FF4E6E;
+}
+
+/* Location */
+.location i {
+    color: #FF8A00;
+}
+
+/* Phone */
+.phone i {
+    color: #00A8FF;
+}
+
+/* Age */
+.age i {
+    color: #6C63FF;
+}
+
+/* Gender */
+.gender i {
+    color: #E91E63;
+}
+
+/* Status */
+.status i {
+    color: #28A745;
+}
+
+/* Buttons */
+.button-standard {
+    width: 88%;
+    height: 45px;
+    margin: 12px auto;
+    padding: 0;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white !important;
+    border: none;
+    cursor: pointer;
+}
+
+/* Edit + Home buttons */
+.btn {
+    background-color: #6C63FF;
+}
+
+/* Toggle Active/Inactive */
+.btn-toggle.active {
+    background-color: #28a745;
+}
+
+.btn-toggle.inactive {
+    background-color: #dc3545;
+}
+
+/* Donated Button */
+.btn-donate {
+    background: linear-gradient(90deg, #FF4B5C, #E03D4F);
+}
+
+/* Logout */
+.btn-logout {
+    background: linear-gradient(90deg, #FF9A56, #FF6B35);
+}
+
+.profile-actions {
+    width: 100%;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+
+    .profile-header img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-header h2 {
+        font-size: 20px;
+    }
+
+    .details-box p {
+        font-size: 14px;
+    }
+
+    .button-standard {
+        height: 42px;
+        font-size: 14px;
+    }
+}
+

@@ -32,3 +32,10 @@ class DonorRegistrationDb(models.Model):
 
     def __str__(self):
         return self.Name
+
+class ContactDb(models.Model):
+    User_name = models.CharField(max_length=100, null=True, blank=True)
+    User_email = models.EmailField(null=True, blank=True)
+    Subject = models.CharField(max_length=100, null=True, blank=True)
+    Message = models.TextField(null=True, blank=True)
+

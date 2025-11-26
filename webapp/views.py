@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect
+from django.utils.datastructures import MultiValueDictKeyError
 from admin_panel.models import ServiceCategoryDb,BloodCategory
-from webapp.models import UserRegistration,DonorRegistrationDb
+from webapp.models import UserRegistration,DonorRegistrationDb,ContactDb
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
-# from django.contrib import messages
 from datetime import date, timedelta
+from django.core.files.storage import FileSystemStorage
+
+
 
 
 # Create your views here.
@@ -196,6 +199,72 @@ def donor_logout(request):
 
 
 
+def edit_donor_profile(request, donor_id):
+    donor = DonorRegistrationDb.objects.get(id=donor_id)
+    return render(request, "Edit_donor_profile.html", {"donor": donor})
+
+
+
+
+def update_donor_profile(request, donor_id):
+    if request.method == "POST":
+        # Get form data
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        bloodgroup = request.POST.get('bloodgroup')
+        location = request.POST.get('location')
+        age = request.POST.get('age')
+        gender = request.POST.get('gender')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        donor = DonorRegistrationDb.objects.get(id=donor_id)
+
+        # Handle image upload
+
+        try:
+            img = request.FILES['image']  # may raise MultiValueDictKeyError
+            fs = FileSystemStorage()
+            file = fs.save(img.name, img)
+        except MultiValueDictKeyError:
+            # No new image uploaded, keep old image
+            file=donor.Image
+
+
+        # Handle password
+        if password:
+            if password == confirm_password:
+                hashed_password = make_password(password)
+            else:
+                #  JS to show "Passwords do not match"
+                return redirect('edit_donor_profile', donor_id=donor_id)
+        else:
+            hashed_password = donor.Password  # keep old password
+
+        # Update donor record
+        DonorRegistrationDb.objects.filter(id=donor_id).update(
+            Name=name,
+            Email=email,
+            phone=phone,
+            BloodGroup=bloodgroup,
+            Location=location,
+            Age=age,
+            Gender=gender,
+            Image=file,
+            Password=hashed_password
+        )
+
+        #  Use JS to show "Profile updated successfully"
+        return redirect('donor_profile')
+
+    # If not POST, redirect to edit page
+    return redirect('edit_donor_profile', donor_id=donor_id)
+
+
+
+
+
 
 
 
@@ -295,3 +364,16 @@ def filtered_donors(request):
         "blood_groups":blood_groups
 
     })
+
+
+#save user messages
+def save_contact(request):
+    if request.method=="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        subject=request.POST.get('subject')
+        message=request.POST.get('message')
+
+        obj=ContactDb(User_name=name,User_email=email,Subject=subject,Message=message)
+        obj.save()
+        return redirect(contact_page)

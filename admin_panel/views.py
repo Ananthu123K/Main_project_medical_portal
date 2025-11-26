@@ -4,7 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
-from webapp.models import DonorRegistrationDb
+from webapp.models import DonorRegistrationDb,ContactDb
 
 
 # Create your views here.
@@ -97,4 +97,8 @@ def display_donors(request):
 def delete_donors(request,d_id):
     data=DonorRegistrationDb.objects.filter(id=d_id)
     data.delete()
+
+def display_messages(request):
+    messages=ContactDb.objects.all()
+    return render(request,"Display_messages.html",{"messages":messages})
 

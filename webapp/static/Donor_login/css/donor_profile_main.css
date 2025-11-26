@@ -1,0 +1,293 @@
+/* ================= GLOBAL ================= */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f8fbff, #eef2f7);
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* Wrapping container */
+.full-dashboard-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 45px 20px;
+}
+
+/* Grid stays same */
+.dashboard-container {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+
+ /* === LIGHT CLEAN PROFILE HEADER UPDATE (ONLY THIS ADDED) === */
+
+.profile-header-card {
+    background: #ffffff;                    /* Light clean card */
+    padding: 45px 30px;                     /* Keep same spacing */
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    border: 1px solid #eaeaea;
+}
+
+/* Profile Image Updated */
+.profile-header-card .profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #f3f3f3;              /* Light border */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Name – clean professional */
+.profile-header-card .profile-name {
+    font-size: 30px;
+    font-weight: 700;
+    color: #222;
+    margin-top: 15px;
+}
+
+/* Email cleaner */
+.profile-header-card .profile-email {
+    color: #555;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
+/* Status Badges – same size, lighter style */
+.status-badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Active & Inactive */
+.active-badge {
+    background: #e9fff0;
+    color: #0e8f35;
+    border: 1px solid #b8eec8;
+}
+
+.inactive-badge {
+    background: #fff0f0;
+    color: #c13737;
+    border: 1px solid #e3b1b1;
+}
+
+
+
+/* =============== CARD BASE =============== */
+
+.card {
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+    transition: 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 14px 28px rgba(0,0,0,0.12);
+}
+
+/* =============== PROFILE HEADER =============== */
+
+.profile-header-card {
+    text-align: center;
+    padding: 45px 30px;
+    border-radius: 25px;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #ff4e4e;
+    box-shadow: 0 0 10px rgba(255,70,70,0.4);
+}
+
+.profile-name {
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 15px;
+    color: #333;
+}
+
+.profile-email {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Status Badge */
+.status-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.active-badge {
+    background: #e7ffe9;
+    color: #0f9d2f;
+}
+.inactive-badge {
+    background: #ffecec;
+    color: #c62828;
+}
+
+/* =============== CARD TITLE =============== */
+
+.card-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    background: linear-gradient(135deg, #333, #555);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =============== IMPACT BOXES =============== */
+
+.impact-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.impact-box {
+    width: 32%;
+    padding: 20px 10px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: inset 0px 0px 10px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.impact-box i {
+    font-size: 32px;
+    color: #ff4c4c;
+}
+
+.impact-box h4 {
+    margin: 8px 0 4px 0;
+}
+
+/* =============== DETAILS =============== */
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin: 14px 0;
+    font-size: 17px;
+}
+
+.detail-item i {
+    color: #ff4c4c;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+/* =============== DONATION LIST =============== */
+
+.donation-list {
+    list-style: none;
+    padding: 0;
+}
+
+.donation-list li {
+    background: #fafafa;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.donation-list li:hover {
+    background: #f1f1f1;
+}
+
+/* =============== BADGES =============== */
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.badge {
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.bronze { background: #ffc888; }
+.silver { background: #e5e5e5; }
+.gold { background: #ffe55c; }
+.green { background: #d7ffd6; }
+
+/* =============== STORIES =============== */
+
+.story-item {
+    background: #fdfdfd;
+    padding: 14px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.story-item i {
+    margin-right: 8px;
+    color: #28a745;
+}
+
+/* =============== BUTTONS =============== */
+
+.action-card {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.main-btn {
+    padding: 12px 25px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.main-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 10px 22px rgba(255,80,80,0.35);
+}
+
+.edit-btn { background: linear-gradient(135deg, #007bff, #3399ff); }
+.edit-btn:hover { box-shadow: 0 10px 22px rgba(0,123,255,0.35); }
+
+.active-btn { background: linear-gradient(135deg, #1cbf3f, #28d34c); }
+.inactive-btn { background: linear-gradient(135deg, #707070, #8a8a8a); }
+
+.donate-btn { background: linear-gradient(135deg, #ff0062, #ff4a9b); }
+.logout-btn { background: linear-gradient(135deg, #333, #444); }
+.home-btn { background: linear-gradient(135deg, #ff9500, #ffb347); }
+
+

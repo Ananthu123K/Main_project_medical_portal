@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Messages</title>
+
+    <style>
+
+        /* Beautiful gradient background inside container */
+        .container {
+            max-width: 1150px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            margin: 50px auto;
+            box-shadow: 0px 12px 35px rgba(0,0,0,0.12);
+            border: 1px solid #e6e6e6;
+        }
+
+        /* Heading with gradient underline */
+        h2 {
+            font-weight: 800;
+            color: #222;
+            text-align: center;
+            font-size: 32px;
+            letter-spacing: 0.8px;
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        h2::after {
+            content: "";
+            display: block;
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            margin: 12px auto 0;
+            border-radius: 5px;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+        }
+
+        thead {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 12px;
+        }
+
+        thead th {
+            padding: 15px;
+            font-size: 14px;
+            letter-spacing: 0.6px;
+        }
+
+        /* TABLE ROWS - Glass effect */
+        tbody tr {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+        }
+
+        tbody tr:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            background: rgba(240, 244, 255, 0.9);
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            color: #333;
+            font-size: 15px;
+        }
+
+        /* Empty message */
+        .alert-info {
+            padding: 20px;
+            background: rgba(37,117,252,0.1);
+            color: #2575fc;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Contact Messages</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for msg in messages %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ msg.User_name|default:"-" }}</td>
+                <td>{{ msg.User_email|default:"-" }}</td>
+                <td>{{ msg.Subject|default:"-" }}</td>
+                <td>{{ msg.Message|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="alert-info">No messages found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
+{% endblock %}

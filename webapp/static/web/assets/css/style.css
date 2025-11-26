@@ -1,0 +1,401 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+/* Modern Hero Section */
+.hero-modern {
+  position: relative;
+  padding: 150px 0;
+  color: #1a1a1a;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-overlay img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  filter: brightness(80%); /* brighter so image shows more */
+}
+
+/* Updated overlay to show more of the background image */
+.hero-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* Soft transparent white overlay */
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(3px); /* reduced blur */
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Heading */
+.hero-heading {
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #111;
+}
+
+.hero-tagline {
+  font-size: 18px;
+  opacity: 0.85;
+  margin-top: 10px;
+  color: #222;
+}
+
+/* Hero Feature Cards */
+.hero-card {
+  background: rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 30px 20px;
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+  text-align: center;
+  color: #222;
+}
+
+.hero-card i {
+  font-size: 42px;
+  margin-bottom: 12px;
+  color: #b31237;
+}
+
+.hero-card h4 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.hero-card p {
+  font-size: 15px;
+  opacity: 0.9;
+  color: #333;
+}
+
+.hero-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.40);
+}
+
+/* Button */
+.hero-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff7a59, #ff5c5c); /* main gradient */
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0px 4px 14px rgba(179, 18, 55, 0.25);
+}
+
+/* Hover Effect */
+.hero-btn:hover {
+  background: linear-gradient(135deg, #ff6347, #ff3b3b); /* hover gradient */
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 18px rgba(179, 18, 55, 0.35);
+}
+
+
+
+/* service cards
+
+/* SECTION TITLE */
+.styled-title {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.styled-title h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.styled-title p {
+    margin-top: 8px;
+    color: #666;
+    font-size: 16px;
+}
+
+/* PREMIUM CARD */
+.my-service-card.premium-card {
+    background: linear-gradient(135deg, #f1f5ff, #e8eeff);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    transition: all 0.35s ease;
+    height: 100%;
+    border: 1px solid #e0e6ff;
+}
+
+.my-service-card.premium-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* IMAGE — FIXED SAME SIZE */
+.service-img-wrapper.premium-img {
+    width: 100%;
+    height: 200px; /* SAME SIZE FOR ALL IMAGES */
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #f0f3ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-img-wrapper.premium-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important; /* 100% FIX */
+}
+
+/* CONTENT */
+.service-content h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2c387e;
+}
+
+.service-content p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+/* PREMIUM BUTTON */
+.premium-btn {
+    display: inline-block;
+    padding: 9px 22px;
+    background: linear-gradient(135deg, #ff7a59, #ff5c5c);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s ease-in-out;
+}
+
+.premium-btn:hover {
+    background: linear-gradient(135deg, #ff6347, #ff3b3b);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ABOUT SECTION */
+
+
+.about-section {
+  width: 100%;
+  padding: 60px 20px;
+  background: #f9faff;
+}
+
+.about-heading {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 50px;
+  padding: 12px 0; /* Removed background gradient padding */
+  color: #222; /* Neutral heading color */
+  display: block; /* Make it centered naturally */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.about-image img {
+  width: 100%;
+  max-width: 550px; /* Increased size */
+  border-radius: 22px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+}
+
+/* CONTENT */
+.about-content {
+  flex: 1;
+}
+
+.about-content h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #222; /* Neutral color */
+}
+
+.about-content p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Mission & Vision Cards */
+.mission-vision-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.mv-card {
+  background: #ffffff;
+  flex: 1;
+  min-width: 250px;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.mv-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+}
+
+.mv-card i {
+  font-size: 32px;
+  color: #ff6347;
+  margin-bottom: 10px;
+}
+
+.mv-card h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.mv-card p {
+  font-size: 15px;
+  color: #555;
+}
+
+/* Statistics */
+.about-stats {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  flex: 1;
+  min-width: 120px;
+  background: #ffebeb;
+  text-align: center;
+  border-radius: 14px;
+  padding: 20px 10px;
+  box-shadow: 0 4px 14px rgba(255,59,59,0.15);
+  transition: 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(255,59,59,0.2);
+}
+
+.stat h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ff3b3b;
+  margin-bottom: 5px;
+}
+
+.stat p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* BUTTON */
+.hero-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff6347, #ff3b3b);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0px 4px 14px rgba(179, 18, 55, 0.25);
+}
+
+.hero-btn:hover {
+  background: linear-gradient(135deg, #ff2a2a, #ff6a5b);
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 20px rgba(255, 0, 0, 0.35);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-image img {
+    max-width: 400px; /* slightly smaller for mobile */
+    margin: auto;
+  }
+
+  .mission-vision-cards {
+    justify-content: center;
+  }
+
+  .about-stats {
+    justify-content: center;
+  }
+}
+
+

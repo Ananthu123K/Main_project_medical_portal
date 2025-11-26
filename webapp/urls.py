@@ -18,7 +18,10 @@ urlpatterns=[
     path('donor_login/',views.donor_login,name="donor_login"),
     path('donor_logout/',views.donor_logout,name="donor_logout"),
     path('donor_profile/',views.donor_profile,name="donor_profile"),
+    path('edit_donor_profile/<int:donor_id>/', views.edit_donor_profile, name='edit_donor_profile'),
+    path('update_donor_profile/<int:donor_id>/', views.update_donor_profile, name='update_donor_profile'),
     path('toggle_donor_status/',views.toggle_donor_status,name="toggle_donor_status"),
     path('mark_donated/',views.mark_donated,name="mark_donated"),
     path('filtered_donors/',views.filtered_donors,name="filtered_donors"),
+    path('save_contact/',views.save_contact,name="save_contact"),
 ]
