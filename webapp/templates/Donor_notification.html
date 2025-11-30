@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'web/assets/css/donor_notifications.css' %}">
+
+</head>
+<body>
+
+<div class="container">
+    <h2 class="page-title">Your Notifications</h2>
+
+    {% if notifications %}
+        <div class="notif-grid">
+            {% for n in notifications %}
+                <div class="notif-card">
+                    <div class="notif-row"><span class="label">Patient:</span> {{ n.blood_request.patient_name }}</div>
+                    <div class="notif-row"><span class="label">Blood Group:</span> {{ n.blood_request.blood_group }}</div>
+                    <div class="notif-row"><span class="label">Units Needed:</span> {{ n.blood_request.units }}</div>
+                    <div class="notif-row"><span class="label">Location:</span> {{ n.blood_request.location }}</div>
+                    <div class="notif-row"><span class="label">Contact:</span> {{ n.blood_request.phone }}</div>
+                    <div class="notif-row"><span class="label">Message:</span> {{ n.message }}</div>
+                    <div class="notif-date">Requested on: {{ n.created_at|date:"M d, Y H:i" }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-notifs">No notifications yet.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

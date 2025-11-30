@@ -54,6 +54,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Email (Gmail with App Password)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your_system_email@gmail.com'        # system/admin email
+EMAIL_HOST_PASSWORD = 'your_app_password_here'        # Gmail app password
+
+# Fast2SMS API key
+FAST2SMS_API_KEY = 'your_fast2sms_api_key'
+
+
 ROOT_URLCONF = 'Health_portal.urls'
 
 TEMPLATES = [
@@ -81,6 +93,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+         'OPTIONS': {
+            'timeout': 30,                  # wait 30 seconds before failing
+            'check_same_thread': False,     # allow multiple threads
+        }
     }
 }
 

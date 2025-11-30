@@ -24,4 +24,8 @@ urlpatterns=[
     path('mark_donated/',views.mark_donated,name="mark_donated"),
     path('filtered_donors/',views.filtered_donors,name="filtered_donors"),
     path('save_contact/',views.save_contact,name="save_contact"),
+    path('blood_request_form/',views.blood_request_form,name="blood_request_form"),
+    path('blood_request_success/',views.blood_request_success,name="blood_request_success"),
+    path('request_blood/',views.request_blood,name="request_blood"),
+    path('donor_notifications/',views.donor_notifications,name="donor_notifications"),
 ]

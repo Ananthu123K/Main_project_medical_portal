@@ -7,7 +7,7 @@
     <title>Donor Dashboard</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'Donor_login/css/donor_profile_main.css' %}">
+    <link rel="stylesheet" href="{% static 'web/assets/css/donor_profile.css' %}">
 </head>
 
 <body>
@@ -36,6 +36,14 @@
         <span class="status-badge {% if donor.is_active %}active-badge{% else %}inactive-badge{% endif %}">
             {{ donor.is_active|yesno:"Active,Inactive" }}
         </span>
+        <!-- Notification button -->
+        <a href="{% url 'donor_notifications' %}" class="notif-btn">
+            🔔 Notifications
+            {% if unread_count %}
+                <span class="badge-count">{{ unread_count }}</span>
+            {% endif %}
+        </a>
+
 
     </div>
 

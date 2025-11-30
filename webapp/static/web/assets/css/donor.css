@@ -170,3 +170,46 @@ h2.fw-bold {
         margin-top: 10px;
     }
 }
+
+
+
+
+
+
+
+
+/* ================================
+   SEND REQUEST BUTTON
+================================ */
+#filtered-donors .send-request-btn {
+    display: inline-block;
+    margin: 40px auto 20px auto; /* Top margin from donor cards, bottom for spacing */
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
+    color: white !important;      /* Override Bootstrap */
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 18px;
+    border: none;
+    text-decoration: none !important; /* Override Bootstrap */
+    transition: 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 6px 18px rgba(255, 80, 80, 0.35);
+    display: block;
+    width: max-content;
+}
+
+#filtered-donors .send-request-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 80, 80, 0.45);
+    background: linear-gradient(135deg, #ff5757, #ff7b7b);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #filtered-donors .send-request-btn {
+        width: 100%;
+        text-align: center;
+        margin: 30px 0 20px 0;
+    }
+}

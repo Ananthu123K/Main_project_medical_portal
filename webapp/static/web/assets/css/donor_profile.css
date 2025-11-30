@@ -290,4 +290,31 @@ body {
 .logout-btn { background: linear-gradient(135deg, #333, #444); }
 .home-btn { background: linear-gradient(135deg, #ff9500, #ffb347); }
 
+/* ================= NOTIFICATION BUTTON ================= */
+
+.notif-btn {
+    display: inline-block;
+    padding: 8px 16px;         /* smaller padding */
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 14px;           /* smaller font */
+    background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
+    color: white;
+    text-decoration: none;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255,80,80,0.25);
+}
+
+.notif-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,80,80,0.35);
+}
+
+/* Small badge for unread notifications */
+.notif-btn .badge-count {
+    display: inline-block;
+    background: white;
+    color:
+
+
 

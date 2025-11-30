@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.utils.datastructures import MultiValueDictKeyError
 from admin_panel.models import ServiceCategoryDb,BloodCategory
 from webapp.models import UserRegistration,DonorRegistrationDb,ContactDb
@@ -6,6 +6,17 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from datetime import date, timedelta
 from django.core.files.storage import FileSystemStorage
+
+#for email  sms and profile notifications
+
+from .models import BloodRequest, UserRegistration
+from Health_portal.notifications import notify_donors
+from datetime import datetime
+
+
+from .models import DonorNotification, DonorRegistrationDb
+
+
 
 
 
@@ -377,3 +388,68 @@ def save_contact(request):
         obj=ContactDb(User_name=name,User_email=email,Subject=subject,Message=message)
         obj.save()
         return redirect(contact_page)
+
+
+#notifications sms/email and message in donor profile
+
+def blood_request_form(request):
+    return render(request,"Blood_request_form.html")
+
+
+def blood_request_success(request):
+    return render(request, "Blood_request_success.html")
+
+def request_blood(request):
+    if 'user_id' not in request.session:
+        return redirect('signin_page')
+
+    if request.method == "POST":
+        user = get_object_or_404(UserRegistration, id=request.session['user_id'])
+
+        patient_name = request.POST.get('patient_name') or user.Name
+        blood_group = request.POST.get('blood_group')
+        units = int(request.POST.get('units') or 1)
+        location = request.POST.get('location')
+        phone = request.POST.get('phone')
+        needed_date = datetime.strptime(request.POST.get('needed_date'), "%Y-%m-%d").date()
+        reason = request.POST.get('reason')
+
+        # Create BloodRequest instance with all fields and save
+        br = BloodRequest(
+            requester=user,
+            patient_name=patient_name,
+            blood_group=blood_group,
+            units=units,
+            location=location,
+            phone=phone,
+            needed_date=needed_date,
+            reason=reason
+        )
+        br.save()  # Save to database
+
+        # Notify matching donors
+        notify_donors(br)
+
+        return redirect('blood_request_success')
+
+    return redirect('blood_request_form')
+
+
+
+def donor_notifications(request):
+    if 'donor_id' not in request.session:
+        return redirect('donor_login_page')
+
+    donor = DonorRegistrationDb.objects.get(id=request.session['donor_id'])
+
+    # Show notifications based on donor's blood group
+    notifications = DonorNotification.objects.filter(
+        blood_request__blood_group__iexact=donor.BloodGroup
+    ).order_by('-created_at')
+
+    return render(request, "Donor_notification.html", {
+        "donor": donor,
+        "notifications": notifications
+    })
+
+

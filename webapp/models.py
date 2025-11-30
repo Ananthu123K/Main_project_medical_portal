@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -39,3 +40,37 @@ class ContactDb(models.Model):
     Subject = models.CharField(max_length=100, null=True, blank=True)
     Message = models.TextField(null=True, blank=True)
 
+class BloodRequest(models.Model):
+    requester = models.ForeignKey('UserRegistration', on_delete=models.CASCADE)
+    patient_name = models.CharField(max_length=150, null=True, blank=True)
+    blood_group = models.CharField(max_length=10)
+    units = models.PositiveIntegerField(default=1)
+    location = models.CharField(max_length=250)
+    phone = models.CharField(max_length=20)
+    reason = models.TextField(null=True, blank=True)
+    needed_date = models.DateField()  # IMPORTANT
+    is_fulfilled = models.BooleanField(default=False)  # IMPORTANT
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.patient_name} - {self.blood_group}"
+
+class DonorNotification(models.Model):
+    donor = models.ForeignKey('DonorRegistrationDb', on_delete=models.CASCADE)
+    blood_request = models.ForeignKey(BloodRequest, on_delete=models.CASCADE, null=True, blank=True)
+    message = models.TextField()
+    is_seen = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def should_delete(self):
+        """Delete if request is fulfilled OR needed date is over."""
+        if self.blood_request:
+            if self.blood_request.is_fulfilled:
+                return True
+            if timezone.now().date() > self.blood_request.needed_date:
+                return True
+        return False
+
+    def __str__(self):
+        return f"Notif -> {self.donor.Name} ({'seen' if self.is_seen else 'new'})"
