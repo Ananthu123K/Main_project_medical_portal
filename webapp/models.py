@@ -31,6 +31,8 @@ class DonorRegistrationDb(models.Model):
     # Track last donation date
     last_donation_date = models.DateField(null=True, blank=True)
 
+    life_saved = models.PositiveIntegerField(default=0)#to store life saved count
+
     def __str__(self):
         return self.Name
 

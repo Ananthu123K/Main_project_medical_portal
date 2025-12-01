@@ -97,6 +97,7 @@ def display_donors(request):
 def delete_donors(request,d_id):
     data=DonorRegistrationDb.objects.filter(id=d_id)
     data.delete()
+    return redirect('display_donors')
 
 def display_messages(request):
     messages=ContactDb.objects.all()

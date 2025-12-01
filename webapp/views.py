@@ -339,12 +339,22 @@ def toggle_donor_status(request):
 # -----------------------------
 def mark_donated(request):
     donor_id = request.session.get('donor_id')
-    if donor_id:
-        donor = DonorRegistrationDb.objects.get(id=donor_id)
+    if not donor_id:
+        return redirect('donor_login_page')
+
+    donor = DonorRegistrationDb.objects.get(id=donor_id)
+
+    # Only allow donation if ACTIVE
+    if donor.is_active and not donor.system_inactive:
         donor.last_donation_date = date.today()
         donor.is_active = False
         donor.system_inactive = True
+
+        # increase the lifesaving count by 1
+        donor.life_saved = (donor.life_saved or 0) + 1
+
         donor.save()
+
     return redirect('donor_profile')
 
 
