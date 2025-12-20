@@ -5,6 +5,9 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from webapp.models import DonorRegistrationDb,ContactDb
+from django.contrib import messages
+from webapp.models import *
+
 
 
 # Create your views here.
@@ -27,6 +30,7 @@ def save_category(request):
 
         )
         obj.save()
+        messages.success(request, "Service Added Successfully")
         return redirect(add_service_category)
 
 def display_service_category(request):
@@ -53,11 +57,13 @@ def update_service_category(request,c_id):
             image=file
 
         )
+        messages.success(request, "Service Updated Successfully")
         return redirect(display_service_category)
 
 def delete_service_category(request,c_id):
     data=ServiceCategoryDb.objects.filter(id=c_id)
     data.delete()
+    messages.success(request, "Service Deleted Successfully")
     return redirect(display_service_category)
 
 
@@ -92,6 +98,7 @@ def admin_logout(request):
 
 def display_donors(request):
     donors=DonorRegistrationDb.objects.all()
+    messages.success(request, "Donor Deleted Successfully")
     return render(request,"Display_donors.html",{"donors":donors})
 
 def delete_donors(request,d_id):
@@ -103,3 +110,20 @@ def display_messages(request):
     messages=ContactDb.objects.all()
     return render(request,"Display_messages.html",{"messages":messages})
 
+def display_drivers(request):
+    drivers=AmbulanceDriver.objects.all()
+    return render(request,"Display_drivers.html",{"drivers":drivers})
+
+def display_requests(request):
+    requests=AmbulanceRequest.objects.all()
+    return render(request,"Display_request.html",{"requests":requests})
+
+def delete_drivers(request,d_id):
+    data=AmbulanceDriver.objects.filter(id=d_id)
+    data.delete()
+    return redirect('display_drivers')
+
+def delete_requests(request,r_id):
+    data=AmbulanceRequest.objects.filter(id=r_id)
+    data.delete()
+    return redirect('display_requests')

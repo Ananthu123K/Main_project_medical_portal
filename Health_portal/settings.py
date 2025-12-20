@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
+
+
+
 
 from django.conf.global_settings import MEDIA_ROOT, MEDIA_URL
 
@@ -23,10 +28,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-17chq!wo4b&sm6btj$7%s7p6ij$1g*rks(c_8x9$07&*a%d7i&'
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# --- Email Configuration ---
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# --- Twilio SMS Configuration ---
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = config('TWILIO_PHONE_NUMBER')
+
+
+
 
 ALLOWED_HOSTS = []
 
@@ -54,16 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Email (Gmail with App Password)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_system_email@gmail.com'        # system/admin email
-EMAIL_HOST_PASSWORD = 'your_app_password_here'        # Gmail app password
 
-# Fast2SMS API key
-FAST2SMS_API_KEY = 'your_fast2sms_api_key'
 
 
 ROOT_URLCONF = 'Health_portal.urls'

@@ -25,7 +25,7 @@
 		<div class="container-login100" style="background-image: url('{% static "Login/images/bg-01.jpg" %}');">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-55 p-b-30">
 
-				<form class="login100-form validate-form" method="POST" action="{% url 'user_signup' %}">
+				<form class="login100-form validate-form" name="signup_form" method="POST" action="{% url 'user_signup' %}" onsubmit="return final_validation()">
 					{% csrf_token %}
 					<span class="login100-form-title p-b-49">
 						Sign Up
@@ -101,6 +101,65 @@
 	<script src="{% static 'Login/vendor/daterangepicker/daterangepicker.js' %}"></script>
 	<script src="{% static 'Login/vendor/countdowntime/countdowntime.js' %}"></script>
 	<script src="{% static 'Login/js/main.js' %}"></script>
+    <script>
+    function password_validation(){
+        p1 = document.signup_form.password.value;
+        p2 = document.signup_form.confirm_password.value;
+
+        if(p1 == ""){
+            alert("password can't be blank");
+            return false;
+        }
+        else if(p2 == ""){
+            alert("confirm password can't be blank");
+            return false;
+        }
+        else if(p1.length < 6){
+            alert("password must contain atleast 6 characters");
+            return false;
+        }
+        else if(p1 == p2){
+            return true;
+        }
+        else{
+            alert("password doesn't match");
+            return false;
+        }
+    }
+
+    function validation(){
+        x = document.signup_form.name.value;
+        y = document.signup_form.email.value;
+        z = document.signup_form.phone.value;
+
+        if(x == "" || x == null){
+            alert("Name can't be null or blank");
+            return false;
+        }
+        else if(y == "" || y == null){
+            alert("Email can't be null or blank");
+            return false;
+        }
+        else if(z == "" || z == null){
+            alert("Number can't be null or blank");
+            return false;
+        }
+        else if(z.length != 10){
+            alert("Invalid mobile number");
+            return false;
+        }
+        return true;
+    }
+
+    function final_validation(){
+        if(validation() && password_validation()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+</script>
 
 </body>
 </html>

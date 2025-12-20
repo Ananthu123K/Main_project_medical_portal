@@ -16,4 +16,8 @@ urlpatterns=[
     path('display_donors/',views.display_donors,name="display_donors"),
     path('delete_donors/<int:d_id>/',views.delete_donors,name="delete_donors"),
     path('display_messages/',views.display_messages,name="display_messages"),
+    path('display_drivers/',views.display_drivers,name="display_drivers"),
+    path('display_requests/',views.display_requests,name="display_requests"),
+    path('delete_drivers/<int:d_id>/',views.delete_drivers,name="delete_drivers"),
+    path('delete_requests/<int:r_id>/',views.delete_requests,name="delete_requests"),
 ]

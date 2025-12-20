@@ -28,7 +28,7 @@
   <link href="{% static 'web/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Main CSS File -->
-  <link href="{% static 'web/assets/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/main_style.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/css/style.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/css/style2.css' %}" rel="stylesheet">
 
@@ -39,18 +39,29 @@
 
   <header id="header" class="header sticky-top">
 
-    <div class="lifelink-topbar d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="lifelink-contact d-flex align-items-center">
-            <i class="bi bi-envelope d-flex align-items-center">
-                <a href="mailto:contact@example.com">contact@example.com</a>
-            </i>
-            <i class="bi bi-phone d-flex align-items-center ms-4">
-                <span>+1 5589 55488 55</span>
-            </i>
-        </div>
-    </div>
-</div>
+<!--       <div class="topbar d-flex align-items-center">-->
+<!--      <div class="container d-flex justify-content-center justify-content-md-between">-->
+<!--        <div class="contact-info d-flex align-items-center">-->
+<!--&lt;!&ndash;          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>&ndash;&gt;-->
+<!--&lt;!&ndash;          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>&ndash;&gt;-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div class="social-links d-none d-md-flex align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;          {% if request.session.user_id %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="{% url 'user_logout' %}" class="user-account for-buy">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span>Welcome {{ request.session.Name }} / Logout</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="{% url 'signin_page' %}" class="user-account for-buy">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span>Login</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>&lt;!&ndash; End Top Bar &ndash;&gt;-->
+
 <!-- End Top Bar -->
 
     <div class="branding d-flex align-items-center">
@@ -66,8 +77,8 @@
           <ul>
             <li><a href="{% url 'Home' %}" class="active">Home<br></a></li>
             <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="">Departments</a></li>
+            <li><a href="{% url 'Services' %}">Services</a></li>
+            <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
             <li><a href="{% url 'Donors' %}">Donors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -87,8 +98,10 @@
               </ul>
             </li>
             <li><a href="{% url 'Contact' %}">Contact</a></li>
+            <li><a href="{% url 'service_registration' %}">Join Us</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
         </nav>
         <div class="auth-container d-none d-md-flex align-items-center">
     {% if request.session.user_id %}
@@ -133,33 +146,49 @@
 
       <!-- Card 1 -->
 <div class="col-lg-3 col-md-6">
-  <div class="hero-card" data-aos="zoom-in" data-aos-delay="150">
-    <i class="bi bi-droplet"></i>
+  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="150">
+    <i class="fas fa-tint" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
     <h4>Become a Donor</h4>
     <p>Join our donor community and help those in need.</p>
-    <a href="{% url 'donor_signup_page' %}" class="hero-btn">Join Now</a>
+    <a href="#" class="hero-btn" data-bs-toggle="modal" data-bs-target="#donorRegisterModal">
+      Join Now
+    </a>
   </div>
 </div>
+
 
 <!-- Card 2 -->
 <div class="col-lg-3 col-md-6">
-  <div class="hero-card" data-aos="zoom-in" data-aos-delay="250">
-    <i class="bi bi-search-heart"></i>
-    <h4>Find Blood</h4>
-    <p>Search for blood donors instantly by group & district.</p>
-    <a href="#" class="hero-btn">Search</a>
+  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="250">
+    <i class="fas fa-ambulance" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
+    <h4>Register Ambulance</h4>
+    <p>Register your ambulance quickly and be available for emergencies.</p>
+    <a href="#"
+       class="hero-btn"
+       data-bs-toggle="modal"
+       data-bs-target="#ambulanceRegisterModal">
+       Register Now
+    </a>
   </div>
 </div>
 
+
+
+
+
 <!-- Card 3 -->
 <div class="col-lg-3 col-md-6">
-  <div class="hero-card" data-aos="zoom-in" data-aos-delay="350">
-    <i class="bi bi-activity"></i>
+  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="350">
+    <i class="fas fa-first-aid" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
     <h4>Emergency Help</h4>
-    <p>Post urgent requests and alert nearby donors.</p>
-    <a href="#" class="hero-btn">Request Now</a>
+    <p>Request Ambulance for faster Service</p>
+    <a href="#" class="hero-btn openPopupLink" data-bs-toggle="modal" data-bs-target="#ambulanceRequestModal">
+      Request Now
+    </a>
   </div>
 </div>
+
+
 
 
     </div>
@@ -168,54 +197,6 @@
 
 </section>
 
-<!-- /Hero Section -->
-
-
-
-<!--    &lt;!&ndash; Stats Section &ndash;&gt;-->
-<!--    <section id="stats" class="stats section light-background">-->
-
-<!--      <div class="container" data-aos="fade-up" data-aos-delay="100">-->
-
-<!--        <div class="row gy-4">-->
-
-<!--          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">-->
-<!--            <i class="fa-solid fa-user-doctor"></i>-->
-<!--            <div class="stats-item">-->
-<!--              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>-->
-<!--              <p>Doctors</p>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Stats Item &ndash;&gt;-->
-
-<!--          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">-->
-<!--            <i class="fa-regular fa-hospital"></i>-->
-<!--            <div class="stats-item">-->
-<!--              <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter"></span>-->
-<!--              <p>Departments</p>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Stats Item &ndash;&gt;-->
-
-<!--          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">-->
-<!--            <i class="fas fa-flask"></i>-->
-<!--            <div class="stats-item">-->
-<!--              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>-->
-<!--              <p>Research Labs</p>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Stats Item &ndash;&gt;-->
-
-<!--          <div class="col-lg-3 col-md-6 d-flex flex-column align-items-center">-->
-<!--            <i class="fas fa-award"></i>-->
-<!--            <div class="stats-item">-->
-<!--              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>-->
-<!--              <p>Awards</p>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Stats Item &ndash;&gt;-->
-
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--    </section>&lt;!&ndash; /Stats Section &ndash;&gt;-->
 
     <!-- Services Section -->
    <section id="services" class="services section">
@@ -228,27 +209,29 @@
   <div class="container">
       <div class="row gy-4">
 
-      {% for i in services %}
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+     {% for i in services %}
+<div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
 
-              <div class="my-service-card premium-card">
+    <a href="{% url 'service_detail' i.id %}" style="text-decoration:none; color:inherit;">
 
-                  <div class="service-img-wrapper premium-img" >
-                      <img src="{{ i.image.url }}" alt="{{ i.name }}" style="object-fit: contain;
-background: #f2f2f2;" >
-                  </div>
+        <div class="my-service-card premium-card">
 
-                  <div class="service-content">
-                      <h3>{{ i.name }}</h3>
-                      <p>{{ i.description }}</p>
+            <div class="service-img-wrapper premium-img">
+                <img src="{{ i.image.url }}" alt="{{ i.name }}"
+                     style="object-fit: contain; background: #f2f2f2;">
+            </div>
 
-                      <a href="#" class="service-btn premium-btn">Learn More</a>
-                  </div>
+            <div class="service-content">
+                <h3>{{ i.name }}</h3>
+                <p>{{ i.description }}</p>
+            </div>
 
-              </div>
+        </div>
 
-          </div>
-      {% endfor %}
+    </a>
+
+</div>
+{% endfor %}
 
       </div>
   </div>
@@ -262,246 +245,7 @@ background: #f2f2f2;" >
 
     <!-- /Services Section -->
 
-<!--    &lt;!&ndash; Appointment Section &ndash;&gt;-->
-<!--    <section id="appointment" class="appointment section">-->
 
-<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
-<!--      <div class="container section-title" data-aos="fade-up">-->
-<!--        <h2>Appointment</h2>-->
-<!--        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>-->
-<!--      </div>&lt;!&ndash; End Section Title &ndash;&gt;-->
-
-<!--      <div class="container" data-aos="fade-up" data-aos-delay="100">-->
-
-<!--        <form action="forms/appointment.php" method="post" role="form" class="php-email-form">-->
-<!--          <div class="row">-->
-<!--            <div class="col-md-4 form-group">-->
-<!--              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">-->
-<!--            </div>-->
-<!--            <div class="col-md-4 form-group mt-3 mt-md-0">-->
-<!--              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">-->
-<!--            </div>-->
-<!--            <div class="col-md-4 form-group mt-3 mt-md-0">-->
-<!--              <input type="tel" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="row">-->
-<!--            <div class="col-md-4 form-group mt-3">-->
-<!--              <input type="datetime-local" name="date" class="form-control datepicker" id="date" placeholder="Appointment Date" required="">-->
-<!--            </div>-->
-<!--            <div class="col-md-4 form-group mt-3">-->
-<!--              <select name="department" id="department" class="form-select" required="">-->
-<!--                <option value="">Select Department</option>-->
-<!--                <option value="Department 1">Department 1</option>-->
-<!--                <option value="Department 2">Department 2</option>-->
-<!--                <option value="Department 3">Department 3</option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 form-group mt-3">-->
-<!--              <select name="doctor" id="doctor" class="form-select" required="">-->
-<!--                <option value="">Select Doctor</option>-->
-<!--                <option value="Doctor 1">Doctor 1</option>-->
-<!--                <option value="Doctor 2">Doctor 2</option>-->
-<!--                <option value="Doctor 3">Doctor 3</option>-->
-<!--              </select>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          <div class="form-group mt-3">-->
-<!--            <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>-->
-<!--          </div>-->
-<!--          <div class="mt-3">-->
-<!--            <div class="loading">Loading</div>-->
-<!--            <div class="error-message"></div>-->
-<!--            <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>-->
-<!--            <div class="text-center"><button type="submit">Make an Appointment</button></div>-->
-<!--          </div>-->
-<!--        </form>-->
-
-<!--      </div>-->
-
-<!--    </section>&lt;!&ndash; /Appointment Section &ndash;&gt;-->
-
-    <!-- Departments Section -->
-<!--    <section id="departments" class="departments section">-->
-
-<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
-<!--      <div class="container section-title" data-aos="fade-up">-->
-<!--        <h2>Departments</h2>-->
-<!--        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>-->
-<!--      </div>-->
-<!--      &lt;!&ndash; End Section Title &ndash;&gt;-->
-
-<!--      <div class="container" data-aos="fade-up" data-aos-delay="100">-->
-
-<!--        <div class="row">-->
-<!--          <div class="col-lg-3">-->
-<!--            <ul class="nav nav-tabs flex-column">-->
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-link active show" data-bs-toggle="tab" href="#departments-tab-1">Cardiology</a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-2">Neurology</a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-3">Hepatology</a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-4">Pediatrics</a>-->
-<!--              </li>-->
-<!--              <li class="nav-item">-->
-<!--                <a class="nav-link" data-bs-toggle="tab" href="#departments-tab-5">Eye Care</a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="col-lg-9 mt-4 mt-lg-0">-->
-<!--            <div class="tab-content">-->
-<!--              <div class="tab-pane active show" id="departments-tab-1">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
-<!--                    <h3>Cardiology</h3>-->
-<!--                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>-->
-<!--                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="assets/img/departments-1.jpg" alt="" class="img-fluid">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="departments-tab-2">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
-<!--                    <h3>Et blanditiis nemo veritatis excepturi</h3>-->
-<!--                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>-->
-<!--                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="assets/img/departments-2.jpg" alt="" class="img-fluid">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="departments-tab-3">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
-<!--                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>-->
-<!--                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>-->
-<!--                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="assets/img/departments-3.jpg" alt="" class="img-fluid">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="departments-tab-4">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
-<!--                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>-->
-<!--                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>-->
-<!--                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="departments-tab-5">-->
-<!--                <div class="row">-->
-<!--                  <div class="col-lg-8 details order-2 order-lg-1">-->
-<!--                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>-->
-<!--                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>-->
-<!--                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-4 text-center order-1 order-lg-2">-->
-<!--                    <img src="assets/img/departments-5.jpg" alt="" class="img-fluid">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--    </section>-->
-    <!-- /Departments Section -->
-
-
-
-    <!-- Faq Section -->
-<!--    <section id="faq" class="faq section light-background">-->
-
-<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
-<!--      <div class="container section-title" data-aos="fade-up">-->
-<!--        <h2>Frequently Asked Questions</h2>-->
-<!--        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>-->
-<!--      </div>&lt;!&ndash; End Section Title &ndash;&gt;-->
-
-<!--      <div class="container">-->
-
-<!--        <div class="row justify-content-center">-->
-
-<!--          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">-->
-
-<!--            <div class="faq-container">-->
-
-<!--              <div class="faq-item faq-active">-->
-<!--                <h3>Non consectetur a erat nam at lectus urna duis?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--              <div class="faq-item">-->
-<!--                <h3>Feugiat scelerisque varius morbi enim nunc faucibus?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--              <div class="faq-item">-->
-<!--                <h3>Dolor sit amet consectetur adipiscing elit pellentesque?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--              <div class="faq-item">-->
-<!--                <h3>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--              <div class="faq-item">-->
-<!--                <h3>Tempus quam pellentesque nec nam aliquam sem et tortor?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--              <div class="faq-item">-->
-<!--                <h3>Perspiciatis quod quo quos nulla quo illum ullam?</h3>-->
-<!--                <div class="faq-content">-->
-<!--                  <p>Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.</p>-->
-<!--                </div>-->
-<!--                <i class="faq-toggle bi bi-chevron-right"></i>-->
-<!--              </div>&lt;!&ndash; End Faq item&ndash;&gt;-->
-
-<!--            </div>-->
-
-<!--          </div>&lt;!&ndash; End Faq Column&ndash;&gt;-->
-
-<!--        </div>-->
-
-<!--      </div>-->
-
-<!--    </section>-->
-    <!-- /Faq Section -->
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials section">
@@ -650,175 +394,519 @@ background: #f2f2f2;" >
 
     </section><!-- /Testimonials Section -->
 
-    <!-- Gallery Section -->
-<!--    <section id="gallery" class="gallery section">-->
 
-<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
-<!--      <div class="container section-title" data-aos="fade-up">-->
-<!--        <h2>Gallery</h2>-->
-<!--        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>-->
-<!--      </div>&lt;!&ndash; End Section Title &ndash;&gt;-->
 
-<!--      <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">-->
 
-<!--        <div class="row g-0">-->
+    <!-- Donor Registration Modal -->
+<div class="modal fade" id="donorRegisterModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4">
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-1.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+      <form method="POST" enctype="multipart/form-data" action="{% url 'donor_signup' %}">
+        {% csrf_token %}
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-2.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title"> Donor Registration</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-3.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+        <!-- Body -->
+        <div class="modal-body">
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-4.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+            </div>
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-5.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+            <div class="col-md-6">
+              <input type="email" name="email" class="form-control" placeholder="Email" required>
+            </div>
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-6.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+            <div class="col-md-6">
+              <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+            </div>
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-7.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+            <div class="col-md-6">
+              <input type="number" name="age" class="form-control" placeholder="Age" required>
+            </div>
 
-<!--          <div class="col-lg-3 col-md-4">-->
-<!--            <div class="gallery-item">-->
-<!--              <a href="assets/img/gallery/gallery-8.jpg" class="glightbox" data-gallery="images-gallery">-->
-<!--                <img src="assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>&lt;!&ndash; End Gallery Item &ndash;&gt;-->
+            <div class="col-md-6">
+              <select name="bloodgroup" class="form-select" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option>
+                <option>AB+</option><option>AB-</option>
+              </select>
+            </div>
 
-<!--        </div>-->
+            <div class="col-md-6">
+              <select name="location" class="form-select" required>
+                <option value="">Select District</option>
+                <option>Thiruvananthapuram</option>
+                <option>Kollam</option>
+                <option>Pathanamthitta</option>
+                <option>Alappuzha</option>
+                <option>Kottayam</option>
+                <option>Idukki</option>
+                <option>Ernakulam</option>
+                <option>Thrissur</option>
+                <option>Palakkad</option>
+                <option>Malappuram</option>
+                <option>Kozhikode</option>
+                <option>Wayanad</option>
+                <option>Kannur</option>
+                <option>Kasaragod</option>
+              </select>
+            </div>
 
-<!--      </div>-->
+            <div class="col-md-6">
+              <select name="gender" class="form-select" required>
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
 
-<!--    </section>-->
-    <!-- /Gallery Section -->
+            <div class="col-md-6">
+              <input type="file" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="col-md-6">
+              <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <div class="col-md-6">
+              <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger w-100">
+            ✅ Register as Donor
+          </button>
+        </div>
+
+
+      </form>
+      <div class="text-center mt-2">
+  <button type="button"
+        class="btn btn-outline-secondary w-100 mt-2"
+        data-bs-toggle="modal"
+        data-bs-target="#donorLoginModal"
+        data-bs-dismiss="modal">
+  🔐 Login Instead
+</button>
+
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Donor Login Popup -->
+<div class="modal fade" id="donorLoginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:10px;">
+
+      <div class="modal-body p-0">
+        <div class="signup-container" style="padding:25px; background:#fff;">
+
+          <h2 style="
+              text-align:center;
+              color:#dc3545;
+              margin-bottom:20px;">
+            Donor Login
+          </h2>
+
+          <form method="POST" action="{% url 'donor_login' %}">
+            {% csrf_token %}
+
+            <input type="email" name="Email"
+                   placeholder="Enter your Email"
+                   required
+                   style="
+                     width:100%;
+                     padding:10px;
+                     margin-bottom:12px;
+                     border:1px solid #dc3545;
+                     border-radius:5px;
+                   ">
+
+            <input type="password" name="Password"
+                   placeholder="Enter your Password"
+                   required
+                   style="
+                     width:100%;
+                     padding:10px;
+                     margin-bottom:15px;
+                     border:1px solid #dc3545;
+                     border-radius:5px;
+                   ">
+
+            <button type="submit"
+                    style="
+                      width:100%;
+                      padding:10px;
+                      background:#dc3545;
+                      color:#fff;
+                      border:none;
+                      border-radius:5px;
+                      font-weight:600;
+                    ">
+              Login
+            </button>
+          </form>
+
+          <p style="margin-top:15px; text-align:center;">
+            Don't have an account?
+            <a href="#"
+               style="color:#dc3545; font-weight:600;"
+               data-bs-toggle="modal"
+               data-bs-target="#donorRegisterModal"
+               data-bs-dismiss="modal">
+               Register here
+            </a>
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Ambulance Request Popup Modal -->
+<div class="modal fade" id="ambulanceRequestModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <form method="post" action="{% url 'request_ambulance' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">🚑 Request Ambulance</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" name="patient_name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            <input type="text" name="contact_number" class="form-control" required>
+          </div>
+
+          <!-- ✅ Email Field Added -->
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="contact_email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Pickup Location</label>
+            <input type="text" name="pickup_location" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Emergency Description</label>
+            <textarea name="emergency_note" class="form-control" rows="3"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger w-100">
+            🚨 Send Ambulance Request
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Ambulance Redgistration-->
+    <div class="modal fade" id="ambulanceRegisterModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius:10px;">
+
+      <form method="POST" enctype="multipart/form-data" action="{% url 'ambulance_register' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header" style="background:#dc3545; color:white;">
+          <h5 class="modal-title">🚑 Ambulance Registration</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body" style="background:#fff;">
+
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <input type="text" name="driver_name" placeholder="Driver Name" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="email" name="email" placeholder="Email" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="phone" placeholder="Phone Number" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="license_number" placeholder="License Number" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="ambulance_number" placeholder="Ambulance Number"
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="file" name="driver_photo"
+                     style="width:100%; padding:8px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-12">
+              <textarea name="address" placeholder="Address"
+                        style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;"></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="username" placeholder="Username" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+            <div class="col-md-6">
+              <input type="password" name="password" placeholder="Password" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="submit"
+                  style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px;">
+            🚑 Register Ambulance
+          </button>
+        </div>
+
+      </form>
+      <div style="text-align:center; margin-bottom:15px;">
+  <p style="margin:0;">
+    Already have an account?
+    <a href="#"
+       style="color:#dc3545; font-weight:600; text-decoration:none;"
+       data-bs-toggle="modal"
+       data-bs-target="#driverLoginModal"
+       data-bs-dismiss="modal">
+       Login
+    </a>
+  </p>
+</div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Driver Login Popup -->
+<div class="modal fade" id="driverLoginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <!-- Header -->
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">🚑 Driver Login</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form method="POST" action="{% url 'driver_login' %}">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <input type="email" name="email" class="form-control"
+                   placeholder="Enter Email" required>
+          </div>
+
+          <div class="mb-3">
+            <input type="password" name="password" class="form-control"
+                   placeholder="Enter Password" required>
+          </div>
+
+          <button type="submit" class="btn btn-danger w-100">
+            Login
+          </button>
+        </form>
+
+
+       <p class="text-center mt-3 mb-0">
+  Don’t have an account?
+  <a href="#"
+     class="text-danger fw-semibold"
+     data-bs-toggle="modal"
+     data-bs-target="#ambulanceRegisterModal"
+     data-bs-dismiss="modal">
+    Register
+  </a>
+</p>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% if messages %}
+  <div style="
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1055;
+      width: 90%;
+      max-width: 500px;
+    ">
+    {% for message in messages %}
+      <div class="alert
+        {% if message.tags == 'error' %}alert-danger
+        {% else %}alert-success{% endif %}
+        alert-dismissible fade show shadow"
+        role="alert">
+
+        {{ message }}
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 
 
   </main>
 
-  <footer id="footer" class="footer light-background">
 
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Medilab</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
-          </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Useful Links</h4>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
-          </ul>
-        </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Hic solutasetp</h4>
-          <ul>
-            <li><a href="#">Molestiae accusamus iure</a></li>
-            <li><a href="#">Excepturi dignissimos</a></li>
-            <li><a href="#">Suscipit distinctio</a></li>
-            <li><a href="#">Dilecta</a></li>
-            <li><a href="#">Sit quas consectetur</a></li>
-          </ul>
-        </div>
 
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Nobis illum</h4>
-          <ul>
-            <li><a href="#">Ipsam</a></li>
-            <li><a href="#">Laudantium dolorum</a></li>
-            <li><a href="#">Dinera</a></li>
-            <li><a href="#">Trodelas</a></li>
-            <li><a href="#">Flexo</a></li>
-          </ul>
-        </div>
+ <footer id="footer" class="footer bg-light">
 
+  <div class="container footer-top py-5">
+    <div class="row gy-4">
+
+      <!-- About / Contact Info -->
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center mb-3">
+          <span class="sitename">Lifelink</span>
+        </a>
+        <p>Providing quality health services</p>
+        <p><strong>Email:</strong> <span>lifelinkhealthportal@gmail.com</span></p>
+
+        <!-- Social Links -->
+<!--        <div class="social-links d-flex mt-3">-->
+<!--          <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>-->
+<!--          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>-->
+<!--          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>-->
+<!--          <a href="#"><i class="bi bi-linkedin"></i></a>-->
+<!--        </div>-->
       </div>
-    </div>
 
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Medilab</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href=“https://themewagon.com>ThemeWagon
+      <!-- Useful Links -->
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'Home' %}">Home</a></li>
+          <li><a href="{% url 'About' %}">About Us</a></li>
+          <li><a href="{% url 'Services' %}">Services</a></li>
+          <li><a href="{% url 'Contact' %}">Contact</a></li>
+        </ul>
       </div>
-    </div>
 
-  </footer>
+      <!-- Services -->
+      <div class="col-lg-3 col-md-3 footer-links">
+        <h4>Our Services</h4>
+        <ul>
+    {% for service in services %}
+      <li>
+        <a href="{% url 'service_detail' service.id %}">
+          {{ service.name }}
+        </a>
+      </li>
+    {% empty %}
+      <li>No services available</li>
+    {% endfor %}
+  </ul>
+      </div>
+
+      <!-- User Links -->
+      <div class="col-lg-3 col-md-3 footer-links">
+        <h4>Account</h4>
+        <ul>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Notifications</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="container text-center py-3">
+    <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+  </div>
+
+</footer>
+
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -836,6 +924,25 @@ background: #f2f2f2;" >
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 4000); // 4 seconds
+</script>
+
+<script>
+setInterval(() => {
+    fetch("{% url 'check_request_status' %}")
+}, 5000);  // checks every 5 seconds
+</script>
+
+
+
+
 
 </body>
 

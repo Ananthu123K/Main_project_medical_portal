@@ -76,3 +76,104 @@ class DonorNotification(models.Model):
 
     def __str__(self):
         return f"Notif -> {self.donor.Name} ({'seen' if self.is_seen else 'new'})"
+
+class BloodAssignment(models.Model):
+    STATUS_CHOICES = [
+        ('waiting', 'Waiting'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+
+    blood_request = models.ForeignKey(
+        BloodRequest,
+        on_delete=models.CASCADE
+    )
+    donor = models.ForeignKey(
+        DonorRegistrationDb,
+        on_delete=models.CASCADE
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='waiting'
+    )
+    assigned_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.donor.Name} -> {self.blood_request.blood_group}"
+
+
+# -----------------------------
+# Service models
+# -----------------------------
+# -----------------------------
+# Ambulance models
+# -----------------------------
+
+
+
+
+class AmbulanceDriver(models.Model):
+    driver_name = models.CharField(max_length=100,null=True,blank=True)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15)
+    license_number = models.CharField(max_length=50, unique=True)
+    address = models.TextField()
+    ambulance_number = models.CharField(max_length=30, unique=True, null=True, blank=True)
+
+
+    driver_photo = models.ImageField(upload_to='drivers/')  # profile image
+
+    # login details
+    username = models.CharField(max_length=50, unique=True)
+    password = models.CharField(max_length=100)
+
+    is_available = models.BooleanField(default=True)   # on/off duty
+    is_active = models.BooleanField(default=True)      # admin can delete permanently (soft delete)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.driver_name
+
+class AmbulanceRequest(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+        ('completed', 'Completed'),
+    ]
+
+    patient_name = models.CharField(max_length=100)
+    contact_number = models.CharField(max_length=15)
+    contact_email = models.EmailField(null=True, blank=True)  # new
+    pickup_location = models.CharField(max_length=255)
+    emergency_note = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    assigned_driver = models.ForeignKey('AmbulanceDriver', null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return f"{self.patient_name} - {self.status}"
+
+
+class AmbulanceAssignment(models.Model):
+    STATUS_CHOICES = [
+        ('waiting','Waiting'),
+        ('accepted','Accepted'),
+        ('rejected','Rejected')
+    ]
+
+    request = models.ForeignKey(AmbulanceRequest, on_delete=models.CASCADE)
+    driver = models.ForeignKey(AmbulanceDriver, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='waiting')
+    assigned_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.driver.driver_name} -> {self.request.patient_name}"
+
+
+
+
+
+

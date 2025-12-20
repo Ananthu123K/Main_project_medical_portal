@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html>
+<head>
+    <title>Ambulance Drivers</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #1f2937;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f3f4f6;
+        }
+        img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        .yes { color: green; font-weight: bold; }
+        .no { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>Ambulance Drivers</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>License No</th>
+        <th>Ambulance No</th>
+        <th>Available</th>
+        <th>Active</th>
+        <th>Created</th>
+        <th>Action</th>
+    </tr>
+
+    {% for driver in drivers %}
+    <tr>
+        <td>{{ driver.id }}</td>
+
+        <td>
+            {% if driver.driver_photo %}
+                <img src="{{ driver.driver_photo.url }}">
+            {% else %}
+                No Photo
+            {% endif %}
+        </td>
+
+        <td>{{ driver.driver_name }}</td>
+        <td>{{ driver.email }}</td>
+        <td>{{ driver.phone }}</td>
+        <td>{{ driver.license_number }}</td>
+        <td>{{ driver.ambulance_number|default:"Not Assigned" }}</td>
+
+        <td class="{% if driver.is_available %}yes{% else %}no{% endif %}">
+            {{ driver.is_available|yesno:"Yes,No" }}
+        </td>
+
+        <td class="{% if driver.is_active %}yes{% else %}no{% endif %}">
+            {{ driver.is_active|yesno:"Yes,No" }}
+        </td>
+
+        <td>{{ driver.created_at }}</td>
+
+        <td>
+            <a href="{% url 'delete_drivers' driver.id %}"
+               onclick="return confirm('Are you sure you want to delete this driver?')">
+               🗑️ Delete
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="11">No drivers found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}

@@ -7,6 +7,7 @@ urlpatterns=[
     path('Donors/',views.donors_page,name="Donors"),
     path('Contact/',views.contact_page,name="Contact"),
     path('About/',views.about_page,name="About"),
+    path('service_detail/<int:service_id>/',views.service_detail,name="service_detail"),
     path('signup_page/',views.signup_page,name="signup_page"),
     path('signin_page/',views.signin_page,name="signin_page"),
     path('user_signup/',views.user_signup,name="user_signup"),
@@ -28,4 +29,25 @@ urlpatterns=[
     path('blood_request_success/',views.blood_request_success,name="blood_request_success"),
     path('request_blood/',views.request_blood,name="request_blood"),
     path('donor_notifications/',views.donor_notifications,name="donor_notifications"),
+    path('blood-request/accept/<int:request_id>/', views.accept_blood_request, name='accept_blood_request' ),
+    path('blood-request/reject/<int:request_id>/',views.reject_blood_request,name='reject_blood_request'),
+
+
+    # Ambulance
+    path('ambulance_driver_registration/',views.ambulance_driver_registration,name="ambulance_driver_registration"),
+    path('service_registration/',views.service_registration,name="service_registration"),
+    path('ambulance_service_page/',views.ambulance_service_page,name="ambulance_service_page"),
+    path('ambulance_register/',views.ambulance_register,name="ambulance_register"),
+    path('driver_login/',views.ambulance_driver_login,name="driver_login"),
+    path('driver_dashboard/',views.driver_dashboard,name="driver_dashboard"),
+    path('driver_logout/',views.driver_logout,name="driver_logout"),
+    path('request_ambulance/', views.request_ambulance, name='request_ambulance'),
+    path('driver_dashboard/', views.driver_dashboard, name='driver_dashboard'),
+    path('accept_request/<int:req_id>/', views.accept_request, name='accept_request'),
+    path('reject_request/<int:assignment_id>/', views.reject_request, name='reject_request'),
+    path('check_request_status/', views.check_request_status, name='check_request_status'),
+    path('test_driver_email/', views.test_driver_email),
+
+
+
 ]

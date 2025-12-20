@@ -41,8 +41,8 @@
        <div class="topbar d-flex align-items-center">
       <div class="container d-flex justify-content-center justify-content-md-between">
         <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+<!--          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>-->
+<!--          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>-->
         </div>
 <!--        <div class="social-links d-none d-md-flex align-items-center">-->
 <!--          {% if request.session.user_id %}-->
@@ -74,10 +74,11 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="{% url 'Home' %}" >Home<br></a></li>
+            <li><a href="{% url 'Home' %}" class="">Home<br></a></li>
             <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="">Departments</a></li>
+              <li><a href="{% url 'Services' %}">Services</a></li>
+
+            <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
             <li><a href="{% url 'Donors' %}">Donors</a></li>
             <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
               <ul>
@@ -96,9 +97,11 @@
                 <li><a href="#">Dropdown 4</a></li>
               </ul>
             </li>
-            <li><a href="{% url 'Contact' %}" class="active">Contact</a></li>
+            <li><a href="{% url 'Contact' %}">Contact</a></li>
+            <li><a href="{% url 'service_registration' %}">Join Us</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
         </nav>
         <div class="auth-container d-none d-md-flex align-items-center">
     {% if request.session.user_id %}
@@ -123,102 +126,204 @@
 
   </header>
 
+  <section>
+
+  <div class="container mt-5">
 
 
+    <div class="card shadow p-4">
+
+        <div class="text-center mb-4">
+            <img src="{{ service.image.url }}" class="img-fluid"
+                 style="max-height:300px;">
+        </div>
+
+        <h2 class="text-danger">{{ service.name }}</h2>
+
+        <p class="mt-3">
+            {{ service.description }}
+        </p>
+
+        <!-- OPTIONAL ACTION BUTTON -->
+        <div class="text-center mt-5 service-actions">
+
+    <!-- Ambulance Request Button -->
+    {% if service.name == "Ambulance" %}
+        <button type="button" class="btn btn-danger btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#ambulanceRequestModal">
+            🚑 Request Ambulance
+        </button>
+    {% endif %}
+
+    <!-- Blood Request Button -->
+    {% if service.name == "BLood donation" %}
+        <button type="button" class="btn btn-danger btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#bloodRequestModal">
+            🩸 Request Blood
+        </button>
+    {% endif %}
+
+</div>
+
+    </div>
+
+</div>
+  </section>
 
 
- <!-- Contact Section -->
-    <section id="contact" class="contact section">
+<!--Blood request popup form-->
+    <div class="modal fade" id="bloodRequestModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+     <div class="modal-content rounded-4">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-<!--        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>-->
-      </div><!-- End Section Title -->
+      <form method="POST" action="{% url 'request_blood' %}">
+        {% csrf_token %}
 
-      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-        <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div><!-- End Google Maps -->
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">🩸 Blood Request Form</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <!-- Body -->
+        <div class="modal-body">
 
-        <div class="row gy-4">
-
-          <div class="col-lg-4">
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Location</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
-              </div>
-            </div><!-- End Info Item -->
-
-            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              <i class="bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Us</h3>
-                <p>info@example.com</p>
-              </div>
-            </div><!-- End Info Item -->
-
+          <div class="mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" name="patient_name" class="form-control"
+                   placeholder="Enter patient name (optional)">
           </div>
 
-          <div class="col-lg-8">
-            <form action="{% url 'save_contact' %}" method="post" class="contact_form">
-              {% csrf_token %}
-              <div class="row gy-4">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Blood Group</label>
+              <select name="blood_group" class="form-select" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option>
+                <option>O+</option><option>O-</option>
+              </select>
+            </div>
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Units Required</label>
+              <input type="number" name="units" class="form-control" min="1" value="1" required>
+            </div>
+          </div>
 
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
+          <div class="mb-3">
+            <label class="form-label">District</label>
+            <select name="location" class="form-select" required>
+              <option value="">Select District</option>
+              <option>Thiruvananthapuram</option>
+              <option>Kollam</option>
+              <option>Pathanamthitta</option>
+              <option>Alappuzha</option>
+              <option>Kottayam</option>
+              <option>Idukki</option>
+              <option>Ernakulam</option>
+              <option>Thrissur</option>
+              <option>Palakkad</option>
+              <option>Malappuram</option>
+              <option>Kozhikode</option>
+              <option>Wayanad</option>
+              <option>Kannur</option>
+              <option>Kasaragod</option>
+            </select>
+          </div>
 
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
+          <div class="mb-3">
+            <label class="form-label">Contact Phone</label>
+            <input type="text" name="phone" class="form-control"
+                   placeholder="Enter contact number" required>
+          </div>
 
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
+          <div class="mb-3">
+            <label class="form-label">Needed Date</label>
+            <input type="date" name="needed_date" class="form-control" required>
+          </div>
 
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
+          <div class="mb-3">
+            <label class="form-label">Reason (optional)</label>
+            <textarea name="reason" class="form-control" rows="3"
+                      placeholder="Enter reason"></textarea>
+          </div>
 
         </div>
 
-      </div>
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger w-100">
+            🩸 Submit Blood Request
+          </button>
+        </div>
 
-    </section><!-- /Contact Section -->
+      </form>
+
+    </div>
+  </div>
+</div>
 
 
+<!--  Ambulance request popup form-->
+
+  <div class="modal fade" id="ambulanceRequestModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <form method="post" action="{% url 'request_ambulance' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">🚑 Request Ambulance</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" name="patient_name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            <input type="text" name="contact_number" class="form-control" required>
+          </div>
+
+          <!-- ✅ Email Field Added -->
+          <div class="mb-3">
+            <label class="form-label">Email Address</label>
+            <input type="email" name="contact_email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Pickup Location</label>
+            <input type="text" name="pickup_location" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Emergency Description</label>
+            <textarea name="emergency_note" class="form-control" rows="3"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger w-100">
+            🚨 Send Ambulance Request
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
 
 
-
-
-
-
-
-<footer id="footer" class="footer light-background">
+ <footer id="footer" class="footer light-background">
 
     <div class="container footer-top">
       <div class="row gy-4">
@@ -316,6 +421,25 @@
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 4000); // 4 seconds
+</script>
+
+<script>
+setInterval(() => {
+    fetch("{% url 'check_request_status' %}")
+}, 5000);  // checks every 5 seconds
+</script>
+
+
+
+
 
 </body>
 

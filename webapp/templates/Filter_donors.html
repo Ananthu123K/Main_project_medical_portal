@@ -154,7 +154,109 @@
     </div>
 
   <!--    send request-->
-  <a href="{% url 'blood_request_form' %}" class="send-request-btn">Send Request</a>
+<!--  <a href="{% url 'blood_request_form' %}" class="send-request-btn">Send Request</a>-->
+<a href="#"
+   class="send-request-btn"
+   data-bs-toggle="modal"
+   data-bs-target="#bloodRequestModal">
+   🩸 Send Request
+</a>
+
+
+<!--   form for requesting blood -->
+    <div class="modal fade" id="bloodRequestModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+     <div class="modal-content rounded-4">
+
+      <form method="POST" action="{% url 'request_blood' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">🩸 Blood Request Form</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label class="form-label">Patient Name</label>
+            <input type="text" name="patient_name" class="form-control"
+                   placeholder="Enter patient name (optional)">
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Blood Group</label>
+              <select name="blood_group" class="form-select" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>AB+</option><option>AB-</option>
+                <option>O+</option><option>O-</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Units Required</label>
+              <input type="number" name="units" class="form-control" min="1" value="1" required>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">District</label>
+            <select name="location" class="form-select" required>
+              <option value="">Select District</option>
+              <option>Thiruvananthapuram</option>
+              <option>Kollam</option>
+              <option>Pathanamthitta</option>
+              <option>Alappuzha</option>
+              <option>Kottayam</option>
+              <option>Idukki</option>
+              <option>Ernakulam</option>
+              <option>Thrissur</option>
+              <option>Palakkad</option>
+              <option>Malappuram</option>
+              <option>Kozhikode</option>
+              <option>Wayanad</option>
+              <option>Kannur</option>
+              <option>Kasaragod</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Contact Phone</label>
+            <input type="text" name="phone" class="form-control"
+                   placeholder="Enter contact number" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Needed Date</label>
+            <input type="date" name="needed_date" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Reason (optional)</label>
+            <textarea name="reason" class="form-control" rows="3"
+                      placeholder="Enter reason"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger w-100">
+            🩸 Submit Blood Request
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
 
 
 

@@ -10,7 +10,7 @@
     align-items: center;
     gap: 10px;
     padding: 6px 16px;
-    background: linear-gradient(135deg, #9b5cff, #d65bff);
+    background: linear-gradient(135deg, #ff7f7f, #ff4c4c);
     color: #fff;
     text-decoration: none;
     border-radius: 14px;
@@ -22,73 +22,15 @@
 
 .auth-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(150, 80, 255, 0.45);
+    box-shadow: 0 8px 20px rgba(255, 92, 92, 0.45); /* soft red shadow */
 }
+
 
 
 
 /* Icon size */
 .auth-btn i {
     font-size: 15px;
-}
-
-/* Topbar background */
-.custom-topbar {
-    background: linear-gradient(135deg, #f8f9fc, #e9eef5);
-    padding: 8px 0;
-    font-size: 14px;
-    border-bottom: 1px solid #dbe1ea;
-}
-
-/* Contact items */
-.topbar-contact i {
-    display: flex;
-    align-items: center;
-    color: #444;
-    font-size: 14px;
-}
-
-/* Email & phone text */
-.topbar-contact a,
-.topbar-contact span {
-    color: #444;
-    margin-left: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s ease;
-}
-
-/* Hover effect */
-.topbar-contact a:hover,
-.topbar-contact span:hover {
-    color: #007bff; /* soft blue — matches all button colors */
-}
-
-/* Icons lighter gray */
-.topbar-contact i.bi {
-    color: #6c757d;
-    font-size: 15px;
-}
-/* Top Bar New Style (Earlier Color) */
-.lifelink-topbar {
-    background: #EAF0FF;
-    color: #fff;
-    padding: 6px 0;
-}
-
-.lifelink-topbar a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.lifelink-contact i {
-    margin-right: 8px;
-}
-
-.lifelink-contact span,
-.lifelink-contact a {
-    font-size: 14px;
 }
 
 

@@ -27,6 +27,19 @@
 
     <button type="submit" class="btn btn-primary mt-3">Add Service Category</button>
 </form>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'success' %}
+            <script> swal('{{ i }}', '', 'success'); </script>
+        {% elif i.tags == 'warning' %}
+            <script> swal('{{ i }}', '', 'warning'); </script>
+        {% elif i.tags == 'info' %}
+            <script> swal('{{ i }}', '', 'info'); </script>
+        {% else %}
+            <script> swal('{{ i }}', '', 'error'); </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
 
 </body>

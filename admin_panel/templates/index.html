@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'dashboard/images/favicon.png' %}">
     <!-- Pignose Calender -->
@@ -265,6 +267,24 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{% url 'display_messages' %}">Display messsges</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Ambulance Drivers</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'display_drivers' %}">Display messsges</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Ambulance requests</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'display_requests' %}">Display messsges</a></li>
 
                         </ul>
                     </li>

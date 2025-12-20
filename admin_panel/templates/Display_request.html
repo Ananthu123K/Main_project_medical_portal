@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html>
+<head>
+    <title>Ambulance Requests</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        th {
+            background-color: #b91c1c;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #fef2f2;
+        }
+        .pending { color: orange; font-weight: bold; }
+        .accepted { color: green; font-weight: bold; }
+        .rejected { color: red; font-weight: bold; }
+        .completed { color: blue; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>Ambulance Requests</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Patient</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Pickup Location</th>
+        <th>Emergency Note</th>
+        <th>Status</th>
+        <th>Assigned Driver</th>
+        <th>Requested At</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for req in requests %}
+    <tr>
+        <td>{{ req.id }}</td>
+        <td>{{ req.patient_name }}</td>
+        <td>{{ req.contact_number }}</td>
+        <td>{{ req.contact_email|default:"-" }}</td>
+        <td>{{ req.pickup_location }}</td>
+        <td>{{ req.emergency_note|default:"-" }}</td>
+
+        <td class="{{ req.status }}">
+            {{ req.status|title }}
+        </td>
+
+        <td>
+            {% if req.assigned_driver %}
+                {{ req.assigned_driver.driver_name }}
+            {% else %}
+                Not Assigned
+            {% endif %}
+        </td>
+
+        <td>{{ req.requested_at }}</td>
+
+        <td>
+            <a href="{% url 'delete_requests' req.id %}"
+               onclick="return confirm('Delete this request?')">
+               🗑️ Delete
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="10">No requests found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+{% endblock %}
