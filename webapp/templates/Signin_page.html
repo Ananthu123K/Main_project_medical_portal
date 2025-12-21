@@ -28,8 +28,48 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'Login/css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Login/css/main.css' %}">
 <!--===============================================================================================-->
+	<script src="{% static 'Login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'Login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
 </head>
+
 <body>
+{% if messages %}
+  <div style="
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      width: auto;
+      text-align: center;
+  ">
+    {% for message in messages %}
+      <div class="auto-alert"
+           style="
+             min-width: 300px;
+             padding: 14px 20px;
+             margin-bottom: 10px;
+             border-radius: 6px;
+             font-weight: 500;
+             color: #fff;
+             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+             {% if message.tags == 'success' %}
+               background-color: #28a745;
+             {% elif message.tags == 'error' %}
+               background-color: #dc3545;
+             {% elif message.tags == 'warning' %}
+               background-color: #ffc107; color:#212529;
+             {% else %}
+               background-color: #0dcaf0;
+             {% endif %}
+           ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
@@ -53,7 +93,7 @@
 					</div>
 
 					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
+						<a href="{% url 'forgot_password' %}">
 							Forgot password?
 						</a>
 					</div>
@@ -104,6 +144,9 @@
 
 	<div id="dropDownSelect1"></div>
 
+
+
+
 <!--===============================================================================================-->
 	<script src="{% static 'Login/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
@@ -120,6 +163,19 @@
 	<script src="{% static 'Login/vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'Login/js/main.js' %}"></script>
+
+<script>
+$(document).ready(function () {
+    setTimeout(function () {
+        $('.auto-alert').fadeOut('slow', function () {
+            $(this).remove();
+        });
+    }, 4000); // alert visible for 4 seconds
+});
+</script>
+
+
+
 
 </body>
 </html>

@@ -26,6 +26,8 @@
   <link href="{% static 'web/assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
   <link href="{% static 'web/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'web/assets/css/contact.css' %}">
+
 
   <!-- Main CSS File -->
   <link href="{% static 'web/assets/css/main_style.css' %}" rel="stylesheet">
@@ -80,23 +82,23 @@
             <li><a href="{% url 'Services' %}">Services</a></li>
             <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
             <li><a href="{% url 'Donors' %}">Donors</a></li>
-            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Dropdown 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Dropdown 2</a></li>
-                <li><a href="#">Dropdown 3</a></li>
-                <li><a href="#">Dropdown 4</a></li>
-              </ul>
-            </li>
+<!--            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--              <ul>-->
+<!--                <li><a href="#">Dropdown 1</a></li>-->
+<!--                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--                  <ul>-->
+<!--                    <li><a href="#">Deep Dropdown 1</a></li>-->
+<!--                    <li><a href="#">Deep Dropdown 2</a></li>-->
+<!--                    <li><a href="#">Deep Dropdown 3</a></li>-->
+<!--                    <li><a href="#">Deep Dropdown 4</a></li>-->
+<!--                    <li><a href="#">Deep Dropdown 5</a></li>-->
+<!--                  </ul>-->
+<!--                </li>-->
+<!--                <li><a href="#">Dropdown 2</a></li>-->
+<!--                <li><a href="#">Dropdown 3</a></li>-->
+<!--                <li><a href="#">Dropdown 4</a></li>-->
+<!--              </ul>-->
+<!--            </li>-->
             <li><a href="{% url 'Contact' %}">Contact</a></li>
             <li><a href="{% url 'service_registration' %}">Join Us</a></li>
           </ul>
@@ -402,7 +404,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content rounded-4">
 
-      <form method="POST" enctype="multipart/form-data" action="{% url 'donor_signup' %}">
+      <form id="donorForm" method="POST" enctype="multipart/form-data" action="{% url 'donor_signup' %}">
         {% csrf_token %}
 
         <!-- Header -->
@@ -415,16 +417,19 @@
         <div class="modal-body">
 
           <div class="row g-3">
+
             <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+              <input type="text" name="name" id="donor_name" class="form-control" placeholder="Full Name" required>
             </div>
 
             <div class="col-md-6">
-              <input type="email" name="email" class="form-control" placeholder="Email" required>
+              <input type="email" name="email" id="donor_email" class="form-control" placeholder="Email" required>
+              <small id="donor_email_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
-              <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+              <input type="text" name="phone" id="donor_phone" class="form-control" placeholder="Phone Number" required>
+              <small id="donor_phone_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
@@ -474,40 +479,42 @@
             </div>
 
             <div class="col-md-6">
-              <input type="password" name="password" class="form-control" placeholder="Password" required>
+              <input type="password" name="password" id="donor_password" class="form-control" placeholder="Password" required>
+              <small id="donor_password_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
-              <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+              <input type="password" name="confirm_password" id="donor_confirm_password" class="form-control" placeholder="Confirm Password" required>
+              <small id="donor_confirm_error" style="color:#dc3545;"></small>
             </div>
+
           </div>
 
         </div>
 
         <!-- Footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-danger w-100">
+          <button type="submit" id="donor_submit" class="btn btn-danger w-100">
             ✅ Register as Donor
           </button>
         </div>
 
-
       </form>
+
       <div class="text-center mt-2">
-  <button type="button"
-        class="btn btn-outline-secondary w-100 mt-2"
-        data-bs-toggle="modal"
-        data-bs-target="#donorLoginModal"
-        data-bs-dismiss="modal">
-  🔐 Login Instead
-</button>
-
-</div>
-
+        <button type="button"
+                class="btn btn-outline-secondary w-100 mt-2"
+                data-bs-toggle="modal"
+                data-bs-target="#donorLoginModal"
+                data-bs-dismiss="modal">
+          🔐 Login Instead
+        </button>
+      </div>
 
     </div>
   </div>
 </div>
+
 
 
 
@@ -653,12 +660,12 @@
 
 
 
-<!-- Ambulance Redgistration-->
+<!-- Ambulance Registration-->
     <div class="modal fade" id="ambulanceRegisterModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content" style="border-radius:10px;">
 
-      <form method="POST" enctype="multipart/form-data" action="{% url 'ambulance_register' %}">
+      <form method="POST" enctype="multipart/form-data" action="{% url 'ambulance_register' %}" id="ambulanceForm">
         {% csrf_token %}
 
         <!-- Header -->
@@ -669,32 +676,34 @@
 
         <!-- Body -->
         <div class="modal-body" style="background:#fff;">
-
           <div class="row g-3">
 
             <div class="col-md-6">
-              <input type="text" name="driver_name" placeholder="Driver Name" required
+              <input type="text" name="driver_name" id="driver_name" placeholder="Driver Name" required
+                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+              <small id="driver_name_error" style="color:#dc3545;"></small>
+            </div>
+
+            <div class="col-md-6">
+              <input type="email" name="email" id="email" placeholder="Email" required
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
             </div>
 
             <div class="col-md-6">
-              <input type="email" name="email" placeholder="Email" required
+              <input type="text" name="phone" id="phone" placeholder="Phone Number" required
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
             </div>
 
             <div class="col-md-6">
-              <input type="text" name="phone" placeholder="Phone Number" required
+              <input type="text" name="license_number" id="license_number" placeholder="License Number" required
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+              <small id="license_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
-              <input type="text" name="license_number" placeholder="License Number" required
+              <input type="text" name="ambulance_number" id="ambulance_number" placeholder="Ambulance Number"
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
-            </div>
-
-            <div class="col-md-6">
-              <input type="text" name="ambulance_number" placeholder="Ambulance Number"
-                     style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+              <small id="ambulance_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
@@ -703,51 +712,58 @@
             </div>
 
             <div class="col-12">
-              <textarea name="address" placeholder="Address"
+              <textarea name="address" placeholder="Address" id="address"
                         style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;"></textarea>
+              <small id="address_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
-              <input type="text" name="username" placeholder="Username" required
+              <input type="text" name="username" id="username" placeholder="Username" required
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
+              <small id="username_error" style="color:#dc3545;"></small>
             </div>
 
             <div class="col-md-6">
-              <input type="password" name="password" placeholder="Password" required
+              <input type="password" name="password" id="password" placeholder="Password" required
                      style="width:100%; padding:10px; border:1px solid #dc3545; border-radius:5px;">
             </div>
 
           </div>
-
         </div>
 
-
+        <!-- Footer -->
         <div class="modal-footer">
           <button type="submit"
-                  style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px;">
+                  id="submitBtn"
+                  style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px;"
+                  disabled>
             🚑 Register Ambulance
           </button>
         </div>
 
       </form>
+
       <div style="text-align:center; margin-bottom:15px;">
-  <p style="margin:0;">
-    Already have an account?
-    <a href="#"
-       style="color:#dc3545; font-weight:600; text-decoration:none;"
-       data-bs-toggle="modal"
-       data-bs-target="#driverLoginModal"
-       data-bs-dismiss="modal">
-       Login
-    </a>
-  </p>
-</div>
-
-
+        <p style="margin:0;">
+          Already have an account?
+          <a href="#"
+             style="color:#dc3545; font-weight:600; text-decoration:none;"
+             data-bs-toggle="modal"
+             data-bs-target="#driverLoginModal"
+             data-bs-dismiss="modal">
+             Login
+          </a>
+        </p>
+      </div>
 
     </div>
   </div>
 </div>
+
+
+<!-- Include the JS -->
+<script src="{% static 'js/ambulance_form_validation.js' %}"></script>
+
 
 
 
@@ -924,6 +940,8 @@
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>
+  <script src="{% static 'web/assets/js/ambulance_validation.js' %}"></script>
+  <script src="{% static 'web/assets/js/donor_validation.js' %}"></script>
 <script>
   setTimeout(() => {
     const alerts = document.querySelectorAll('.alert');
@@ -939,10 +957,6 @@ setInterval(() => {
     fetch("{% url 'check_request_status' %}")
 }, 5000);  // checks every 5 seconds
 </script>
-
-
-
-
 
 </body>
 

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.utils.datastructures import MultiValueDictKeyError
 from admin_panel.models import ServiceCategoryDb,BloodCategory
 from webapp.models import *
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password    #for hashing and reset
 from django.contrib.auth.hashers import check_password
 from datetime import date, timedelta
 from django.core.files.storage import FileSystemStorage
@@ -12,6 +12,11 @@ from django.core.mail import send_mail
 from twilio.rest import Client
 from django.conf import settings
 from django.http import HttpResponse
+from .utils import is_strong_password
+import uuid
+from django.utils import timezone
+
+
 
 
 #for email  sms and profile notifications
@@ -40,19 +45,30 @@ def donors_page(request):
     blood_groups = DonorRegistrationDb.objects.values_list("BloodGroup", flat=True).distinct()
     return render(request,"Donors.html",{"services":services,"donors":donors,"locations":locations,"blood_groups":blood_groups})
 def contact_page(request):
-    return render(request,"Contact.html")
+    services = ServiceCategoryDb.objects.all()
+    return render(request,"Contact.html",{'services':services})
 def about_page(request):
-    return render(request,"About.html")
+    services = ServiceCategoryDb.objects.all()
+    return render(request,"About.html",{'services':services})
 def signup_page(request):
     return render(request,"Signup_page.html")
 def signin_page(request):
     return render(request,"Signin_page.html")
 def service_detail(request, service_id):
+    services = ServiceCategoryDb.objects.all()
     service = ServiceCategoryDb.objects.filter(id=service_id).first()
 
-    return render(request, 'Service_detail.html', {
+    return render(request, 'Service_detail.html', {'services':services,
         'service': service
     })
+
+
+
+
+
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.contrib.auth.hashers import make_password
 
 def user_signup(request):
     if request.method == 'POST':
@@ -62,29 +78,47 @@ def user_signup(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
 
-        # Check if user already exists
-        if UserRegistration.objects.filter(Email=email).exists():
+        # PASSWORD STRENGTH CHECK
+        valid, error = is_strong_password(password)
+        if not valid:
+            messages.error(request, error)
             return redirect('signup_page')
-        elif UserRegistration.objects.filter(Name=name).exists():
-            return redirect('signup_page')
-        elif password != confirm_password:
-            return redirect('signup_page')
-        else:
-            # HASH THE PASSWORD
-            hashed_password = make_password(password)
 
-            user = UserRegistration(
-                Name=name,
-                Email=email,
-                Phone=phone,
-                Password=hashed_password,
-                Confirm_password=hashed_password,
-            )
-            user.save()
-            # print("User created successfully")
-            return redirect('signin_page')
+        # Email already exists
+        if UserRegistration.objects.filter(Email=email).exists():
+            messages.error(request, "Email already registered")
+            return redirect('signup_page')
+
+        # Name already exists
+        if UserRegistration.objects.filter(Name=name).exists():
+            messages.error(request, "Name already exists")
+            return redirect('signup_page')
+
+        # Password mismatch
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect('signup_page')
+
+        # HASH PASSWORD
+        hashed_password = make_password(password)
+
+        user = UserRegistration(
+            Name=name,
+            Email=email,
+            Phone=phone,
+            Password=hashed_password,
+            Confirm_password=hashed_password,
+        )
+        user.save()
+
+        messages.success(request, "Registration successful. Please login.")
+        return redirect('signin_page')
 
     return redirect('signup_page')
+
+
+
+
 
 
 
@@ -95,24 +129,25 @@ def user_login(request):
         pswd = request.POST.get('password')
 
         try:
-            user =UserRegistration.objects.get(Name=un)
+            user = UserRegistration.objects.get(Name=un)
         except UserRegistration.DoesNotExist:
-            # print("Invalid credentials") using js
+            messages.error(request, "Invalid username or password")
             return redirect('signin_page')
 
         # CHECK HASHED PASSWORD
         if check_password(pswd, user.Password):
 
-            # Create session using user_id
+            # Create session
             request.session['user_id'] = user.id
             request.session['Name'] = user.Name
 
             return redirect('Home')
         else:
-            # print("Invalid credentials") using js
+            messages.error(request, "Invalid username or password")
             return redirect('signin_page')
 
     return redirect('signin_page')
+
 
 def user_logout(request):
     if 'user_id' in request.session:
@@ -158,17 +193,26 @@ def donor_signup(request):
         gender = request.POST.get('gender')
         image = request.FILES.get('image')
 
-        # Validations
-        if DonorRegistrationDb.objects.filter(Email=email).exists():
-            # messages.error(request, "Email already exists")
-            return redirect('donor_signup')
-        elif password != confirm_password:
-            # messages.error(request, "Passwords do not match")
-            return redirect('donor_signup')
+        #  Password match check
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect(request.META.get("HTTP_REFERER", "donor_signup"))
 
-        # Hash password
+        #  Password strength check
+        valid, error = is_strong_password(password)
+        if not valid:
+            messages.error(request, error)
+            return redirect(request.META.get("HTTP_REFERER", "donor_signup"))
+
+        # Email uniqueness check
+        if DonorRegistrationDb.objects.filter(Email=email).exists():
+            messages.error(request, "Email already exists")
+            return redirect(request.META.get("HTTP_REFERER", "donor_signup"))
+
+        # 4. Hash password
         hashed_password = make_password(password)
 
+        # 5. Save donor
         donor = DonorRegistrationDb(
             Name=name,
             Email=email,
@@ -176,17 +220,18 @@ def donor_signup(request):
             BloodGroup=blood_group,
             Location=location,
             Password=hashed_password,
-            Confirm_password=hashed_password,
             Age=age,
             Gender=gender,
             Image=image,
             is_active=True
         )
         donor.save()
-        # messages.success(request, "Donor registered successfully! Please login.")
-        return redirect('donor_login_page')
 
-    return redirect('donor_signup_page')
+        messages.success(request, "Donor registered successfully! Please login.")
+        return redirect('Home')
+
+    return redirect('Home')
+
 
 
 
@@ -333,8 +378,10 @@ def donor_profile(request):
 
     return render(request, 'Donor_profile.html', {
         'donor': donor,
-        'days_left': days_left
+        'days_left': days_left,
+
     })
+
 
 
 # -----------------------------
@@ -379,6 +426,7 @@ def mark_donated(request):
 # filter donors based on location and blood group
 
 def filtered_donors(request):
+    services = ServiceCategoryDb.objects.all()
     location = request.GET.get("location")
     blood = request.GET.get("blood")
 
@@ -395,12 +443,14 @@ def filtered_donors(request):
     if blood and blood != "":
         donors = donors.filter(BloodGroup=blood)
 
+
     return render(request, "Filter_donors.html", {
         "donors": donors,
         "location": location,
         "blood": blood,
         "locations":locations,
-        "blood_groups":blood_groups
+        "blood_groups":blood_groups,
+        "services":services
 
     })
 
@@ -447,7 +497,7 @@ def request_blood(request):
             reason=request.POST.get('reason'),
         )
 
-        # 🔍 FIND MATCHING DONORS
+        #  FIND MATCHING DONORS
         donors = DonorRegistrationDb.objects.filter(
             BloodGroup__iexact=br.blood_group,
             Location__iexact=br.location,
@@ -461,7 +511,7 @@ def request_blood(request):
                 donor=donor
             )
 
-            # 📧 SEND EMAIL
+            # SEND EMAIL
             if donor.Email:
                 subject = "🩸 Urgent Blood Donation Request"
                 message = f"""
@@ -493,6 +543,7 @@ LifeLink Health Portal
 
     return redirect('blood_request_form')
 
+
 def donor_notifications(request):
     if 'donor_id' not in request.session:
         return redirect('donor_login_page')
@@ -511,6 +562,7 @@ def donor_notifications(request):
     return render(request, "Donor_notification.html", {
         "assignments": assignments
     })
+
 
 
 
@@ -615,7 +667,8 @@ def service_registration(request):
     return render(request,"Registrations.html")
 
 def ambulance_service_page(request):
-    return render(request,"Ambulance.html")
+    services=ServiceCategoryDb.objects.all()
+    return render(request,"Ambulance.html",{"services":services})
 
 def ambulance_register(request):
     if request.method == 'POST':
@@ -628,6 +681,12 @@ def ambulance_register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         driver_photo = request.FILES.get('driver_photo')
+
+        # PASSWORD STRENGTH CHECK (added)
+        valid, error = is_strong_password(password)
+        if not valid:
+            messages.error(request, error)
+            return redirect(request.META.get('HTTP_REFERER'))
 
         # Check if email or username or license or ambulance number already exists
         if AmbulanceDriver.objects.filter(email=email).exists():
@@ -655,7 +714,7 @@ def ambulance_register(request):
             ambulance_number=ambulance_number,
             address=address,
             username=username,
-            password=password,  # simple save, no hashing
+            password=password,
             driver_photo=driver_photo,
             is_available=True,
             is_active=True
@@ -665,7 +724,8 @@ def ambulance_register(request):
         messages.success(request, "Ambulance registered successfully!")
         return redirect(request.META.get('HTTP_REFERER'))
 
-    return redirect('home')
+    return redirect('Home')
+
 
 
 def ambulance_driver_login(request):
@@ -693,7 +753,7 @@ def ambulance_driver_login(request):
 def driver_logout(request):
     request.session.flush()
     messages.success(request, "Logged out successfully")
-    return redirect('home')
+    return redirect('Home')
 
 
 
@@ -758,7 +818,7 @@ def send_email(subject, message, to_email):
 
 
 # ==================================================
-# 1️⃣ USER REQUESTS AMBULANCE
+# 1️ USER REQUESTS AMBULANCE
 # ==================================================
 def request_ambulance(request):
     if request.method == "POST":
@@ -825,7 +885,7 @@ Please login and accept or reject the request.
 
 
 # ==================================================
-# 2️⃣ DRIVER DASHBOARD
+# 2️ DRIVER DASHBOARD
 # ==================================================
 
 def driver_dashboard(request):
@@ -841,7 +901,7 @@ def driver_dashboard(request):
         is_active=True
     )
 
-    # ✅ Show only waiting requests assigned to this driver
+    # Show only waiting requests assigned to this driver
     waiting_assignments = AmbulanceAssignment.objects.filter(
         driver=current_driver,
         status='waiting',
@@ -856,7 +916,7 @@ def driver_dashboard(request):
 
 
 # ==================================================
-# 3️⃣ DRIVER ACCEPTS REQUEST
+# 3️ DRIVER ACCEPTS REQUEST
 # =================================================
 def accept_request(request, req_id):
     driver_id = request.session.get('driver_id')
@@ -942,7 +1002,7 @@ Thank you for using LifeLink Health Portal.
 
 
 # ==================================================
-# 4️⃣ DRIVER REJECTS REQUEST
+# 4️ DRIVER REJECTS REQUEST
 # ==================================================
 def reject_request(request, assignment_id):
     assignment = get_object_or_404(AmbulanceAssignment, id=assignment_id)
@@ -982,18 +1042,70 @@ def test_driver_email(request):
 
 
 
+#password reset for user
 
 
 
 
 
 
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = UserRegistration.objects.get(Email=email)
+        except UserRegistration.DoesNotExist:
+            messages.error(request, "Email not registered")
+            return redirect('forgot_password_page')
+
+        # Generate token
+        reset_token = str(uuid.uuid4())
+        PasswordReset.objects.create(user=user, token=reset_token)
+
+        # Create reset link
+        reset_link = f"http://127.0.0.1:8000/health_service_portal/reset-password/{reset_token}/"
+
+        # Send email
+        send_mail(
+            subject="Reset your password",
+            message=f"Click this link to reset your password: {reset_link}",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+        )
+
+        messages.success(request, "Reset link sent to your email")
+        return redirect('signin_page')
+
+    return render(request, 'Forgot_password.html')
 
 
 
 
 
+def reset_password(request, token):
+    try:
+        reset = PasswordReset.objects.get(token=token)
+    except PasswordReset.DoesNotExist:
+        messages.error(request, "Invalid or expired reset link")
+        return redirect('signin_page')
 
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, "Passwords do not match")
+            return redirect(request.path)
+
+        reset.user.Password = make_password(password)
+        reset.user.Confirm_password = reset.user.Password
+        reset.user.save()
+        reset.delete()  # one-time use
+
+        messages.success(request, "Password reset successful. Please login.")
+        return redirect('signin_page')
+
+    return render(request, 'Reset_password.html', {'token': token})
 
 
 

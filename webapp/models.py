@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import uuid
 
 # Create your models here.
 
@@ -173,7 +174,13 @@ class AmbulanceAssignment(models.Model):
         return f"{self.driver.driver_name} -> {self.request.patient_name}"
 
 
+class PasswordReset(models.Model):
+    user = models.ForeignKey(UserRegistration, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.user.Email} - {self.token}"
 
 
 

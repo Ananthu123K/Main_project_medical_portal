@@ -1,6 +1,7 @@
 from django.urls import path
 from webapp import views
 
+
 urlpatterns=[
     path('Home/',views.home_page,name="Home"),
     path('Services/',views.service_page,name="Services"),
@@ -28,7 +29,7 @@ urlpatterns=[
     path('blood_request_form/',views.blood_request_form,name="blood_request_form"),
     path('blood_request_success/',views.blood_request_success,name="blood_request_success"),
     path('request_blood/',views.request_blood,name="request_blood"),
-    path('donor_notifications/',views.donor_notifications,name="donor_notifications"),
+    path('donor/notifications/', views.donor_notifications, name='donor_notifications'),
     path('blood-request/accept/<int:request_id>/', views.accept_blood_request, name='accept_blood_request' ),
     path('blood-request/reject/<int:request_id>/',views.reject_blood_request,name='reject_blood_request'),
 
@@ -47,6 +48,11 @@ urlpatterns=[
     path('reject_request/<int:assignment_id>/', views.reject_request, name='reject_request'),
     path('check_request_status/', views.check_request_status, name='check_request_status'),
     path('test_driver_email/', views.test_driver_email),
+
+    #password reset
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
+    path('reset-password/<str:token>/', views.reset_password, name='reset_password'),
+
 
 
 

@@ -3,155 +3,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'web/assets/css/donor_profile.css' %}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'web/assets/css/Donor_profile.css' %}">
 </head>
 
 <body>
 
-<div class="full-dashboard-wrapper">
+<div class="dashboard-wrapper">
 
-    <!-- Main container-->
-    <div class="dashboard-container">
-
-
-    <div class="dashboard-container">
-
-    <!-- ================= PROFILE HEADER CARD ================= -->
-    <div class="profile-header-card">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
 
         {% if donor.Image %}
-        <img src="{{ donor.Image.url }}" class="profile-img" alt="{{ donor.Name }}">
+            <img src="{{ donor.Image.url }}" class="profile-img">
         {% else %}
-        <img src="{% static 'images/default-avatar.png' %}" class="profile-img" alt="Avatar">
+            <img src="{% static 'images/default-avatar.png' %}" class="profile-img">
         {% endif %}
 
         <h2 class="profile-name">{{ donor.Name }}</h2>
-        <p class="profile-email"><i class="fa-solid fa-envelope"></i> {{ donor.Email }}</p>
+        <p class="profile-email">{{ donor.Email }}</p>
 
-        <!-- Status -->
         <span class="status-badge {% if donor.is_active %}active-badge{% else %}inactive-badge{% endif %}">
             {{ donor.is_active|yesno:"Active,Inactive" }}
         </span>
-        <!-- Notification button -->
-        <a href="{% url 'donor_notifications' %}" class="notif-btn">
-            🔔 Notifications
-            {% if unread_count %}
-                <span class="badge-count">{{ unread_count }}</span>
-            {% endif %}
-        </a>
 
+        <nav class="sidebar-menu">
 
-    </div>
+            <a href="{% url 'edit_donor_profile' donor.id %}">
+                <i class="fa-solid fa-user-pen"></i> Edit Profile
+            </a>
 
-    <!-- ================= MY IMPACT CARD ================= -->
-    <div class="card impact-card">
-        <h3 class="card-title">My Impact</h3>
+            <form method="POST" action="{% url 'toggle_donor_status' %}">
+                {% csrf_token %}
+                <button type="submit">
+                    <i class="fa-solid fa-power-off"></i>
+                    {{ donor.is_active|yesno:"Deactivate,Activate" }}
+                </button>
+            </form>
 
-        <div class="impact-grid">
+            <form method="POST" action="{% url 'mark_donated' %}">
+                {% csrf_token %}
+                <button type="submit">
+                    <i class="fa-solid fa-heart"></i> I Donated Blood
+                </button>
+            </form>
 
-            <div class="impact-box">
-                <i class="fa-solid fa-heart-pulse"></i>
-                <h4>Lives Saved</h4>
-                <p> {{ donor.life_saved }}</p>
+            <a href="{% url 'Home' %}">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
 
-            </div>
+            <a href="{% url 'donor_logout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
 
-            <div class="impact-box">
-                <i class="fa-solid fa-hand-holding-medical"></i>
-                <h4>Times Donated</h4>
-                <p>4+</p>
-            </div>
+        </nav>
+    </aside>
 
-            <div class="impact-box">
-                <i class="fa-solid fa-people-group"></i>
-                <h4>People Impacted</h4>
-                <p>200+</p>
-            </div>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
 
+        <!-- Notification -->
+        <div class="notification-wrapper">
+            <a href="{% url 'donor_notifications' %}" class="notification-bell">
+                <i class="fa-solid fa-bell"></i>
+                {% if unread_count %}
+                    <span class="notification-badge">{{ unread_count }}</span>
+                {% endif %}
+            </a>
         </div>
-    </div>
 
-    <!-- ================= DONOR DETAILS ================= -->
-    <div class="card details-card">
-        <h3 class="card-title">My Details</h3>
+        <!-- Impact -->
+        <section class="card">
+            <h3 class="card-title">My Impact</h3>
 
-        <div class="detail-item"><i class="fa-solid fa-droplet"></i> Blood Group: {{ donor.BloodGroup }}</div>
-        <div class="detail-item"><i class="fa-solid fa-phone"></i> Phone: {{ donor.phone }}</div>
-        <div class="detail-item"><i class="fa-solid fa-cake-candles"></i> Age: {{ donor.Age }}</div>
-        <div class="detail-item"><i class="fa-solid fa-venus-mars"></i> Gender: {{ donor.Gender }}</div>
-        <div class="detail-item"><i class="fa-solid fa-location-dot"></i> Location: {{ donor.Location }}</div>
-    </div>
+            <div class="impact-grid">
+                <div class="impact-box">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <h4>Lives Saved</h4>
+                    <p>{{ donor.life_saved }}</p>
+                </div>
 
-    <!-- ================= RECENT DONATIONS ================= -->
-<!--    <div class="card donation-card">-->
-<!--        <h3 class="card-title">Recent Donations</h3>-->
+                <div class="impact-box">
+                    <i class="fa-solid fa-hand-holding-medical"></i>
+                    <h4>Times Donated</h4>
+                    <p>4+</p>
+                </div>
 
-<!--        <ul class="donation-list">-->
-<!--            <li><strong>October 26, 2024</strong> — Education</li>-->
-<!--            <li><strong>September 15</strong> — Education</li>-->
-<!--            <li><strong>July 15</strong> — Environment</li>-->
-<!--            <li><strong>July 30</strong> — Healthcare</li>-->
-<!--        </ul>-->
-<!--    </div>-->
+                <div class="impact-box">
+                    <i class="fa-solid fa-people-group"></i>
+                    <h4>People Impacted</h4>
+                    <p>200+</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- ================= BADGES CARD ================= -->
-<!--    <div class="card badges-card">-->
-<!--        <h3 class="card-title">My Badges</h3>-->
+        <!-- Details -->
+        <section class="card">
+            <h3 class="card-title">My Details</h3>
 
-<!--        <div class="badge-container">-->
-<!--            <span class="badge bronze">Donor</span>-->
-<!--            <span class="badge silver">Contributor</span>-->
-<!--            <span class="badge gold">Super Donor</span>-->
-<!--            <span class="badge green">Community Hero</span>-->
-<!--        </div>-->
-<!--    </div>-->
+            <div class="detail-item"><i class="fa-solid fa-droplet"></i> Blood Group: {{ donor.BloodGroup }}</div>
+            <div class="detail-item"><i class="fa-solid fa-phone"></i> Phone: {{ donor.phone }}</div>
+            <div class="detail-item"><i class="fa-solid fa-cake-candles"></i> Age: {{ donor.Age }}</div>
+            <div class="detail-item"><i class="fa-solid fa-venus-mars"></i> Gender: {{ donor.Gender }}</div>
+            <div class="detail-item"><i class="fa-solid fa-location-dot"></i> Location: {{ donor.Location }}</div>
+        </section>
 
-    <!-- ================= STORIES ================= -->
-<!--    <div class="card stories-card">-->
-<!--        <h3 class="card-title">My Stories</h3>-->
+    </main>
 
-<!--        <div class="story-item"><i class="fa-solid fa-circle-check"></i> Supported Alex Surgery</div>-->
-<!--        <div class="story-item"><i class="fa-solid fa-circle-check"></i> Helped Expat in Village</div>-->
-<!--    </div>-->
 
-    <!-- ================= ACTION BUTTONS ================= -->
-    <div class="card action-card">
-
-        <a href="{% url 'edit_donor_profile' donor.id %}" class="main-btn edit-btn">
-            <i class="fa-solid fa-pen-to-square"></i> Edit Profile
-        </a>
-
-        <form method="POST" action="{% url 'toggle_donor_status' %}">
-            {% csrf_token %}
-            <button type="submit" class="main-btn {% if donor.is_active %}active-btn{% else %}inactive-btn{% endif %}">
-                <i class="fa-solid fa-power-off"></i>
-                {{ donor.is_active|yesno:"Active,Inactive" }}
-            </button>
-        </form>
-
-        <form method="POST" action="{% url 'mark_donated' %}">
-            {% csrf_token %}
-            <button class="main-btn donate-btn">
-                <i class="fa-solid fa-heart-circle-bolt"></i> I Donated Blood
-            </button>
-        </form>
-
-        <a href="{% url 'donor_logout' %}" class="main-btn logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </a>
-
-        <a href="{% url 'Home' %}" class="main-btn home-btn">
-            <i class="fa-solid fa-house"></i> Home
-        </a>
-
-    </div>
-
-    </div>
-    </div>
 
 </div>
 
