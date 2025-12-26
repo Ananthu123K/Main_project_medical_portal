@@ -38,149 +38,288 @@
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+<header id="header" class="header sticky-top">
 
-<!--       <div class="topbar d-flex align-items-center">-->
-<!--      <div class="container d-flex justify-content-center justify-content-md-between">-->
-<!--        <div class="contact-info d-flex align-items-center">-->
-<!--&lt;!&ndash;          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>&ndash;&gt;-->
-<!--&lt;!&ndash;          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>&ndash;&gt;-->
-<!--        </div>-->
-<!--&lt;!&ndash;        <div class="social-links d-none d-md-flex align-items-center">&ndash;&gt;-->
-<!--&lt;!&ndash;          {% if request.session.user_id %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'user_logout' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Welcome {{ request.session.Name }} / Logout</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'signin_page' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Login</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
+  <div class="branding d-flex align-items-center">
 
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>&lt;!&ndash; End Top Bar &ndash;&gt;-->
+    <div class="container position-relative d-flex align-items-center justify-content-between">
 
-<!-- End Top Bar -->
+      <!-- Logo -->
+      <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Emblem -->
+        <span class="logo-emblem">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <!-- Text -->
+        <h1 class="sitename">LifelinkPulse</h1>
+      </a>
 
-    <div class="branding d-flex align-items-center">
 
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">Lifelink</h1>
-        </a>
+      <!-- Navbar Menu -->
+      <nav id="navmenu" class="navmenu">
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="{% url 'Home' %}" >Home<br></a></li>
-            <li><a href="{% url 'About' %}" class="active">About</a></li>
-            <li><a href="{% url 'Services' %}">Services</a></li>
-            <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
-            <li><a href="{% url 'Donors' %}">Donors</a></li>
-<!--            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--              <ul>-->
-<!--                <li><a href="#">Dropdown 1</a></li>-->
-<!--                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--                  <ul>-->
-<!--                    <li><a href="#">Deep Dropdown 1</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 2</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 3</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 4</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 5</a></li>-->
-<!--                  </ul>-->
-<!--                </li>-->
-<!--                <li><a href="#">Dropdown 2</a></li>-->
-<!--                <li><a href="#">Dropdown 3</a></li>-->
-<!--                <li><a href="#">Dropdown 4</a></li>-->
-<!--              </ul>-->
-<!--            </li>-->
-            <li><a href="{% url 'Contact' %}">Contact</a></li>
-            <li><a href="{% url 'service_registration' %}">Join Us</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <ul class="nav-list">
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="{% url 'Home' %}" class="nav-link ">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </li>
 
-        </nav>
-        <div class="auth-container d-none d-md-flex align-items-center">
-    {% if request.session.user_id %}
-        <a href="{% url 'user_logout' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Welcome {{ request.session.Name }} / Logout</span>
-        </a>
-    {% else %}
-        <a href="{% url 'signin_page' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Login</span>
-        </a>
-    {% endif %}
+          <!-- About -->
+          <li class="nav-item">
+            <a href="{% url 'About' %}" class="nav-link active">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+
+          <!-- Services -->
+          <li class="nav-item dropdown">
+            <a href="{% url 'Services' %}" class="nav-link">
+              <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Service 1</a></li>
+              <li><a href="#">Service 2</a></li>
+            </ul>
+          </li>
+
+          <!-- Ambulance -->
+          <li class="nav-item">
+            <a href="{% url 'ambulance_service_page' %}" class="nav-link">
+              <i class="bi bi-truck"></i> Ambulance
+            </a>
+          </li>
+
+          <!-- Donors -->
+          <li class="nav-item">
+            <a href="{% url 'Donors' %}" class="nav-link">
+              <i class="bi bi-people"></i> Donors
+            </a>
+          </li>
+
+
+          <!-- Contact -->
+          <li class="nav-item">
+            <a href="{% url 'Contact' %}" class="nav-link">
+              <i class="bi bi-envelope"></i> Contact
+            </a>
+          </li>
+
+          <!-- Join Us -->
+          <li class="nav-item">
+  <a href="{% url 'service_registration' %}" class="nav-link btn-join">
+    <i class="bi bi-person-plus"></i> Join Us
+  </a>
+</li>
+
+
+
+<!--  login and logout-->
+
+         <li class="nav-item">
+  {% if request.session.user_id %}
+    <a href="{% url 'user_logout' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i>{{ request.session.Name }}
+    </a>
+  {% else %}
+    <a href="{% url 'signin_page' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+  {% endif %}
+</li>
+
+
+        </ul>
+
+
+
+        <!-- Mobile Menu Toggle -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+      <!-- Authentication -->
+
+
+
+
+    </div>
+  </div>
+
+</header>
+
+
+
+  <section id="about" class="about-section py-5">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <div class="text-center mb-5">
+      <h2 class="about-heading fw-bold">About Us</h2>
+      <p class="text-muted">Trusted Health & Blood Donation Portal</p>
+    </div>
+
+    <div class="row align-items-center g-5 mb-5">
+      <!-- Image / Illustration -->
+      <div class="col-lg-6">
+        <div class="about-image rounded-4 shadow-sm overflow-hidden">
+          <img src="{% static 'web/assets/img/img.png' %}" alt="About" class="img-fluid">
+        </div>
+      </div>
+
+      <!-- Intro Content -->
+      <div class="col-lg-6">
+        <h3 class="fw-bold mb-3">Your Trusted Health & Blood Donation Portal</h3>
+        <p class="text-muted mb-4">
+          Our platform brings essential healthcare services, verified medical guidance,
+          and a secure blood donation system all in one place. We are committed to
+          promoting safe blood donation, connecting donors with those in need,
+          and making healthcare accessible to everyone.
+        </p>
+
+        <!-- Mission & Vision Cards -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="mv-card hover-scale text-center h-100 p-4 rounded-4 shadow-sm">
+              <i class="fa-solid fa-eye fa-2x mb-3 text-danger"></i>
+              <h5 class="fw-bold mb-2">Our Vision</h5>
+              <p class="text-muted mb-0">To build a healthier community with seamless access to medical services and safe blood donations.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mv-card hover-scale text-center h-100 p-4 rounded-4 shadow-sm">
+              <i class="fa-solid fa-bullseye fa-2x mb-3 text-danger"></i>
+              <h5 class="fw-bold mb-2">Our Mission</h5>
+              <p class="text-muted mb-0">To connect donors and patients efficiently while providing reliable health services online.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="row g-3 mb-4 text-center">
+          <div class="col-4">
+            <div class="stat-card hover-scale p-3 rounded-4 shadow-sm bg-white">
+              <h3 class="fw-bold text-danger">1,250+</h3>
+              <p class="text-muted mb-0">Registered Donors</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-card hover-scale p-3 rounded-4 shadow-sm bg-white">
+              <h3 class="fw-bold text-danger">3,400+</h3>
+              <p class="text-muted mb-0">Lives Saved</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-card hover-scale p-3 rounded-4 shadow-sm bg-white">
+              <h3 class="fw-bold text-danger">50+</h3>
+              <p class="text-muted mb-0">Medical Services</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================== Core Values ================== -->
+    <div class="text-center mb-5">
+      <h3 class="fw-bold mb-4">Our Core Values</h3>
+    </div>
+    <div class="row g-4 mb-5 text-center">
+      <div class="col-md-4">
+        <div class="mv-card hover-scale p-4 rounded-4 shadow-sm">
+          <i class="fa-solid fa-hand-holding-heart fa-2x mb-3 text-danger"></i>
+          <h5 class="fw-bold mb-2">Compassion</h5>
+          <p class="text-muted mb-0">We care for every life and support communities through safe blood donation.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mv-card hover-scale p-4 rounded-4 shadow-sm">
+          <i class="fa-solid fa-shield-alt fa-2x mb-3 text-danger"></i>
+          <h5 class="fw-bold mb-2">Trust</h5>
+          <p class="text-muted mb-0">We ensure verified donors and secure handling of all health-related requests.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mv-card hover-scale p-4 rounded-4 shadow-sm">
+          <i class="fa-solid fa-bolt fa-2x mb-3 text-danger"></i>
+          <h5 class="fw-bold mb-2">Efficiency</h5>
+          <p class="text-muted mb-0">Connecting donors and patients quickly to save lives without delays.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- ================== How It Works ================== -->
+<div class="text-center mb-5">
+  <h3 class="fw-bold mb-4">How It Works</h3>
+  <p class="text-muted mb-4">Simple steps to save lives and book emergency ambulance services</p>
+</div>
+
+<div class="row g-4 text-center mb-5">
+  <div class="col-md-6">
+    <h5 class="fw-bold mb-3 text-danger">Blood Donation</h5>
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">1</div>
+          <h6 class="fw-bold mt-3">Find a Donor</h6>
+          <p class="text-muted mb-0">Search for donors by blood group and location instantly.</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">2</div>
+          <h6 class="fw-bold mt-3">Send Request</h6>
+          <p class="text-muted mb-0">Submit a blood request safely to the available donor.</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">3</div>
+          <h6 class="fw-bold mt-3">Save Lives</h6>
+          <p class="text-muted mb-0">Coordinate with the donor and hospital to ensure timely blood donation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h5 class="fw-bold mb-3 text-danger">Ambulance Booking</h5>
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">1</div>
+          <h6 class="fw-bold mt-3">Request Ambulance</h6>
+          <p class="text-muted mb-0">Fill out the emergency form with patient details and location.</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">2</div>
+          <h6 class="fw-bold mt-3">Driver Confirmation</h6>
+          <p class="text-muted mb-0">Nearest available ambulance accepts your request in real-time.</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="how-step hover-scale p-4 rounded-4 shadow-sm">
+          <div class="step-icon">3</div>
+          <h6 class="fw-bold mt-3">Track & Reach</h6>
+          <p class="text-muted mb-0">Monitor the ambulance live and get timely ETA to hospital.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-
-
-      </div>
-
+    <!-- ================== CTA ================== -->
+    <div class="text-center mt-5">
+      <a href="#register" class="btn btn-danger btn-lg rounded-pill px-5">Join Our Community</a>
     </div>
 
-  </header>
-
-
-
-  <section class="about-section">
-  <!-- Section Heading -->
-  <h2 class="about-heading">About Us</h2>
-
-  <div class="about-container">
-    <!-- Image / Illustration -->
-    <div class="about-image">
-      <img src="{% static 'web/assets/img/about.jpg' %}" alt="About">
-    </div>
-
-    <!-- Content -->
-    <div class="about-content">
-      <h3>Your Trusted Health & Blood Donation Portal</h3>
-      <p>
-        Our platform brings essential healthcare services, verified medical guidance,
-        and a secure blood donation system all in one place. We are committed to
-        promoting safe blood donation, connecting donors with those in need,
-        and making healthcare accessible to everyone.
-      </p>
-
-      <!-- Mission & Vision Cards -->
-      <div class="mission-vision-cards">
-        <div class="mv-card">
-          <i class="fa-solid fa-eye"></i>
-          <h4>Our Vision</h4>
-          <p>To build a healthier community with seamless access to medical services and safe blood donations.</p>
-        </div>
-        <div class="mv-card">
-          <i class="fa-solid fa-bullseye"></i>
-          <h4>Our Mission</h4>
-          <p>To connect donors and patients efficiently while providing reliable health services online.</p>
-        </div>
-      </div>
-
-      <!-- Key Statistics -->
-      <div class="about-stats">
-        <div class="stat">
-          <h3>1,250+</h3>
-          <p>Registered Donors</p>
-        </div>
-        <div class="stat">
-          <h3>3,400+</h3>
-          <p>Lives Saved</p>
-        </div>
-        <div class="stat">
-          <h3>50+</h3>
-          <p>Medical Services</p>
-        </div>
-      </div>
-
-      <a href="#" class="hero-btn">Join Our Community</a>
-    </div>
   </div>
 </section>
 
@@ -193,29 +332,28 @@
 
 
 
-<footer id="footer" class="footer bg-light">
+
+
+<footer id="footer" class="footer">
 
   <div class="container footer-top py-5">
     <div class="row gy-4">
 
-      <!-- About / Contact Info -->
+      <!-- About / Logo -->
       <div class="col-lg-4 col-md-6 footer-about">
-        <a href="{% url 'Home' %}" class="logo d-flex align-items-center mb-3">
-          <span class="sitename">Lifelink</span>
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto mb-3">
+          <!-- Emblem -->
+          <span class="logo-emblem">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <!-- Text -->
+          <h1 class="sitename">LifelinkPulse</h1>
         </a>
-        <p>Providing quality health services</p>
-        <p><strong>Email:</strong> <span>lifelinkhealthportal@gmail.com</span></p>
-
-        <!-- Social Links -->
-<!--        <div class="social-links d-flex mt-3">-->
-<!--          <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>-->
-<!--          <a href="#"><i class="bi bi-linkedin"></i></a>-->
-<!--        </div>-->
+        <p>Providing quality health services for everyone, anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:lifelinkhealthportal@gmail.com">lifelinkhealthportal@gmail.com</a></p>
       </div>
 
-      <!-- Useful Links -->
+      <!-- Quick Links -->
       <div class="col-lg-2 col-md-3 footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -230,19 +368,15 @@
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Our Services</h4>
         <ul>
-    {% for service in services %}
-      <li>
-        <a href="{% url 'service_detail' service.id %}">
-          {{ service.name }}
-        </a>
-      </li>
-    {% empty %}
-      <li>No services available</li>
-    {% endfor %}
-  </ul>
+          {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% empty %}
+            <li>No services available</li>
+          {% endfor %}
+        </ul>
       </div>
 
-      <!-- User Links -->
+      <!-- Account -->
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Account</h4>
         <ul>
@@ -254,9 +388,10 @@
     </div>
   </div>
 
-  <!-- Copyright -->
-  <div class="container text-center py-3">
+  <!-- Footer Bottom -->
+  <div class="container text-center py-3 footer-bottom">
     <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+    <p class="credits">Designed with ❤️ by <strong>Lifelink</strong></p>
   </div>
 
 </footer>

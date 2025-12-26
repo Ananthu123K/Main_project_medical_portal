@@ -1,174 +1,149 @@
-/* ================================
-   GLOBAL SPACING FIX
-================================ */
-.row {
-    --bs-gutter-x: 1.4rem;
+/* ------------------------------
+   Heading
+------------------------------ */
+.donor-heading {
+  color: #b91c1c; /* Strong medical red */
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
 }
 
-/* ================================
-   FILTER BAR SECTION
-================================ */
+/* ------------------------------
+   Filter Bar
+------------------------------ */
 .donor-filter-box {
-    background: #ffffff;
-    border: 1px solid #e5ecf5;
-    border-radius: 18px;
-    padding: 20px;
-    transition: 0.3s ease;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
 }
 
 .donor-filter-box:hover {
-    box-shadow: 0 10px 32px rgba(0,0,0,0.08);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.12);
 }
 
 .filter-bar .form-select {
-    border-radius: 12px;
-    border: 1px solid #d0d7e5;
-    padding: 10px;
-    font-size: 15px;
-    color: #445a70;
-    box-shadow: none;
+  border-radius: 12px;
+  border: 1px solid #d0d7e5;
+  padding: 10px;
+  font-size: 15px;
+  color: #445a70;
+  box-shadow: none;
 }
 
 .filter-bar .form-select:focus {
-    border-color: #b2c6ff;
-    box-shadow: 0 0 0 0.15rem rgba(150,170,255,0.3);
+  border-color: #b2c6ff;
+  box-shadow: 0 0 0 0.15rem rgba(150,170,255,0.3);
 }
 
 /* Apply Button */
 .donor-btn {
-    border-radius: 12px;
-    font-weight: 600;
-    padding: 10px 18px;
-    background: #dc3545;
-    border: none;
-    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.25);
-    transition: 0.3s ease;
-    color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 10px 18px;
+  background: #dc2626;
+  border: none;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.35);
+  transition: 0.3s ease;
 }
 
 .donor-btn:hover {
-    background: #ff6f6f;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(255, 80, 80, 0.35);
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.45);
 }
 
-/* ================================
-   DONOR CARDS
-================================ */
+/* ------------------------------
+   Donor Cards
+------------------------------ */
 .donor-card {
-    background: #ffffff;
-    border-radius: 22px;
-    padding: 28px 20px;
-    border: 1px solid #e5ecf5;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    transition: all 0.35s ease;
-    position: relative;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px 20px;
+  border: 1px solid #e5ecf5;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
 }
 
 .donor-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
-    border-color: #cddff0;
-}
-
-/* Image Wrapper */
-.donor-img-wrapper {
-    position: relative;
-    display: inline-block;
+  transform: translateY(-8px);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.15);
 }
 
 /* Donor Image */
+.donor-img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .donor-img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #e5f4ff;
-    background: #f7fcff;
-    padding: 3px;
-    transition: 0.3s ease;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e5f4ff;
+  background: #f7fcff;
+  transition: 0.3s ease;
 }
 
 .donor-card:hover .donor-img {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Status Dot */
 .status-dot {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    bottom: 10px;
-    right: 6px;
-    border: 2px solid white;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  bottom: 10px;
+  right: 6px;
+  border: 2px solid white;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .status-dot.active {
-    background: #2ecc71;
+  background: #2ecc71;
 }
 
 .status-dot.inactive {
-    background: #e74c3c;
+  background: #e74c3c;
 }
 
 /* Donor Name */
 .donor-name {
-    margin-top: 12px;
-    font-size: 19px;
-    font-weight: 700;
-    color: #2a3b47;
+  font-size: 19px;
+  font-weight: 700;
+  color: #2a3b47;
 }
 
 /* Info Text */
 .info {
-    margin: 0;
-    margin-bottom: 5px;
-    font-size: 15px;
-    color: #495963;
+  font-size: 15px;
+  color: #495963;
+  margin: 4px 0;
 }
 
-.info strong {
-    color: #234a6c;
+/* Blood Group Chip */
+.blood-chip {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+  font-size: 13px;
 }
 
-/* Contact Button */
-.contact-btn {
-    display: inline-block;
-    text-decoration: none;
-    background: #f9f9ff;
-    border: 1px solid #d0d8f0;
-    color: #3b4a69;
-    border-radius: 12px;
-    padding: 7px 22px;
-    font-size: 14px;
-    margin-top: 10px;
-    transition: 0.3s ease;
-}
-
-.contact-btn:hover {
-    background: #e4ecff;
-    border-color: #b8c8f4;
-    transform: scale(1.06);
-}
-
-/* Heading Styling */
-h2.fw-bold {
-    color: #d9534f;
-    font-size: 28px;
-}
-
-/* Responsive Fix - Keep Filters Aligned */
+/* Responsive */
 @media (max-width: 768px) {
-    .filter-bar .form-select {
-        margin-bottom: 10px;
-    }
-
-    .donor-btn {
-        margin-top: 10px;
-    }
+  .donor-btn { width: 100%; margin-top: 10px; }
+  .donor-heading { font-size: 28px; }
+  .donor-img { width: 100px; height: 100px; }
 }
 
 
@@ -177,39 +152,30 @@ h2.fw-bold {
 
 
 
+/* General card hover */
+.hover-scale { transition: transform 0.3s ease; }
+.hover-scale:hover { transform: scale(1.03); }
 
-/* ================================
-   SEND REQUEST BUTTON
-================================ */
-#filtered-donors .send-request-btn {
-    display: inline-block;
-    margin: 40px auto 20px auto; /* Top margin from donor cards, bottom for spacing */
-    padding: 12px 28px;
-    background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
-    color: white !important;      /* Override Bootstrap */
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    border-radius: 18px;
-    border: none;
-    text-decoration: none !important; /* Override Bootstrap */
-    transition: 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 6px 18px rgba(255, 80, 80, 0.35);
-    display: block;
-    width: max-content;
-}
+/* Stock bar */
+.stock-bar-wrapper { background: #f1f1f1; border-radius: 20px; height: 10px; overflow: hidden; }
+.stock-bar { background-color: #dc3545; height: 100%; border-radius: 20px; }
 
-#filtered-donors .send-request-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 80, 80, 0.45);
-    background: linear-gradient(135deg, #ff5757, #ff7b7b);
-}
+/* Step icon */
+.step-icon { width: 60px; height: 60px; font-size: 24px; font-weight: bold; }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #filtered-donors .send-request-btn {
-        width: 100%;
-        text-align: center;
-        margin: 30px 0 20px 0;
-    }
-}
+/* Donor card / testimonial */
+.donor-card, .testimonial-card, .stock-card, .how-step { padding: 20px; }
+
+/* Blood chip */
+.blood-chip { display: inline-block; padding: 5px 10px; background-color: #fde2e2; color: #c82333; border-radius: 20px; font-weight: 600; margin-bottom: 5px; }
+
+/* Status dot */
+.status-dot { position: absolute; bottom: 8px; right: 8px; width: 15px; height: 15px; border-radius: 50%; border: 2px solid #fff; }
+.status-dot.active { background-color: #28a745; }
+.status-dot.inactive { background-color: #dc3545; }
+
+/* Buttons */
+.btn-danger { background-color: #dc3545; border-color: #dc3545; }
+.btn-outline-danger { border-color: #dc3545; color: #dc3545; }
+.btn-outline-danger:hover { background-color: #dc3545; color: #fff; }
+

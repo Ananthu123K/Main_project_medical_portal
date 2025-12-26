@@ -39,172 +39,254 @@
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+<header id="header" class="header sticky-top">
 
-<!--       <div class="topbar d-flex align-items-center">-->
-<!--      <div class="container d-flex justify-content-center justify-content-md-between">-->
-<!--        <div class="contact-info d-flex align-items-center">-->
-<!--&lt;!&ndash;          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>&ndash;&gt;-->
-<!--&lt;!&ndash;          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>&ndash;&gt;-->
-<!--        </div>-->
-<!--&lt;!&ndash;        <div class="social-links d-none d-md-flex align-items-center">&ndash;&gt;-->
-<!--&lt;!&ndash;          {% if request.session.user_id %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'user_logout' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Welcome {{ request.session.Name }} / Logout</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'signin_page' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Login</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
+  <div class="branding d-flex align-items-center">
 
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>&lt;!&ndash; End Top Bar &ndash;&gt;-->
+    <div class="container position-relative d-flex align-items-center justify-content-between">
 
-<!-- End Top Bar -->
+      <!-- Logo -->
+      <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Emblem -->
+        <span class="logo-emblem">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <!-- Text -->
+        <h1 class="sitename">LifelinkPulse</h1>
+      </a>
 
-    <div class="branding d-flex align-items-center">
 
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">Lifelink</h1>
-        </a>
+      <!-- Navbar Menu -->
+      <nav id="navmenu" class="navmenu">
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="{% url 'Home' %}" >Home<br></a></li>
-            <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="{% url 'Services' %}">Services</a></li>
-            <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
-            <li><a href="{% url 'Donors' %}" class="active">Donors</a></li>
-<!--            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--              <ul>-->
-<!--                <li><a href="#">Dropdown 1</a></li>-->
-<!--                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--                  <ul>-->
-<!--                    <li><a href="#">Deep Dropdown 1</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 2</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 3</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 4</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 5</a></li>-->
-<!--                  </ul>-->
-<!--                </li>-->
-<!--                <li><a href="#">Dropdown 2</a></li>-->
-<!--                <li><a href="#">Dropdown 3</a></li>-->
-<!--                <li><a href="#">Dropdown 4</a></li>-->
-<!--              </ul>-->
-<!--            </li>-->
-            <li><a href="{% url 'Contact' %}">Contact</a></li>
-            <li><a href="{% url 'service_registration' %}">Join Us</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <ul class="nav-list">
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="{% url 'Home' %}" class="nav-link">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </li>
 
-        </nav>
-        <div class="auth-container d-none d-md-flex align-items-center">
-    {% if request.session.user_id %}
-        <a href="{% url 'user_logout' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Welcome {{ request.session.Name }} / Logout</span>
-        </a>
-    {% else %}
-        <a href="{% url 'signin_page' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Login</span>
-        </a>
-    {% endif %}
-</div>
+          <!-- About -->
+          <li class="nav-item">
+            <a href="{% url 'About' %}" class="nav-link">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+
+          <!-- Services -->
+          <li class="nav-item dropdown">
+            <a href="{% url 'Services' %}" class="nav-link">
+              <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Service 1</a></li>
+              <li><a href="#">Service 2</a></li>
+            </ul>
+          </li>
+
+          <!-- Ambulance -->
+          <li class="nav-item">
+            <a href="{% url 'ambulance_service_page' %}" class="nav-link">
+              <i class="bi bi-truck"></i> Ambulance
+            </a>
+          </li>
+
+          <!-- Donors -->
+          <li class="nav-item">
+            <a href="{% url 'Donors' %}" class="nav-link active">
+              <i class="bi bi-people"></i> Donors
+            </a>
+          </li>
+
+
+          <!-- Contact -->
+          <li class="nav-item">
+            <a href="{% url 'Contact' %}" class="nav-link">
+              <i class="bi bi-envelope"></i> Contact
+            </a>
+          </li>
+
+          <!-- Join Us -->
+          <li class="nav-item">
+  <a href="{% url 'service_registration' %}" class="nav-link btn-join">
+    <i class="bi bi-person-plus"></i> Join Us
+  </a>
+</li>
 
 
 
+<!--  login and logout-->
 
-      </div>
+         <li class="nav-item">
+  {% if request.session.user_id %}
+    <a href="{% url 'user_logout' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i>{{ request.session.Name }}
+    </a>
+  {% else %}
+    <a href="{% url 'signin_page' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+  {% endif %}
+</li>
+
+
+        </ul>
+
+
+
+        <!-- Mobile Menu Toggle -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+      <!-- Authentication -->
+
+
+
 
     </div>
+  </div>
 
-  </header>
+</header>
 
 
+
+
+
+<section id="cta" class="cta-section py-5" style="background-color:#fff5f5;">
+  <div class="container text-center">
+    <h2 class="donor-heading fw-bold mb-3">Become a Lifesaver Today</h2>
+    <p class="text-muted mb-4">Register as a donor or send a blood request in just a few clicks.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="#register" class="btn btn-outline-danger btn-lg rounded-pill shadow-sm px-4"
+     data-bs-toggle="modal" data-bs-target="#donorRegisterModal"
+
+      >Register as Donor</a>
+<!--      <a href="#bloodRequest" class="btn btn-outline-danger btn-lg rounded-pill shadow-sm px-4">Request Blood</a>-->
+    </div>
+  </div>
+</section>
+
+
+
+<!--  main section-->
 
 <section id="donors" class="donors section">
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-    <!-- Modern Heading -->
-    <div class="text-center mb-4">
-      <h2 class="fw-bold">Find the Right Donor</h2>
+    <!-- 1️ Modern Heading -->
+    <div class="text-center mb-5">
+      <h2 class="fw-bold donor-heading">Find the Right Donor</h2>
       <p class="text-muted">Filter donors based on district and blood group</p>
     </div>
 
-    <!-- Filter Bar -->
-<form method="GET" action="{% url 'filtered_donors' %}">
-  <div class="donor-filter mb-5">
-    <div class="filter-bar p-3 p-md-4 rounded-3 shadow-sm donor-filter-box">
-      <div class="row g-3 align-items-center justify-content-center">
+    <!-- 2️ Filter Bar -->
+    <form method="GET" action="{% url 'filtered_donors' %}">
+      <div class="donor-filter mb-5">
+        <div class="filter-bar p-3 p-md-4 rounded-4 shadow-sm donor-filter-box">
+          <div class="row g-3 align-items-center justify-content-center">
 
-        <!-- DISTRICT -->
-        <select class="form-select donor-select" name="location">
-          <option value="">Filter by District</option>
+            <!-- District -->
+            <select class="form-select donor-select" name="location">
+              <option value="">Filter by District</option>
+              {% for loc in locations %}
+                <option value="{{ loc }}">{{ loc }}</option>
+              {% endfor %}
+            </select>
 
-          {% for loc in locations %}
-            <option value="{{ loc }}">{{ loc }}</option>
-          {% endfor %}
-        </select>
+            <!-- Blood Group -->
+            <select class="form-select donor-select" name="blood">
+              <option value="">Filter by Blood Group</option>
+              {% for bg in blood_groups %}
+                <option value="{{ bg }}">{{ bg }}</option>
+              {% endfor %}
+            </select>
 
-        <!-- BLOOD GROUP -->
-        <select class="form-select donor-select" name="blood">
-            <option value="">Filter by Blood Group</option>
+            <!-- Apply Button -->
+            <div class="col-md-2">
+              <button class="btn donor-btn w-100">Apply</button>
+            </div>
 
-            {% for bg in blood_groups %}
-              <option value="{{ bg }}">{{ bg }}</option>
-            {% endfor %}
-          </select>
-
-        <div class="col-md-2">
-          <button class="btn btn-danger w-100 donor-btn">Apply</button>
+          </div>
         </div>
-
       </div>
-    </div>
-  </div>
-</form>
+    </form>
 
-
-    <!-- Donor Cards -->
-    <div class="row gy-4">
-  {% for i in donors %}
+    <!-- 3️ Donor Cards -->
+    <div class="row gy-4 justify-content-center">
+      {% for i in donors %}
       <div class="col-xl-3 col-md-6">
         <div class="donor-card text-center">
 
-          <div class="donor-img-wrapper">
+          <div class="donor-img-wrapper mx-auto">
             {% if i.Image %}
-                <img src="{{ i.Image.url }}" class="donor-img">
+              <img src="{{ i.Image.url }}" class="donor-img">
             {% else %}
-                <img src="{% static 'images/default-donor.png' %}" class="donor-img">
+              <img src="{% static 'images/default-donor.png' %}" class="donor-img">
             {% endif %}
 
             <!-- Status Dot -->
             <span class="status-dot {% if i.is_active %}active{% else %}inactive{% endif %}"></span>
           </div>
 
-          <h4>{{ i.Name }}</h4>
+          <h4 class="donor-name mt-3">{{ i.Name }}</h4>
 
-          <p><strong>Blood Group:</strong> {{ i.BloodGroup }}</p>
-          <p><strong>District:</strong> {{ i.Location }}</p>
-          <p><strong>Gender:</strong> {{ i.Gender }}</p>
-          <p><strong>Active:</strong> {% if i.is_active %}Yes{% else %}No{% endif %}</p>
+          <span class="blood-chip">{{ i.BloodGroup }}</span>
 
-          <button class="contact-btn mt-3">Contact</button>
+          <p class="info"><strong>District:</strong> {{ i.Location }}</p>
+          <p class="info"><strong>Gender:</strong> {{ i.Gender }}</p>
+          <p class="info"><strong>Active:</strong> {% if i.is_active %}Yes{% else %}No{% endif %}</p>
+
         </div>
       </div>
-  {% endfor %}
-</div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
 
 
 
+
+<!--  how it work section-->
+  <section id="how-it-works" class="how-it-works py-5">
+  <div class="container text-center mb-5">
+    <h2 class="donor-heading fw-bold mb-3">How It Works</h2>
+    <p class="text-muted">A simple 4-step process to save lives</p>
+  </div>
+
+  <div class="container">
+    <div class="row g-4 justify-content-center text-center">
+      <div class="col-md-3">
+        <div class="how-step p-4 rounded-4 shadow-sm bg-white hover-scale">
+          <div class="step-icon bg-danger text-white rounded-circle mb-3 d-inline-flex align-items-center justify-content-center">1</div>
+          <h5 class="fw-bold">Register</h5>
+          <p class="text-muted">Sign up as a donor or recipient</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="how-step p-4 rounded-4 shadow-sm bg-white hover-scale">
+          <div class="step-icon bg-danger text-white rounded-circle mb-3 d-inline-flex align-items-center justify-content-center">2</div>
+          <h5 class="fw-bold">Filter Donors</h5>
+          <p class="text-muted">Search based on blood group and district</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="how-step p-4 rounded-4 shadow-sm bg-white hover-scale">
+          <div class="step-icon bg-danger text-white rounded-circle mb-3 d-inline-flex align-items-center justify-content-center">3</div>
+          <h5 class="fw-bold">Request Blood</h5>
+          <p class="text-muted">Send request to available donors instantly</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="how-step p-4 rounded-4 shadow-sm bg-white hover-scale">
+          <div class="step-icon bg-danger text-white rounded-circle mb-3 d-inline-flex align-items-center justify-content-center">4</div>
+          <h5 class="fw-bold">Receive Blood</h5>
+          <p class="text-muted">Coordinate with donors to get blood on time</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -215,29 +297,222 @@
 
 
 
-<footer id="footer" class="footer bg-light">
+
+
+   <!-- Donor Registration Modal -->
+<div class="modal fade" id="donorRegisterModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4">
+
+      <form id="donorForm" method="POST" enctype="multipart/form-data" action="{% url 'donor_signup' %}">
+        {% csrf_token %}
+
+        <!-- Header -->
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title"> Donor Registration</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <input type="text" name="name" id="donor_name" class="form-control" placeholder="Full Name" required>
+            </div>
+
+            <div class="col-md-6">
+              <input type="email" name="email" id="donor_email" class="form-control" placeholder="Email" required>
+              <small id="donor_email_error" style="color:#dc3545;"></small>
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="phone" id="donor_phone" class="form-control" placeholder="Phone Number" required>
+              <small id="donor_phone_error" style="color:#dc3545;"></small>
+            </div>
+
+            <div class="col-md-6">
+              <input type="number" name="age" class="form-control" placeholder="Age" required>
+            </div>
+
+            <div class="col-md-6">
+              <select name="bloodgroup" class="form-select" required>
+                <option value="">Select Blood Group</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option>
+                <option>AB+</option><option>AB-</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <select name="location" class="form-select" required>
+                <option value="">Select District</option>
+                <option>Thiruvananthapuram</option>
+                <option>Kollam</option>
+                <option>Pathanamthitta</option>
+                <option>Alappuzha</option>
+                <option>Kottayam</option>
+                <option>Idukki</option>
+                <option>Ernakulam</option>
+                <option>Thrissur</option>
+                <option>Palakkad</option>
+                <option>Malappuram</option>
+                <option>Kozhikode</option>
+                <option>Wayanad</option>
+                <option>Kannur</option>
+                <option>Kasaragod</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <select name="gender" class="form-select" required>
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <input type="file" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="col-md-6">
+              <input type="password" name="password" id="donor_password" class="form-control" placeholder="Password" required>
+              <small id="donor_password_error" style="color:#dc3545;"></small>
+            </div>
+
+            <div class="col-md-6">
+              <input type="password" name="confirm_password" id="donor_confirm_password" class="form-control" placeholder="Confirm Password" required>
+              <small id="donor_confirm_error" style="color:#dc3545;"></small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="submit" id="donor_submit" class="btn btn-danger w-100">
+            ✅ Register as Donor
+          </button>
+        </div>
+
+      </form>
+
+      <div class="text-center mt-2">
+        <button type="button"
+                class="btn btn-outline-secondary w-100 mt-2"
+                data-bs-toggle="modal"
+                data-bs-target="#donorLoginModal"
+                data-bs-dismiss="modal">
+          🔐 Login Instead
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Donor Login Popup -->
+<div class="modal fade" id="donorLoginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:10px;">
+
+      <div class="modal-body p-0">
+        <div class="signup-container" style="padding:25px; background:#fff;">
+
+          <h2 style="
+              text-align:center;
+              color:#dc3545;
+              margin-bottom:20px;">
+            Donor Login
+          </h2>
+
+          <form method="POST" action="{% url 'donor_login' %}">
+            {% csrf_token %}
+
+            <input type="email" name="Email"
+                   placeholder="Enter your Email"
+                   required
+                   style="
+                     width:100%;
+                     padding:10px;
+                     margin-bottom:12px;
+                     border:1px solid #dc3545;
+                     border-radius:5px;
+                   ">
+
+            <input type="password" name="Password"
+                   placeholder="Enter your Password"
+                   required
+                   style="
+                     width:100%;
+                     padding:10px;
+                     margin-bottom:15px;
+                     border:1px solid #dc3545;
+                     border-radius:5px;
+                   ">
+
+            <button type="submit"
+                    style="
+                      width:100%;
+                      padding:10px;
+                      background:#dc3545;
+                      color:#fff;
+                      border:none;
+                      border-radius:5px;
+                      font-weight:600;
+                    ">
+              Login
+            </button>
+          </form>
+
+          <p style="margin-top:15px; text-align:center;">
+            Don't have an account?
+            <a href="#"
+               style="color:#dc3545; font-weight:600;"
+               data-bs-toggle="modal"
+               data-bs-target="#donorRegisterModal"
+               data-bs-dismiss="modal">
+               Register here
+            </a>
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer id="footer" class="footer">
 
   <div class="container footer-top py-5">
     <div class="row gy-4">
 
-      <!-- About / Contact Info -->
+      <!-- About / Logo -->
       <div class="col-lg-4 col-md-6 footer-about">
-        <a href="{% url 'Home' %}" class="logo d-flex align-items-center mb-3">
-          <span class="sitename">Lifelink</span>
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto mb-3">
+          <!-- Emblem -->
+          <span class="logo-emblem">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <!-- Text -->
+          <h1 class="sitename">LifelinkPulse</h1>
         </a>
-        <p>Providing quality health services</p>
-        <p><strong>Email:</strong> <span>lifelinkhealthportal@gmail.com</span></p>
-
-        <!-- Social Links -->
-<!--        <div class="social-links d-flex mt-3">-->
-<!--          <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>-->
-<!--          <a href="#"><i class="bi bi-linkedin"></i></a>-->
-<!--        </div>-->
+        <p>Providing quality health services for everyone, anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:lifelinkhealthportal@gmail.com">lifelinkhealthportal@gmail.com</a></p>
       </div>
 
-      <!-- Useful Links -->
+      <!-- Quick Links -->
       <div class="col-lg-2 col-md-3 footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -252,19 +527,15 @@
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Our Services</h4>
         <ul>
-    {% for service in services %}
-      <li>
-        <a href="{% url 'service_detail' service.id %}">
-          {{ service.name }}
-        </a>
-      </li>
-    {% empty %}
-      <li>No services available</li>
-    {% endfor %}
-  </ul>
+          {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% empty %}
+            <li>No services available</li>
+          {% endfor %}
+        </ul>
       </div>
 
-      <!-- User Links -->
+      <!-- Account -->
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Account</h4>
         <ul>
@@ -276,12 +547,14 @@
     </div>
   </div>
 
-  <!-- Copyright -->
-  <div class="container text-center py-3">
+  <!-- Footer Bottom -->
+  <div class="container text-center py-3 footer-bottom">
     <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+    <p class="credits">Designed with ❤️ by <strong>Lifelink</strong></p>
   </div>
 
 </footer>
+
 
 
   <!-- Scroll Top -->
@@ -297,6 +570,9 @@
   <script src="{% static 'web/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'web/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'web/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+<!-- Include the JS -->
+  <script src="{% static 'web/assets/js/donor_validation.js' %}"></script>
+
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>

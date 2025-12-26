@@ -39,158 +39,190 @@
 
 <body class="index-page">
 
-  <header id="header" class="header sticky-top">
+<header id="header" class="header sticky-top">
 
-<!--       <div class="topbar d-flex align-items-center">-->
-<!--      <div class="container d-flex justify-content-center justify-content-md-between">-->
-<!--        <div class="contact-info d-flex align-items-center">-->
-<!--&lt;!&ndash;          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>&ndash;&gt;-->
-<!--&lt;!&ndash;          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>&ndash;&gt;-->
-<!--        </div>-->
-<!--&lt;!&ndash;        <div class="social-links d-none d-md-flex align-items-center">&ndash;&gt;-->
-<!--&lt;!&ndash;          {% if request.session.user_id %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'user_logout' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Welcome {{ request.session.Name }} / Logout</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% else %}&ndash;&gt;-->
-<!--&lt;!&ndash;                    <a href="{% url 'signin_page' %}" class="user-account for-buy">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <i class="icon icon-user"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <span>Login</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                {% endif %}&ndash;&gt;-->
+  <div class="branding d-flex align-items-center">
 
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>&lt;!&ndash; End Top Bar &ndash;&gt;-->
+    <div class="container position-relative d-flex align-items-center justify-content-between">
 
-<!-- End Top Bar -->
+      <!-- Logo -->
+      <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Emblem -->
+        <span class="logo-emblem">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <!-- Text -->
+        <h1 class="sitename">LifelinkPulse</h1>
+      </a>
 
-    <div class="branding d-flex align-items-center">
 
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center me-auto">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">Lifelink</h1>
-        </a>
+      <!-- Navbar Menu -->
+      <nav id="navmenu" class="navmenu">
 
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="{% url 'Home' %}" class="active">Home<br></a></li>
-            <li><a href="{% url 'About' %}">About</a></li>
-            <li><a href="{% url 'Services' %}">Services</a></li>
-            <li><a href="{% url 'ambulance_service_page' %}">Ambulance</a></li>
-            <li><a href="{% url 'Donors' %}">Donors</a></li>
-<!--            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--              <ul>-->
-<!--                <li><a href="#">Dropdown 1</a></li>-->
-<!--                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
-<!--                  <ul>-->
-<!--                    <li><a href="#">Deep Dropdown 1</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 2</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 3</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 4</a></li>-->
-<!--                    <li><a href="#">Deep Dropdown 5</a></li>-->
-<!--                  </ul>-->
-<!--                </li>-->
-<!--                <li><a href="#">Dropdown 2</a></li>-->
-<!--                <li><a href="#">Dropdown 3</a></li>-->
-<!--                <li><a href="#">Dropdown 4</a></li>-->
-<!--              </ul>-->
-<!--            </li>-->
-            <li><a href="{% url 'Contact' %}">Contact</a></li>
-            <li><a href="{% url 'service_registration' %}">Join Us</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <ul class="nav-list">
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="{% url 'Home' %}" class="nav-link active">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </li>
 
-        </nav>
-        <div class="auth-container d-none d-md-flex align-items-center">
-    {% if request.session.user_id %}
-        <a href="{% url 'user_logout' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Welcome {{ request.session.Name }} / Logout</span>
-        </a>
-    {% else %}
-        <a href="{% url 'signin_page' %}" class="auth-btn">
-            <i class="icon icon-user"></i>
-            <span>Login</span>
-        </a>
-    {% endif %}
-</div>
+          <!-- About -->
+          <li class="nav-item">
+            <a href="{% url 'About' %}" class="nav-link">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+
+          <!-- Services -->
+          <li class="nav-item dropdown">
+            <a href="{% url 'Services' %}" class="nav-link">
+              <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Service 1</a></li>
+              <li><a href="#">Service 2</a></li>
+            </ul>
+          </li>
+
+          <!-- Ambulance -->
+          <li class="nav-item">
+            <a href="{% url 'ambulance_service_page' %}" class="nav-link">
+              <i class="bi bi-truck"></i> Ambulance
+            </a>
+          </li>
+
+          <!-- Donors -->
+          <li class="nav-item">
+            <a href="{% url 'Donors' %}" class="nav-link">
+              <i class="bi bi-people"></i> Donors
+            </a>
+          </li>
+
+
+          <!-- Contact -->
+          <li class="nav-item">
+            <a href="{% url 'Contact' %}" class="nav-link">
+              <i class="bi bi-envelope"></i> Contact
+            </a>
+          </li>
+
+          <!-- Join Us -->
+          <li class="nav-item">
+  <a href="{% url 'service_registration' %}" class="nav-link btn-join">
+    <i class="bi bi-person-plus"></i> Join Us
+  </a>
+</li>
 
 
 
+<!--  login and logout-->
 
-      </div>
+         <li class="nav-item">
+  {% if request.session.user_id %}
+    <a href="{% url 'user_logout' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i>{{ request.session.Name }}
+    </a>
+  {% else %}
+    <a href="{% url 'signin_page' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+  {% endif %}
+</li>
+
+
+        </ul>
+
+
+
+        <!-- Mobile Menu Toggle -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+
+
+
+
 
     </div>
+  </div>
 
-  </header>
+</header>
+
+
+
+
 
 
 
   <main class="main">
 
     <!-- Hero Section -->
-    <section id="hero" class="hero-modern">
+   <section id="hero" class="hero-modern">
 
-  <div class="hero-overlay">
-    <img src="{% static 'web/assets/img/handimg.png' %}" alt="Blood Donation Banner">
-  </div>
+  <div class="container text-center hero-inner">
 
-  <div class="container text-center hero-inner" data-aos="fade-up">
-
-    <h1 class="hero-heading">Donate Blood, Save Lives</h1>
-    <p class="hero-tagline">Your small act of kindness can give someone a new life</p>
-
-    <div class="row gy-4 justify-content-center mt-4">
-
-      <!-- Card 1 -->
-<div class="col-lg-3 col-md-6">
-  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="150">
-    <i class="fas fa-tint" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
-    <h4>Become a Donor</h4>
-    <p>Join our donor community and help those in need.</p>
-    <a href="#" class="hero-btn" data-bs-toggle="modal" data-bs-target="#donorRegisterModal">
-      Join Now
-    </a>
-  </div>
-</div>
-
-
-<!-- Card 2 -->
-<div class="col-lg-3 col-md-6">
-  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="250">
-    <i class="fas fa-ambulance" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
-    <h4>Register Ambulance</h4>
-    <p>Register your ambulance quickly and be available for emergencies.</p>
-    <a href="#"
-       class="hero-btn"
-       data-bs-toggle="modal"
-       data-bs-target="#ambulanceRegisterModal">
-       Register Now
-    </a>
-  </div>
-</div>
+   <h1 class="hero-heading">
+  <span class="hero-emblem">
+    <i class="bi bi-heart-pulse-fill"></i>
+  </span>
+  LifeLinkPulse <span class="highlight">Health Services</span>
+</h1>
+<p class="hero-tagline">
+  Connecting donors, ambulances, and emergency care through one trusted platform
+</p>
 
 
 
 
+    <div class="row gy-5 justify-content-center mt-5">
 
-<!-- Card 3 -->
-<div class="col-lg-3 col-md-6">
-  <div class="hero-card text-center" data-aos="zoom-in" data-aos-delay="350">
-    <i class="fas fa-first-aid" style="font-size: 3rem; display: block; margin-bottom: 15px;"></i>
+      <div class="col-lg-4 col-md-6">
+        <div class="hero-card">
+          <i class="fas fa-tint"></i>
+          <h4>Become a Donor</h4>
+          <p>Join our donor network and help save lives in emergencies.</p>
+          <a href="#" class="hero-btn" data-bs-toggle="modal" data-bs-target="#donorRegisterModal">
+            Join Now
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <div class="hero-card">
+          <i class="fas fa-ambulance"></i>
+          <h4>Register Ambulance</h4>
+          <p>Make your ambulance available for quick emergency response.</p>
+          <a href="#" class="hero-btn" data-bs-toggle="modal" data-bs-target="#ambulanceRegisterModal">
+            Register Now
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+  <div class="hero-card">
+    <i class="fas fa-first-aid"></i>
     <h4>Emergency Help</h4>
-    <p>Request Ambulance for faster Service</p>
-    <a href="#" class="hero-btn openPopupLink" data-bs-toggle="modal" data-bs-target="#ambulanceRequestModal">
-      Request Now
-    </a>
+    <p>Request an ambulance instantly for fast medical assistance.</p>
+
+    {% if request.session.user_id %}
+      <!-- Logged-in users: open ambulance modal -->
+      <a href="javascript:void(0)"
+         class="hero-btn"
+         data-bs-toggle="modal"
+         data-bs-target="#ambulanceRequestModal">
+        Request Now
+      </a>
+    {% else %}
+      <!-- Not logged-in users: redirect to login page -->
+      <a href="{% url 'signin_page' %}" class="hero-btn">
+        🔐 Login to Request
+      </a>
+    {% endif %}
+
   </div>
 </div>
-
-
 
 
     </div>
@@ -200,11 +232,21 @@
 </section>
 
 
+
+
     <!-- Services Section -->
    <section id="services" class="services section">
 
   <div class="container section-title styled-title" data-aos="fade-up">
-      <h2>Our Services</h2>
+
+
+    <div class="section-title">
+      <h2 class="section-title">Our Services</h2>
+    </div>
+
+
+
+
       <p>We deliver quality and excellence in every service we provide.</p>
   </div>
 
@@ -240,9 +282,111 @@
 
 </section>
 
+<section class="portal-inner">
+
+  <!-- TOP ROLE CARDS -->
+  <div class="role-grid">
+
+    <!-- Donor -->
+    <div class="role-box">
+  <img src="donor.jpg" alt="Donor">
+  <div class="role-card donor">
+    <h3>DONOR</h3>
+    <p>Find your next donation</p>
+    <a href="#"
+       class="role-btn"
+       data-bs-toggle="modal"
+       data-bs-target="#donorLoginModal">
+       DONOR LOGIN
+    </a>
+  </div>
+</div>
+
+
+    <!-- Ambulance -->
+    <div class="role-box">
+  <img src="ambulance.jpg" alt="Ambulance">
+  <div class="role-card ambulance">
+    <h3>AMBULANCE DRIVER</h3>
+    <p>View dispatches</p>
+    <a href="#"
+       class="role-btn"
+       data-bs-toggle="modal"
+       data-bs-target="#driverLoginModal">
+      DRIVER LOGIN
+    </a>
+  </div>
+</div>
+
+
+    <!-- Hospital -->
+    <div class="role-box">
+      <img src="hospital.jpg" alt="Hospital">
+      <div class="role-card hospital">
+        <h3>HOSPITAL MANAGEMENT</h3>
+        <p>Manage operations</p>
+        <a href="#" class="role-btn">HOSPITAL LOGIN</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOWER INFO SECTION -->
+  <div class="info-grid">
+
+    <div class="info-item">
+      <img src="center.jpg">
+      <h4>Popular Donation Centers</h4>
+      <p>Hospitay Hospiton</p>
+    </div>
+
+    <div class="info-item">
+      <img src="driver-resource.jpg">
+      <h4>Ambulance Driver Resources</h4>
+      <p>Gesting Hovdes</p>
+    </div>
+
+    <div class="info-item">
+      <img src="management.jpg">
+      <h4>Management Tools</h4>
+      <p>Management Tools</p>
+    </div>
+
+  </div>
+
+</section>
 
 
 
+<section class="why-lifelink">
+  <h2>Why Choose LifeLink</h2>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <i class="fa fa-ambulance"></i>
+      <h3>Emergency First</h3>
+      <p>Quick ambulance access and real-time emergency response when every second matters.</p>
+    </div>
+
+    <div class="why-card">
+      <i class="fa fa-tint"></i>
+      <h3>Verified Blood Donors</h3>
+      <p>Find nearby, verified blood donors instantly with accurate availability.</p>
+    </div>
+
+    <div class="why-card">
+      <i class="fa fa-hospital"></i>
+      <h3>Hospital Network</h3>
+      <p>Access hospitals, bed availability, and medical services from one platform.</p>
+    </div>
+
+    <div class="why-card">
+      <i class="fa fa-shield"></i>
+      <h3>Secure & Reliable</h3>
+      <p>Your data is protected with secure systems and trusted medical partners.</p>
+    </div>
+  </div>
+</section>
 
 
     <!-- /Services Section -->
@@ -250,151 +394,152 @@
 
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
+<!--    <section id="testimonials" class="testimonials section">-->
 
-      <div class="container">
+<!--      <div class="container">-->
 
-        <div class="row align-items-center">
+<!--        <div class="row align-items-center">-->
 
-          <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">
-            <h3>Testimonials</h3>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-            </p>
-          </div>
+<!--          <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">-->
+<!--            <h3>Testimonials</h3>-->
+<!--            <p>-->
+<!--              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate-->
+<!--              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.-->
+<!--            </p>-->
+<!--          </div>-->
 
-          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
+<!--          <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">-->
 
-            <div class="swiper init-swiper">
-              <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 600,
-                  "autoplay": {
-                    "delay": 5000
-                  },
-                  "slidesPerView": "auto",
-                  "pagination": {
-                    "el": ".swiper-pagination",
-                    "type": "bullets",
-                    "clickable": true
-                  }
-                }
-              </script>
-              <div class="swiper-wrapper">
+<!--            <div class="swiper init-swiper">-->
+<!--              <script type="application/json" class="swiper-config">-->
+<!--                {-->
+<!--                  "loop": true,-->
+<!--                  "speed": 600,-->
+<!--                  "autoplay": {-->
+<!--                    "delay": 5000-->
+<!--                  },-->
+<!--                  "slidesPerView": "auto",-->
+<!--                  "pagination": {-->
+<!--                    "el": ".swiper-pagination",-->
+<!--                    "type": "bullets",-->
+<!--                    "clickable": true-->
+<!--                  }-->
+<!--                }-->
+<!--              </script>-->
+<!--              <div class="swiper-wrapper">-->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <div class="d-flex">
-                      <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img flex-shrink-0" alt="">
-                      <div>
-                        <h3>Saul Goodman</h3>
-                        <h4>Ceo &amp; Founder</h4>
-                        <div class="stars">
-                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+<!--                <div class="swiper-slide">-->
+<!--                  <div class="testimonial-item">-->
+<!--                    <div class="d-flex">-->
+<!--                      <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img flex-shrink-0" alt="">-->
+<!--                      <div>-->
+<!--                        <h3>Saul Goodman</h3>-->
+<!--                        <h4>Ceo &amp; Founder</h4>-->
+<!--                        <div class="stars">-->
+<!--                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <p>-->
+<!--                      <i class="bi bi-quote quote-icon-left"></i>-->
+<!--                      <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>-->
+<!--                      <i class="bi bi-quote quote-icon-right"></i>-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>&lt;!&ndash; End testimonial item &ndash;&gt;-->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <div class="d-flex">
-                      <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img flex-shrink-0" alt="">
-                      <div>
-                        <h3>Sara Wilsson</h3>
-                        <h4>Designer</h4>
-                        <div class="stars">
-                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+<!--                <div class="swiper-slide">-->
+<!--                  <div class="testimonial-item">-->
+<!--                    <div class="d-flex">-->
+<!--                      <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img flex-shrink-0" alt="">-->
+<!--                      <div>-->
+<!--                        <h3>Sara Wilsson</h3>-->
+<!--                        <h4>Designer</h4>-->
+<!--                        <div class="stars">-->
+<!--                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <p>-->
+<!--                      <i class="bi bi-quote quote-icon-left"></i>-->
+<!--                      <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>-->
+<!--                      <i class="bi bi-quote quote-icon-right"></i>-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>&lt;!&ndash; End testimonial item &ndash;&gt;-->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <div class="d-flex">
-                      <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img flex-shrink-0" alt="">
-                      <div>
-                        <h3>Jena Karlis</h3>
-                        <h4>Store Owner</h4>
-                        <div class="stars">
-                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+<!--                <div class="swiper-slide">-->
+<!--                  <div class="testimonial-item">-->
+<!--                    <div class="d-flex">-->
+<!--                      <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img flex-shrink-0" alt="">-->
+<!--                      <div>-->
+<!--                        <h3>Jena Karlis</h3>-->
+<!--                        <h4>Store Owner</h4>-->
+<!--                        <div class="stars">-->
+<!--                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <p>-->
+<!--                      <i class="bi bi-quote quote-icon-left"></i>-->
+<!--                      <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>-->
+<!--                      <i class="bi bi-quote quote-icon-right"></i>-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>&lt;!&ndash; End testimonial item &ndash;&gt;-->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <div class="d-flex">
-                      <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img flex-shrink-0" alt="">
-                      <div>
-                        <h3>Matt Brandon</h3>
-                        <h4>Freelancer</h4>
-                        <div class="stars">
-                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+<!--                <div class="swiper-slide">-->
+<!--                  <div class="testimonial-item">-->
+<!--                    <div class="d-flex">-->
+<!--                      <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img flex-shrink-0" alt="">-->
+<!--                      <div>-->
+<!--                        <h3>Matt Brandon</h3>-->
+<!--                        <h4>Freelancer</h4>-->
+<!--                        <div class="stars">-->
+<!--                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <p>-->
+<!--                      <i class="bi bi-quote quote-icon-left"></i>-->
+<!--                      <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>-->
+<!--                      <i class="bi bi-quote quote-icon-right"></i>-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>&lt;!&ndash; End testimonial item &ndash;&gt;-->
 
-                <div class="swiper-slide">
-                  <div class="testimonial-item">
-                    <div class="d-flex">
-                      <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img flex-shrink-0" alt="">
-                      <div>
-                        <h3>John Larson</h3>
-                        <h4>Entrepreneur</h4>
-                        <div class="stars">
-                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p>
-                      <i class="bi bi-quote quote-icon-left"></i>
-                      <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                      <i class="bi bi-quote quote-icon-right"></i>
-                    </p>
-                  </div>
-                </div><!-- End testimonial item -->
+<!--                <div class="swiper-slide">-->
+<!--                  <div class="testimonial-item">-->
+<!--                    <div class="d-flex">-->
+<!--                      <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img flex-shrink-0" alt="">-->
+<!--                      <div>-->
+<!--                        <h3>John Larson</h3>-->
+<!--                        <h4>Entrepreneur</h4>-->
+<!--                        <div class="stars">-->
+<!--                          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <p>-->
+<!--                      <i class="bi bi-quote quote-icon-left"></i>-->
+<!--                      <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>-->
+<!--                      <i class="bi bi-quote quote-icon-right"></i>-->
+<!--                    </p>-->
+<!--                  </div>-->
+<!--                </div>&lt;!&ndash; End testimonial item &ndash;&gt;-->
 
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
+<!--              </div>-->
+<!--              <div class="swiper-pagination"></div>-->
+<!--            </div>-->
 
-          </div>
+<!--          </div>-->
 
-        </div>
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
-    </section><!-- /Testimonials Section -->
+<!--    </section>-->
+    <!-- /Testimonials Section -->
 
 
 
@@ -593,14 +738,6 @@
 
 
 
-
-
-
-
-
-
-
-
     <!-- Ambulance Request Popup Modal -->
 <div class="modal fade" id="ambulanceRequestModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -761,8 +898,7 @@
 </div>
 
 
-<!-- Include the JS -->
-<script src="{% static 'js/ambulance_form_validation.js' %}"></script>
+
 
 
 
@@ -820,6 +956,47 @@
 
 
 
+<!--login modal-->
+<div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4">
+
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Login Required</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <p class="mb-3">
+          Please login to continue.
+        </p>
+
+        <button class="btn btn-danger w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#donorLoginModal"
+                data-bs-dismiss="modal">
+          🔐 Login Now
+        </button>
+
+        <p class="mt-3 mb-0">
+          New here?
+          <a href="#"
+             class="text-danger fw-semibold"
+             data-bs-toggle="modal"
+             data-bs-target="#donorRegisterModal"
+             data-bs-dismiss="modal">
+            Register
+          </a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
 
 {% if messages %}
   <div style="
@@ -855,29 +1032,26 @@
 
 
 
- <footer id="footer" class="footer bg-light">
+<footer id="footer" class="footer">
 
   <div class="container footer-top py-5">
     <div class="row gy-4">
 
-      <!-- About / Contact Info -->
+      <!-- About / Logo -->
       <div class="col-lg-4 col-md-6 footer-about">
-        <a href="{% url 'Home' %}" class="logo d-flex align-items-center mb-3">
-          <span class="sitename">Lifelink</span>
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto mb-3">
+          <!-- Emblem -->
+          <span class="logo-emblem">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <!-- Text -->
+          <h1 class="sitename">LifelinkPulse</h1>
         </a>
-        <p>Providing quality health services</p>
-        <p><strong>Email:</strong> <span>lifelinkhealthportal@gmail.com</span></p>
-
-        <!-- Social Links -->
-<!--        <div class="social-links d-flex mt-3">-->
-<!--          <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>-->
-<!--          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>-->
-<!--          <a href="#"><i class="bi bi-linkedin"></i></a>-->
-<!--        </div>-->
+        <p>Providing quality health services for everyone, anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:lifelinkhealthportal@gmail.com">lifelinkhealthportal@gmail.com</a></p>
       </div>
 
-      <!-- Useful Links -->
+      <!-- Quick Links -->
       <div class="col-lg-2 col-md-3 footer-links">
         <h4>Quick Links</h4>
         <ul>
@@ -892,19 +1066,15 @@
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Our Services</h4>
         <ul>
-    {% for service in services %}
-      <li>
-        <a href="{% url 'service_detail' service.id %}">
-          {{ service.name }}
-        </a>
-      </li>
-    {% empty %}
-      <li>No services available</li>
-    {% endfor %}
-  </ul>
+          {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% empty %}
+            <li>No services available</li>
+          {% endfor %}
+        </ul>
       </div>
 
-      <!-- User Links -->
+      <!-- Account -->
       <div class="col-lg-3 col-md-3 footer-links">
         <h4>Account</h4>
         <ul>
@@ -916,12 +1086,15 @@
     </div>
   </div>
 
-  <!-- Copyright -->
-  <div class="container text-center py-3">
+  <!-- Footer Bottom -->
+  <div class="container text-center py-3 footer-bottom">
     <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+    <p class="credits">Designed with ❤️ by <strong>Lifelink</strong></p>
   </div>
 
 </footer>
+
+
 
 
   <!-- Scroll Top -->
@@ -937,6 +1110,8 @@
   <script src="{% static 'web/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'web/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'web/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <!-- Include the JS -->
+  <script src="{% static 'js/ambulance_form_validation.js' %}"></script>
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>

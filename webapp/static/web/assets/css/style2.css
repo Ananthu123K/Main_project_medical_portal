@@ -34,3 +34,149 @@
 }
 
 
+
+
+
+
+
+
+.portal-inner {
+  background: #f6f9f9;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* TOP GRID */
+.role-grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* IMAGE BOX */
+.role-box img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+/* CARD */
+.role-card {
+  margin-top: -30px;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0,0,0,.08);
+}
+
+/* ARROW NOTCH */
+.role-card::after {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 18px 18px 0;
+  border-style: solid;
+}
+
+/* COLORS */
+.donor {
+  background: linear-gradient(135deg, #b8e6c4, #9ed36a);
+}
+.donor::after {
+  border-color: #9ed36a transparent transparent;
+}
+
+.ambulance {
+  background: linear-gradient(135deg, #2fa4aa, #1e8f96);
+}
+.ambulance::after {
+  border-color: #1e8f96 transparent transparent;
+}
+
+.hospital {
+  background: linear-gradient(135deg, #b8e6c4, #9ed36a);
+}
+.hospital::after {
+  border-color: #9ed36a transparent transparent;
+}
+
+/* TEXT */
+.role-card h3 {
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.role-card p {
+  font-size: 13px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+/* BUTTON */
+.role-btn {
+  background: #fff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  color: #0b5f63;
+  font-size: 12px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.role-btn:hover {
+  background: #0b5f63;
+  color: #fff;
+}
+
+/* LOWER SECTION */
+.info-grid {
+  max-width: 1200px;
+  margin: 60px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.info-item {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.info-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.info-item h4 {
+  font-size: 15px;
+  padding: 12px 12px 4px;
+  color: #222;
+}
+
+.info-item p {
+  font-size: 13px;
+  padding: 0 12px 12px;
+  color: #666;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .role-grid,
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+

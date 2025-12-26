@@ -65,11 +65,6 @@ def service_detail(request, service_id):
 
 
 
-
-from django.contrib import messages
-from django.shortcuts import redirect
-from django.contrib.auth.hashers import make_password
-
 def user_signup(request):
     if request.method == 'POST':
         name = request.POST.get('name')
