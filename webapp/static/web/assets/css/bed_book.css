@@ -1,0 +1,90 @@
+/* bed_booking.css */
+
+/* Card container */
+.bed-booking-card {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px 35px;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Heading */
+.bed-booking-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222222;
+    font-weight: 700;
+}
+
+/* Form groups */
+.bed-booking-card .form-group {
+    margin-bottom: 18px;
+}
+
+/* Labels */
+.bed-booking-card label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333333;
+}
+
+/* Inputs and selects */
+.bed-booking-card input[type="text"],
+.bed-booking-card input[type="number"],
+.bed-booking-card input[type="date"],
+.bed-booking-card select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.bed-booking-card input:focus,
+.bed-booking-card select:focus {
+    outline: none;
+    border-color: #ff385c;
+    box-shadow: 0 0 0 2px rgba(255, 56, 92, 0.2);
+    background-color: #fff;
+}
+
+/* Checkbox */
+.bed-booking-card input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Submit button */
+.bed-booking-card .btn-book {
+    width: 100%;
+    padding: 14px;
+    background-color: #ff385c;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.bed-booking-card .btn-book:hover {
+    background-color: #e03250;
+    transform: translateY(-2px);
+}
+
+/* Dropdown options badges */
+.bed-available {
+    color: #16a34a; /* green */
+    font-weight: 600;
+}
+
+.bed-full {
+    color: #ef4444; /* red */
+    font-weight: 600;
+}

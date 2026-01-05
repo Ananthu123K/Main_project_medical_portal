@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import uuid
+import datetime
 
 # Create your models here.
 
@@ -147,7 +148,7 @@ class AmbulanceRequest(models.Model):
 
     patient_name = models.CharField(max_length=100)
     contact_number = models.CharField(max_length=15)
-    contact_email = models.EmailField(null=True, blank=True)  # new
+    contact_email = models.EmailField(null=True, blank=True)
     pickup_location = models.CharField(max_length=255)
     emergency_note = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
@@ -181,6 +182,133 @@ class PasswordReset(models.Model):
 
     def __str__(self):
         return f"{self.user.Email} - {self.token}"
+
+
+
+# -----------------------------
+# Hospital models
+# -----------------------------
+
+
+class Hospital(models.Model):
+    name = models.CharField(max_length=200)
+    registration_number = models.CharField(max_length=100, unique=True)
+
+    phone = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    is_verified = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='hospital_images/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class HospitalStaff(models.Model):
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.hospital.name}"
+
+
+
+class Bed(models.Model):
+    BED_TYPES = (
+        ('ICU', 'ICU'),
+        ('GENERAL', 'General'),
+        ('EMERGENCY', 'Emergency'),
+        ('VENTILATOR', 'Ventilator'),
+    )
+
+    hospital = models.ForeignKey(
+        Hospital,
+        on_delete=models.CASCADE,
+        related_name='beds'
+    )
+    bed_type = models.CharField(max_length=20, choices=BED_TYPES)
+
+    total_beds = models.PositiveIntegerField()
+    available_beds = models.PositiveIntegerField()
+    price_per_day = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('hospital', 'bed_type')
+
+    def __str__(self):
+        return f"{self.hospital.name} - {self.bed_type}"
+
+
+
+
+
+
+
+
+class BedBooking(models.Model):
+    STATUS_CHOICES = (
+        ('PENDING', 'Pending'),
+        ('APPROVED', 'Approved'),
+        ('REJECTED', 'Rejected'),
+        ('CANCELLED', 'Cancelled'),
+    )
+
+    user = models.ForeignKey('UserRegistration', on_delete=models.CASCADE)
+    hospital = models.ForeignKey('Hospital', on_delete=models.CASCADE)
+    bed = models.ForeignKey('Bed', on_delete=models.CASCADE)
+
+    patient_name = models.CharField(max_length=100,null=True,blank=True)
+    patient_age = models.PositiveIntegerField(null=True, blank=True)
+
+
+    beds_required = models.PositiveIntegerField(default=1)
+
+    booking_date = models.DateField(default=timezone.localdate)
+    is_emergency = models.BooleanField(default=False)
+
+    total_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='PENDING'
+    )
+
+    requested_at = models.DateTimeField(auto_now_add=True)
+    decision_at = models.DateTimeField(null=True, blank=True)
+
+
+
+
+# Hospital join request
+class HospitalJoinRequest(models.Model):
+    hospital_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    message = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.hospital_name
 
 
 

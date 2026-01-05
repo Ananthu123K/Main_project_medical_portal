@@ -707,6 +707,83 @@
   </div>
 </div>
 
+<!--Hospital request to be partner popup-->
+
+<div class="modal fade" id="hospitalContactModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content"
+         style="border-radius:16px; border:none; box-shadow:0 10px 30px rgba(0,0,0,0.15); background:#fff;">
+
+      <!-- Header -->
+      <div class="modal-header"
+           style="background:#dc3545; color:#fff; border-top-left-radius:16px; border-top-right-radius:16px;">
+        <h5 class="modal-title" style="font-weight:600;">
+          🏥 Hospital Partnership
+        </h5>
+        <button type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body" style="padding:24px;">
+
+        <p style="color:#555; font-size:14px; margin-bottom:16px;">
+          Hospital registrations are <strong>admin managed</strong> for verification.
+          Please contact us with your hospital details.
+        </p>
+
+        <form method="POST" action="{% url 'contact_admin' %}">
+          {% csrf_token %}
+
+          <div style="margin-bottom:12px;">
+            <input type="text" name="hospital_name"
+                   placeholder="Hospital Name"
+                   required
+                   style="width:100%; padding:10px 12px; border-radius:8px;
+                          border:1px solid #ddd; font-size:14px;">
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <input type="email" name="email"
+                   placeholder="Official Email"
+                   required
+                   style="width:100%; padding:10px 12px; border-radius:8px;
+                          border:1px solid #ddd; font-size:14px;">
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <input type="text" name="phone"
+                   placeholder="Contact Number"
+                   required
+                   style="width:100%; padding:10px 12px; border-radius:8px;
+                          border:1px solid #ddd; font-size:14px;">
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <textarea name="message"
+                      rows="3"
+                      placeholder="Brief details about your hospital"
+                      style="width:100%; padding:10px 12px; border-radius:8px;
+                             border:1px solid #ddd; font-size:14px;"></textarea>
+          </div>
+
+          <button type="submit"
+                  style="width:100%; background:#dc3545; color:#fff;
+                         border:none; padding:12px; border-radius:10px;
+                         font-size:15px; font-weight:600; cursor:pointer;">
+            Send Request to Admin
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 
 </body>
 </html>

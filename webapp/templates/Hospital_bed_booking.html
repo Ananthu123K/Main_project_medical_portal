@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Home</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'web/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'web/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'web/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'web/assets/css/contact.css' %}">
+  <link rel="stylesheet" href="{% static 'web/assets/css/hospital.css' %}">
+
+
+  <!-- Main CSS File -->
+  <link href="{% static 'web/assets/css/main_style.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/style2.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body class="index-page">
+
+<header id="header" class="header sticky-top">
+
+  <div class="branding d-flex align-items-center">
+
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <!-- Logo -->
+      <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Emblem -->
+        <span class="logo-emblem">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <!-- Text -->
+        <h1 class="sitename">LifelinkPulse</h1>
+      </a>
+
+
+      <!-- Navbar Menu -->
+      <nav id="navmenu" class="navmenu">
+
+        <ul class="nav-list">
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="{% url 'Home' %}" class="nav-link ">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </li>
+
+          <!-- About -->
+          <li class="nav-item">
+            <a href="{% url 'About' %}" class="nav-link">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+
+          <!-- Services -->
+          <li class="nav-item dropdown">
+            <a href="{% url 'Services' %}" class="nav-link">
+              <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+               {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% endfor %}
+            </ul>
+          </li>
+
+          <!-- Ambulance -->
+          <li class="nav-item">
+            <a href="{% url 'ambulance_service_page' %}" class="nav-link">
+              <i class="bi bi-truck"></i> Ambulance
+            </a>
+          </li>
+
+          <!-- Donors -->
+          <li class="nav-item">
+            <a href="{% url 'Donors' %}" class="nav-link">
+              <i class="bi bi-people"></i> Donors
+            </a>
+          </li>
+          <!-- Hospital Bed Booking -->
+          <li class="nav-item">
+            <a href="{% url 'book_bed_page' %}" class="nav-link active">
+              <i class="bi bi-hospital"></i> Hospital
+            </a>
+          </li>
+
+
+
+
+
+          <!-- Contact -->
+          <li class="nav-item">
+            <a href="{% url 'Contact' %}" class="nav-link">
+              <i class="bi bi-envelope"></i> Contact
+            </a>
+          </li>
+
+          <!-- Join Us -->
+<!--          <li class="nav-item">-->
+<!--  <a href="{% url 'service_registration' %}" class="nav-link btn-join">-->
+<!--    <i class="bi bi-person-plus"></i> Join Us-->
+<!--  </a>-->
+<!--</li>-->
+
+<!--          -->
+          <!--     bed     bookings-->
+      <li class="nav-item">
+  <a href="{% url 'user_dashboard' %}" class="nav-link btn-join">
+    <i class="bi bi-calendar-check"></i> Bookings
+  </a>
+</li>
+
+
+<!--  login and logout-->
+
+         <li class="nav-item dropdown">
+  {% if request.session.user_id %}
+    <a class="nav-link dropdown-toggle btn-join"
+       href="#"
+       id="userDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+      <i class="bi bi-person-circle"></i> {{ request.session.Name }}
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+      <li>
+        <a class="dropdown-item" href="{% url 'user_logout' %}">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  {% else %}
+    <a href="{% url 'signin_page' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+  {% endif %}
+</li>
+
+
+        </ul>
+
+
+
+        <!-- Mobile Menu Toggle -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+
+
+
+
+
+    </div>
+  </div>
+
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <div class="top-controls">
+  <form method="GET" class="search-bar">
+    <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Search hospital by name, city, or state">
+    <button type="submit" class="btn-search">Search</button>
+  </form>
+
+
+  <a href="{% url 'user_dashboard' %}" class="view-bookings-card">
+    <i class="bi bi-eye"></i>
+    <span>View Bookings</span>
+  </a>
+</div>
+
+
+
+  <div class="row">
+    {% for hospital in hospitals %}
+      <div class="col-md-4">
+        <div class="hospital-card">
+          <img src="{{ hospital.image.url }}" alt="{{ hospital.name }}">
+
+          <div class="hospital-card-body">
+            <h5>{{ hospital.name }}</h5>
+            <p><i class="bi bi-geo-alt"></i> {{ hospital.address }}, {{ hospital.city }}, {{ hospital.state }}</p>
+
+
+          <p>
+              <strong>{{ hospital.name }}:</strong> {{ hospital.available_beds_today }} beds available today
+          </p>
+
+
+            <a href="{% url 'user_book_bed_page' hospital.id %}" class="btn btn-book">Book Bed</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No hospitals found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+
+<!-- ================= HOSPITAL PAGE ================= -->
+
+<!-- Hero Section -->
+<section class="hospital-hero">
+  <h1>Partner With Our Healthcare Network</h1>
+  <p>Admin-verified hospitals delivering trusted care with real-time management.</p>
+</section>
+
+<!-- Why Partner -->
+<!-- Hospital Features Section -->
+<!-- Include Google Material Icons in <head> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Hospital Features Section -->
+<section class="hospital-section">
+  <h2 class="section-title">Why Partner With Us</h2>
+
+  <div class="feature-grid">
+
+    <!-- Card 1 -->
+    <div class="feature-card">
+      <h4>Trusted Network</h4>
+      <p>Join a verified network of hospitals ensuring transparency and reliability for patient care.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="feature-card">
+      <h4>Instant Bed Management</h4>
+      <p>Update your bed availability in real-time, reducing manual coordination and delays.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="feature-card">
+      <h4>Secure Data Handling</h4>
+      <p>All patient requests and hospital data are encrypted and securely managed by our platform.</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="feature-card">
+      <h4>Admin-Verified Partnerships</h4>
+      <p>Only hospitals approved by admin can join, ensuring quality and trustworthiness.</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- How It Works Section -->
+<section class="how-it-works-section">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-subtitle">Seamless healthcare management for hospitals, donors, and patients.</p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <h4>1. Register Your Hospital</h4>
+      <p>Contact admin to get verified and become part of our trusted hospital network.</p>
+    </div>
+
+    <div class="how-card">
+      <h4>2. Manage Bed Availability</h4>
+      <p>Update bed counts in real-time and instantly notify patients of availability.</p>
+    </div>
+
+    <div class="how-card">
+      <h4>3. Accept Patient Requests</h4>
+      <p>Receive verified patient booking requests directly from the platform dashboard.</p>
+    </div>
+
+    <div class="how-card">
+      <h4>4. Seamless Emergency Support</h4>
+      <p>Integrate ambulance services to provide rapid response during critical cases.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Call To Action Section -->
+<section class="cta-section">
+  <div class="cta-container">
+    <h2>Join Our Network Today</h2>
+    <p>Become a part of a trusted healthcare platform helping patients and saving lives.</p>
+    <!-- Open Modal Instead of URL -->
+    <a href="#" class="cta-btn" data-bs-toggle="modal" data-bs-target="#hospitalContactModal">
+      Contact Admin
+    </a>
+  </div>
+</section>
+
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal fade" id="hospitalContactModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content" style="border-radius:22px; box-shadow:0 30px 60px rgba(0,0,0,0.25); background:#fff;">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background:#dc3545; color:#fff; border-top-left-radius:22px; border-top-right-radius:22px;">
+        <h5 class="modal-title">🏥 Hospital Partnership</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: invert(1);"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body" style="padding:25px;">
+        <p style="color:#333; font-weight:500; margin-bottom:20px;">Hospital registrations are admin managed. Please share your details.</p>
+
+        <form method="post" action="{% url 'contact_admin' %}">
+          {% csrf_token %}
+          <input type="text" placeholder="Hospital Name" required
+                 style="width:100%; padding:12px; margin-bottom:14px; border-radius:12px; border:1px solid #ddd;">
+          <input type="email" placeholder="Official Email" required
+                 style="width:100%; padding:12px; margin-bottom:14px; border-radius:12px; border:1px solid #ddd;">
+          <input type="text" placeholder="Contact Number" required
+                 style="width:100%; padding:12px; margin-bottom:14px; border-radius:12px; border:1px solid #ddd;">
+          <textarea rows="3" placeholder="Hospital details"
+                    style="width:100%; padding:12px; margin-bottom:14px; border-radius:12px; border:1px solid #ddd;"></textarea>
+
+          <button type="submit"
+                  style="background:#dc3545; color:#fff; border:none; padding:14px; width:100%; border-radius:12px; font-weight:600; cursor:pointer; transition:all 0.3s;">
+            Send Request
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<footer id="footer" class="footer">
+
+  <div class="container footer-top py-5">
+    <div class="row gy-4">
+
+      <!-- About / Logo -->
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto mb-3">
+          <!-- Emblem -->
+          <span class="logo-emblem">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <!-- Text -->
+          <h1 class="sitename">LifelinkPulse</h1>
+        </a>
+        <p>Providing quality health services for everyone, anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:lifelinkhealthportal@gmail.com">lifelinkhealthportal@gmail.com</a></p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'Home' %}">Home</a></li>
+          <li><a href="{% url 'About' %}">About Us</a></li>
+          <li><a href="{% url 'Services' %}">Services</a></li>
+          <li><a href="{% url 'Contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="col-lg-3 col-md-3 footer-links">
+        <h4>Our Services</h4>
+        <ul>
+          {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% empty %}
+            <li>No services available</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- My Health -->
+      <div class="col-lg-3 col-md-3 footer-links">
+  <h4>My Health</h4>
+  <ul>
+    <li><a href="{% url 'user_dashboard' %}">My Requests</a></li>
+    <li><a href="{% url 'book_bed_page' %}">Find Care</a></li>
+    <li><a href="{% url 'ambulance_service_page' %}">Emergency Help</a></li>
+  </ul>
+</div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="container text-center py-3 footer-bottom">
+    <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+    <p class="credits">Designed with ❤️ by <strong>Lifelink</strong></p>
+  </div>
+
+</footer>
+
+
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'web/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <!-- Include the JS -->
+  <script src="{% static 'js/ambulance_form_validation.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'web/assets/js/main.js' %}"></script>
+  <script src="{% static 'web/assets/js/ambulance_validation.js' %}"></script>
+  <script src="{% static 'web/assets/js/donor_validation.js' %}"></script>
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 4000); // 4 seconds
+</script>
+
+<script>
+setInterval(() => {
+    fetch("{% url 'check_request_status' %}")
+}, 5000);  // checks every 5 seconds
+</script>
+
+</body>
+
+</html>

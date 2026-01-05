@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Staff Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f7f7f7;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: #ffffff;
+            width: 380px;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-card h2 {
+            margin-bottom: 6px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .login-card p {
+            font-size: 14px;
+            color: #717171;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            border: 1px solid #dddddd;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff385c;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff385c, #e61e4d);
+            border: none;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-login:hover {
+            opacity: 0.95;
+        }
+
+        .message {
+            background: #ffecec;
+            color: #c82333;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 13px;
+            text-align: center;
+            color: #717171;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <h2>Hospital Staff Login</h2>
+    <p>Access your hospital dashboard securely</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'hospital_staff_login' %}">
+        {% csrf_token %}
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="staff@hospital.com" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit" class="btn-login">Log in</button>
+    </form>
+
+    <div class="footer-text">
+        Authorized hospital staff only
+    </div>
+
+</div>
+
+</body>
+</html>

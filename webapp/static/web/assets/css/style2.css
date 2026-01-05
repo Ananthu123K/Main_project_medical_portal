@@ -180,3 +180,435 @@
 }
 
 
+/*cards below registration in home page(eg verified hospitals)*/
+
+
+/* Container grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 30px 20px;
+  max-width: 1200px; /* increased width */
+  margin: 0 auto;
+}
+
+/* Individual card styling */
+.info-item {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+  padding: 20px 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+/* Hover effect */
+.info-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* Image styling */
+.info-item img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover; /* fully fits the image */
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+/* Image hover zoom effect */
+.info-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Title styling */
+.info-item h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-bottom: 8px;
+}
+
+/* Paragraph styling */
+.info-item p {
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .info-grid {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .info-item img {
+    height: 120px;
+  }
+  .info-item h4 {
+    font-size: 1rem;
+  }
+  .info-item p {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/*join us page */
+/* ---------------- JOIN OUR COMMUNITY ---------------- */
+.community-section {
+  background: #fafafa;
+  padding: 80px 20px;
+}
+
+.community-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.community-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.community-header h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.community-header p {
+  font-size: 16px;
+  color: #666;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Cards Layout */
+.community-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+/* Card */
+.community-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+
+/* Icon */
+.card-icon {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+/* Card Text */
+.community-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.community-card p {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* Button */
+.community-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  background: #ff385c; /* Airbnb-style accent */
+  color: #fff;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.community-btn:hover {
+  background: #e31c5f;
+  transform: scale(1.05);
+}
+
+.community-badge {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 14px;
+  background: #f1f1f1;
+  color: #555;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+  .community-header h2 {
+    font-size: 28px;
+  }
+}
+
+
+
+
+
+
+/* ===== Global Styles ===== */
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  margin: 0;
+}
+
+/* ===== Hero Section ===== */
+.hospital-hero {
+  background: #dc3545;
+  color: #fff;
+  padding: 90px 10%;
+  text-align: center;
+  border-radius: 0 0 20px 20px;
+}
+
+.hospital-hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.hospital-hero p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+/* ===== Hospital Features Section ===== */
+.hospital-section {
+  padding: 80px 10%;
+  background: #fefefe;
+  border-radius: 20px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.section-title + p {
+  font-size: 17px;
+  color: #6c757d;
+  margin-bottom: 50px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Feature Cards */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* Add subtle gradient line above card title */
+.feature-card::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 0 auto 18px;
+  background: linear-gradient(90deg, #dc3545 0%, #ff7b81 100%);
+  border-radius: 2px;
+}
+
+.feature-card h4 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #dc3545;
+}
+
+.feature-card p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(220, 53, 69, 0.12);
+}
+
+/* ===== How It Works Section ===== */
+.how-it-works-section {
+  padding: 80px 10%;
+  background: #fafafa;
+  border-radius: 20px;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: #6c757d;
+  text-align: center;
+  margin-bottom: 50px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.how-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 36px 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.how-card h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  color: #dc3545;
+}
+
+.how-card p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.how-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 35px rgba(220, 53, 69, 0.1);
+}
+
+/* ===== CTA Section ===== */
+.cta-section {
+  background: #dc3545;
+  color: #fff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 60px 30px;
+  margin-top: 50px;
+}
+
+.cta-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cta-section p {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.cta-btn {
+  background: #fff;
+  color: #dc3545;
+  border: none;
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.cta-btn:hover {
+  background: #c82333;
+  color: #fff;
+  transform: scale(1.04);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hospital-hero,
+  .hospital-section,
+  .how-it-works-section,
+  .cta-section {
+    padding: 60px 5%;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .feature-card h4,
+  .how-card h4 {
+    font-size: 20px;
+  }
+
+  .feature-card p,
+  .how-card p,
+  .cta-section p {
+    font-size: 15px;
+  }
+
+  .feature-card,
+  .how-card {
+    padding: 28px 20px;
+  }
+}
+
+
+
+
+
+
+
+
+

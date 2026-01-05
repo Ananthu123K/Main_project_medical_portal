@@ -56,4 +56,27 @@ urlpatterns=[
 
 
 
+    #Hospital
+    path('hospital_staff_login_page/',views.hospital_staff_login_page,name='hospital_staff_login_page'),
+    path('hospital_staff_login/',views.hospital_staff_login,name='hospital_staff_login'),
+    path('hospital_dashboard/',views.hospital_dashboard,name='hospital_dashboard'),
+    path('manage_beds/',views.manage_beds,name='manage_beds'),
+    path('save_bed/',views.save_bed,name='save_bed'),
+    path('approve_booking/<int:booking_id>',views.approve_booking,name='approve_booking'),
+    path('reject_booking/<int:booking_id>',views.reject_booking,name='reject_booking'),
+    path('book_bed_page/',views.book_bed_page,name='book_bed_page'),
+    path('user_book_bed_page/<int:hospital_id>',views.user_book_bed_page,name='user_book_bed_page'),
+    path('submit_bed_booking/<int:hospital_id>',views.submit_bed_booking,name='submit_bed_booking'),
+    path('cancel_bed_booking/<int:booking_id>',views.cancel_bed_booking,name='cancel_bed_booking'),
+    path('user_dashboard/', views.user_dashboard, name='user_dashboard'),
+    path('contact_admin/', views.contact_admin, name='contact_admin'),
+
+
+    # Map
+    path("hospitals/map/",views.hospital_map, name="hospital_map"),
+
+
+
+
+
 ]

@@ -20,4 +20,17 @@ urlpatterns=[
     path('display_requests/',views.display_requests,name="display_requests"),
     path('delete_drivers/<int:d_id>/',views.delete_drivers,name="delete_drivers"),
     path('delete_requests/<int:r_id>/',views.delete_requests,name="delete_requests"),
+    path('add_hospitals/',views.add_hospitals,name="add_hospitals"),
+    path('save_hospital/',views.save_hospital,name="save_hospital"),
+    path('display_hospitals/',views.display_hospitals,name="display_hospitals"),
+    path('edit_hospitals/<int:h_id>/',views.edit_hospitals,name="edit_hospitals"),
+    path('update_hospital/<int:h_id>/',views.update_hospital,name="update_hospital"),
+    path('delete_hospital/<int:h_id>/',views.delete_hospital,name="delete_hospital"),
+    path('hospital_staff_signup_page/',views.hospital_staff_signup_page,name="hospital_staff_signup_page"),
+    path('hospital_staff_signup/',views.hospital_staff_signup,name="hospital_staff_signup"),
+    path('staff_list/',views.staff_list,name="staff_list"),
+    path('delete_staff/<int:staff_id>/', views.delete_staff, name="delete_staff"),
+    path('bed_bookings/', views.bed_booking_list, name='bed_booking_list'),
+    path('bed_booking/delete/<int:booking_id>/', views.delete_bed_booking, name='delete_bed_booking'),
+
 ]

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html>
+<head>
+    <title>Edit Hospital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f8fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .current-image {
+            margin-bottom: 20px;
+        }
+
+        .current-image img {
+            width: 200px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Hospital</h2>
+        <form method="POST" action="{% url 'update_hospital' hospital.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label>Name:</label>
+            <input type="text" name="name" value="{{ hospital.name }}" required>
+
+            <label>Registration Number:</label>
+            <input type="text" name="registration_number" value="{{ hospital.registration_number }}" required>
+
+            <label>Phone:</label>
+            <input type="text" name="phone" value="{{ hospital.phone }}" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ hospital.email }}" required>
+
+            <label>Address:</label>
+            <textarea name="address" rows="3" required>{{ hospital.address }}</textarea>
+
+            <label>City:</label>
+            <input type="text" name="city" value="{{ hospital.city }}" required>
+
+            <label>District:</label>
+            <input type="text" name="district" value="{{ hospital.district }}" required>
+
+            <label>State:</label>
+            <input type="text" name="state" value="{{ hospital.state }}" required>
+
+            <label>Verified:</label>
+            <input type="checkbox" name="is_verified" {% if hospital.is_verified %}checked{% endif %}><br><br>
+
+            <label>Hospital Image:</label>
+            <input type="file" name="image" accept="image/*"><br><br>
+
+            {% if hospital.image %}
+            <div class="current-image">
+                <p>Current Image:</p>
+                <img src="{{ hospital.image.url }}" alt="{{ hospital.name }}">
+            </div>
+            {% endif %}
+
+            <button type="submit">Update Hospital</button>
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}

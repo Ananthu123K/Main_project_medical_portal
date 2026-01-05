@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Home</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'web/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'web/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'web/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'web/assets/css/contact.css' %}">
+  <link rel="stylesheet" href="{% static 'web/assets/css/user_dashboard.css' %}">
+
+
+  <!-- Main CSS File -->
+  <link href="{% static 'web/assets/css/main_style.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'web/assets/css/style2.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body class="index-page">
+
+<header id="header" class="header sticky-top">
+
+  <div class="branding d-flex align-items-center">
+
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <!-- Logo -->
+      <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto">
+        <!-- Emblem -->
+        <span class="logo-emblem">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <!-- Text -->
+        <h1 class="sitename">LifelinkPulse</h1>
+      </a>
+
+
+      <!-- Navbar Menu -->
+      <nav id="navmenu" class="navmenu">
+
+        <ul class="nav-list">
+          <!-- Home -->
+          <li class="nav-item">
+            <a href="{% url 'Home' %}" class="nav-link">
+              <i class="bi bi-house-door"></i> Home
+            </a>
+          </li>
+
+          <!-- About -->
+          <li class="nav-item">
+            <a href="{% url 'About' %}" class="nav-link">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+
+          <!-- Services -->
+          <li class="nav-item dropdown">
+            <a href="{% url 'Services' %}" class="nav-link">
+              <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
+            </a>
+            <ul class="dropdown-menu">
+              {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% endfor %}
+            </ul>
+          </li>
+
+          <!-- Ambulance -->
+          <li class="nav-item">
+            <a href="{% url 'ambulance_service_page' %}" class="nav-link">
+              <i class="bi bi-truck"></i> Ambulance
+            </a>
+          </li>
+
+          <!-- Donors -->
+          <li class="nav-item">
+            <a href="{% url 'Donors' %}" class="nav-link">
+              <i class="bi bi-people"></i> Donors
+            </a>
+          </li>
+          <!-- Hospital Bed Booking -->
+          <li class="nav-item">
+            <a href="{% url 'book_bed_page' %}" class="nav-link active">
+              <i class="bi bi-hospital"></i> Hospital
+            </a>
+          </li>
+
+
+
+
+
+          <!-- Contact -->
+          <li class="nav-item">
+            <a href="{% url 'Contact' %}" class="nav-link">
+              <i class="bi bi-envelope"></i> Contact
+            </a>
+          </li>
+
+          <!-- Join Us -->
+<!--          <li class="nav-item">-->
+<!--  <a href="{% url 'service_registration' %}" class="nav-link btn-join">-->
+<!--    <i class="bi bi-person-plus"></i> Join Us-->
+<!--  </a>-->
+<!--</li>-->
+
+
+ <!--     bed     bookings-->
+      <li class="nav-item">
+  <a href="{% url 'user_dashboard' %}" class="nav-link btn-join">
+    <i class="bi bi-calendar-check"></i> Bookings
+  </a>
+</li>
+
+<!--  login and logout-->
+
+         <li class="nav-item dropdown">
+  {% if request.session.user_id %}
+    <a class="nav-link dropdown-toggle btn-join"
+       href="#"
+       id="userDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+      <i class="bi bi-person-circle"></i> {{ request.session.Name }}
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+      <li>
+        <a class="dropdown-item" href="{% url 'user_logout' %}">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  {% else %}
+    <a href="{% url 'signin_page' %}" class="nav-link btn-join">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+  {% endif %}
+</li>
+
+
+        </ul>
+
+
+
+        <!-- Mobile Menu Toggle -->
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+      </nav>
+
+
+
+
+
+
+    </div>
+  </div>
+
+</header>
+
+
+
+
+<div class="dashboard-wrapper">
+
+  <div class="dashboard-header">
+    <h2>My Bed Bookings</h2>
+    <p>View and manage your active hospital bed bookings</p>
+  </div>
+
+  {% if bookings %}
+  <div class="table-card">
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Hospital</th>
+          <th>Bed Type</th>
+          <th>Date</th>
+          <th>Beds</th>
+          <th>Total Price</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.hospital.name }}</td>
+          <td>{{ booking.bed.bed_type }}</td>
+          <td>{{ booking.booking_date }}</td>
+          <td>{{ booking.beds_required }}</td>
+          <td class="price">₹{{ booking.total_price }}</td>
+
+          <td>
+            <span class="status-pill {{ booking.status|lower }}">
+              {{ booking.status }}
+            </span>
+          </td>
+
+          <td>
+            {% if booking.status == "PENDING" and booking.booking_date > today %}
+              <a href="{% url 'cancel_bed_booking' booking.id %}"
+                 class="btn-cancel">
+                 Cancel
+              </a>
+            {% else %}
+              <span class="disabled-action">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div class="empty-state">
+      <p>No active bed bookings found.</p>
+    </div>
+  {% endif %}
+
+</div>
+<div class="alert alert-info">
+  You can rebook beds on the same day after cancellation, subject to availability.
+</div>
+
+
+
+{% if messages %}
+  <div style="
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1055;
+      width: 90%;
+      max-width: 500px;
+    ">
+    {% for message in messages %}
+      <div class="alert
+        {% if message.tags == 'error' %}alert-danger
+        {% else %}alert-success{% endif %}
+        alert-dismissible fade show shadow"
+        role="alert">
+
+        {{ message }}
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+
+
+<footer id="footer" class="footer">
+
+  <div class="container footer-top py-5">
+    <div class="row gy-4">
+
+      <!-- About / Logo -->
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="{% url 'Home' %}" class="logo d-flex align-items-center me-auto mb-3">
+          <!-- Emblem -->
+          <span class="logo-emblem">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </span>
+          <!-- Text -->
+          <h1 class="sitename">LifelinkPulse</h1>
+        </a>
+        <p>Providing quality health services for everyone, anytime.</p>
+        <p><strong>Email:</strong> <a href="mailto:lifelinkhealthportal@gmail.com">lifelinkhealthportal@gmail.com</a></p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'Home' %}">Home</a></li>
+          <li><a href="{% url 'About' %}">About Us</a></li>
+          <li><a href="{% url 'Services' %}">Services</a></li>
+          <li><a href="{% url 'Contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="col-lg-3 col-md-3 footer-links">
+        <h4>Our Services</h4>
+        <ul>
+          {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% empty %}
+            <li>No services available</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- My Health -->
+      <div class="col-lg-3 col-md-3 footer-links">
+  <h4>My Health</h4>
+  <ul>
+    <li><a href="{% url 'user_dashboard' %}">My Requests</a></li>
+    <li><a href="{% url 'book_bed_page' %}">Find Care</a></li>
+    <li><a href="{% url 'ambulance_service_page' %}">Emergency Help</a></li>
+  </ul>
+</div>
+
+
+
+
+
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="container text-center py-3 footer-bottom">
+    <p>© <span>Lifelink</span>. All Rights Reserved.</p>
+    <p class="credits">Designed with ❤️ by <strong>Lifelink</strong></p>
+  </div>
+
+</footer>
+
+
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'web/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'web/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <!-- Include the JS -->
+  <script src="{% static 'js/ambulance_form_validation.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'web/assets/js/main.js' %}"></script>
+  <script src="{% static 'web/assets/js/ambulance_validation.js' %}"></script>
+  <script src="{% static 'web/assets/js/donor_validation.js' %}"></script>
+<script>
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 4000); // 4 seconds
+</script>
+
+<script>
+setInterval(() => {
+    fetch("{% url 'check_request_status' %}")
+}, 5000);  // checks every 5 seconds
+</script>
+
+</body>
+
+</html>

@@ -7,22 +7,22 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+  src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('../fonts/poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/poppins/Poppins-SemiBold.ttf');
 }
 
 
@@ -32,8 +32,8 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0px;
+	padding: 0px;
 	box-sizing: border-box;
 }
 
@@ -164,7 +164,7 @@ iframe {
 }
 
 .container-login100 {
-  width: 100%;  
+  width: 100%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -473,4 +473,89 @@ iframe {
     padding-left: 15px;
     padding-right: 15px;
   }
-} 
+}
+
+
+/*------------------------
+[ Form Title - Signup Heading ]*/
+.login100-form-title {
+  font-family: Poppins-Bold;
+  font-size: 2rem;
+  color: #FF5A5F; /* Red accent color */
+  text-align: center;
+  margin-top: 0; /* Remove extra top margin */
+  margin-bottom: 30px; /* Reduce bottom margin slightly */
+}
+
+/*------------------------
+[ Wrap Login Card ]*/
+.wrap-login100 {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 40px 35px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.wrap-login100:hover {
+  box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+}
+
+
+/*------------------------
+/*------------------------
+[ Form Title - Signup Heading ]*/
+.login100-form-title {
+  font-family: Poppins-Bold;
+  font-size: 2rem;
+  color: #FF5A5F; /* Red accent color */
+  text-align: center;
+  margin-top: 20px; /* Add some space from top of card */
+  margin-bottom: 30px; /* Space below heading */
+}
+
+
+.login100-form-btn {
+  width: 100%;
+  padding: 14px;
+  font-family: Poppins-SemiBold;
+  font-size: 16px;
+  color: #fff;
+  background: linear-gradient(90deg, #FF5A5F, #FF6B6B);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.login100-form-btn:hover {
+  background: linear-gradient(90deg, #FF6B6B, #FF5A5F);
+  box-shadow: 0 8px 24px rgba(255,90,95,0.4);
+}
+
+/*------------------------
+[ Links styling ]*/
+.txt1, .txt2 {
+  font-size: 0.95rem;
+  text-align: center;
+}
+.txt2 {
+  color: #FF5A5F;
+  font-weight: 500;
+}
+.txt2:hover {
+  text-decoration: underline;
+}
+
+/*------------------------
+[ Responsive tweaks ]*/
+@media (max-width: 576px) {
+  .wrap-login100 {
+    padding: 30px 20px;
+  }
+  .login100-form-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+}

@@ -79,8 +79,9 @@
               <i class="bi bi-heart-pulse"></i> Services <i class="bi bi-chevron-down dropdown-icon"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Service 1</a></li>
-              <li><a href="#">Service 2</a></li>
+              {% for service in services %}
+            <li><a href="{% url 'service_detail' service.id %}">{{ service.name }}</a></li>
+          {% endfor %}
             </ul>
           </li>
 
@@ -98,7 +99,12 @@
             </a>
           </li>
 
-
+         <!-- Hospital Bed Booking -->
+          <li class="nav-item">
+            <a href="{% url 'book_bed_page' %}" class="nav-link">
+              <i class="bi bi-hospital"></i> Hospital
+            </a>
+          </li>
           <!-- Contact -->
           <li class="nav-item">
             <a href="{% url 'Contact' %}" class="nav-link">
@@ -107,21 +113,39 @@
           </li>
 
           <!-- Join Us -->
-          <li class="nav-item">
-  <a href="{% url 'service_registration' %}" class="nav-link btn-join">
-    <i class="bi bi-person-plus"></i> Join Us
+<!--          <li class="nav-item">-->
+<!--  <a href="{% url 'service_registration' %}" class="nav-link btn-join">-->
+<!--    <i class="bi bi-person-plus"></i> Join Us-->
+<!--  </a>-->
+<!--</li>-->
+
+ <!--     bed     bookings-->
+      <li class="nav-item">
+  <a href="{% url 'user_dashboard' %}" class="nav-link btn-join">
+    <i class="bi bi-calendar-check"></i> Bookings
   </a>
 </li>
 
-
-
 <!--  login and logout-->
 
-         <li class="nav-item">
+         <li class="nav-item dropdown">
   {% if request.session.user_id %}
-    <a href="{% url 'user_logout' %}" class="nav-link btn-join">
-      <i class="bi bi-person-circle"></i>{{ request.session.Name }}
+    <a class="nav-link dropdown-toggle btn-join"
+       href="#"
+       id="userDropdown"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+      <i class="bi bi-person-circle"></i> {{ request.session.Name }}
     </a>
+
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+      <li>
+        <a class="dropdown-item" href="{% url 'user_logout' %}">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
   {% else %}
     <a href="{% url 'signin_page' %}" class="nav-link btn-join">
       <i class="bi bi-person-circle"></i> Login
@@ -183,6 +207,13 @@
         <button type="button" class="btn btn-danger btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#bloodRequestModal">
             🩸 Request Blood
         </button>
+    {% endif %}
+          {% if service.name == "Hospital Bed Booking" %}
+          <a href="{% url 'book_bed_page' %}">
+        <button type="button" class="btn btn-danger btn-lg mt-3" >
+            Book Bed
+        </button>
+            </a>
     {% endif %}
 
 </div>
@@ -389,14 +420,19 @@
         </ul>
       </div>
 
-      <!-- Account -->
+      <!-- My Health -->
       <div class="col-lg-3 col-md-3 footer-links">
-        <h4>Account</h4>
-        <ul>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Notifications</a></li>
-        </ul>
-      </div>
+  <h4>My Health</h4>
+  <ul>
+    <li><a href="{% url 'user_dashboard' %}">My Requests</a></li>
+    <li><a href="{% url 'book_bed_page' %}">Find Care</a></li>
+    <li><a href="{% url 'ambulance_service_page' %}">Emergency Help</a></li>
+  </ul>
+</div>
+
+
+
+
 
     </div>
   </div>
@@ -408,6 +444,7 @@
   </div>
 
 </footer>
+
 
 
 
@@ -424,9 +461,13 @@
   <script src="{% static 'web/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
   <script src="{% static 'web/assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
   <script src="{% static 'web/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <!-- Include the JS -->
+  <script src="{% static 'js/ambulance_form_validation.js' %}"></script>
 
   <!-- Main JS File -->
   <script src="{% static 'web/assets/js/main.js' %}"></script>
+  <script src="{% static 'web/assets/js/ambulance_validation.js' %}"></script>
+  <script src="{% static 'web/assets/js/donor_validation.js' %}"></script>
 <script>
   setTimeout(() => {
     const alerts = document.querySelectorAll('.alert');

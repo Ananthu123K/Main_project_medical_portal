@@ -1,0 +1,211 @@
+.dashboard-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px;
+    background: #f7f7f7;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.dashboard-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+/* Buttons */
+.primary-btn {
+    background: #ff385c;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.primary-btn:hover {
+    background: #e03150;
+}
+
+/* Table */
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.modern-table thead {
+    background: #f1f1f1;
+}
+
+.modern-table th,
+.modern-table td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.modern-table tr {
+    border-bottom: 1px solid #eee;
+}
+
+.empty-text {
+    text-align: center;
+    color: #888;
+}
+
+/* Badges */
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge.success {
+    background: #e6f7f0;
+    color: #0f766e;
+}
+
+/* Status */
+.status {
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status.approved {
+    background: #e6f4ea;
+    color: #1e7e34;
+}
+
+.status.rejected {
+    background: #fdecea;
+    color: #b02a37;
+}
+
+/* Action Buttons */
+.btn-approve {
+    background: #198754;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.btn-reject {
+    background: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    margin-left: 6px;
+}
+
+.muted {
+    color: #999;
+    font-size: 13px;
+}
+
+/* ============================= */
+/* RESPONSIVE DASHBOARD STYLES   */
+/* ============================= */
+
+/* Tablets */
+@media (max-width: 992px) {
+    .dashboard-container {
+        padding: 16px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .dashboard-header h2 {
+        font-size: 22px;
+    }
+
+    .primary-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /* Tables become scrollable */
+    .card {
+        padding: 16px;
+    }
+
+    .modern-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .modern-table th,
+    .modern-table td {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .btn-approve,
+    .btn-reject {
+        display: inline-block;
+        margin-top: 6px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+    .dashboard-header h2 {
+        font-size: 20px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+    }
+
+    .primary-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .status,
+    .badge {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+}

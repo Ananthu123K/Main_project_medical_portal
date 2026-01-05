@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container mt-4">
+  <h3 class="mb-4">Bed Booking List</h3>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Patient</th>
+        <th>Age</th>
+        <th>Hospital</th>
+        <th>Beds</th>
+        <th>Emergency</th>
+        <th>Status</th>
+        <th>Booked On</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for booking in bookings %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ booking.patient_name }}</td>
+        <td>{{ booking.patient_age }}</td>
+        <td>{{ booking.hospital.name }}</td>
+        <td>{{ booking.beds_required }}</td>
+        <td>
+          {% if booking.is_emergency %}
+            <span class="badge bg-danger">Yes</span>
+          {% else %}
+            <span class="badge bg-secondary">No</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if booking.status == 'PENDING' %}
+            <span class="badge bg-warning text-dark">Pending</span>
+          {% elif booking.status == 'APPROVED' %}
+            <span class="badge bg-success">Approved</span>
+          {% elif booking.status == 'REJECTED' %}
+            <span class="badge bg-danger">Rejected</span>
+          {% else %}
+            <span class="badge bg-secondary">Cancelled</span>
+          {% endif %}
+        </td>
+        <td>{{ booking.booking_date }}</td>
+        <td>
+          <form method="post" action="{% url 'delete_bed_booking' booking.id %}">
+            {% csrf_token %}
+            <button type="submit"
+                    class="btn btn-sm btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this booking?');">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="9" class="text-center">No bookings found</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>
+{% endblock %}

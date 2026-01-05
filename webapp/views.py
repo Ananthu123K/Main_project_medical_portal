@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from admin_panel.models import ServiceCategoryDb,BloodCategory
 from webapp.models import *
@@ -15,6 +15,11 @@ from django.http import HttpResponse
 from .utils import is_strong_password
 import uuid
 from django.utils import timezone
+from django.db import transaction
+from django.db.models import Sum
+
+
+
 
 
 
@@ -659,7 +664,8 @@ def ambulance_driver_registration(request):
     return render(request,"Ambulance_registration.html")
 
 def service_registration(request):
-    return render(request,"Registrations.html")
+    services=ServiceCategoryDb.objects.all()
+    return render(request,"Registrations.html",{"services":services})
 
 def ambulance_service_page(request):
     services=ServiceCategoryDb.objects.all()
@@ -1104,6 +1110,314 @@ def reset_password(request, token):
 
 
 
+# ==================================================
+# Hospital service views
+# ==================================================
+
+
+def hospital_staff_login_page(request):
+    return render(request, 'Hospital_staff_login.html')
+
+
+
+
+def hospital_staff_login_page(request):
+    return render(request, 'Hospital_staff_login.html')
+
+def hospital_staff_login(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        referer = request.META.get('HTTP_REFERER', '/')
+
+        try:
+            staff = HospitalStaff.objects.get(email=email)
+
+            if check_password(password, staff.password):
+                request.session.flush()
+
+                request.session['hospital_staff_id'] = staff.id
+                request.session['hospital_id'] = staff.hospital.id
+
+                return redirect('hospital_dashboard')
+            else:
+                messages.error(request, "Invalid password")
+
+        except HospitalStaff.DoesNotExist:
+            messages.error(request, "Hospital staff not found")
+
+        return redirect(referer)
+
+
+
+
+def hospital_dashboard(request):
+    staff_id = request.session.get('hospital_staff_id')
+    hospital_id = request.session.get('hospital_id')
+
+    if not staff_id or not hospital_id:
+        return redirect('/')
+
+    # Validate staff belongs to hospital
+    staff = HospitalStaff.objects.filter(
+        id=staff_id,
+        hospital_id=hospital_id
+    ).first()
+
+    if not staff:
+        request.session.flush()
+        return redirect('/')
+
+    hospital = staff.hospital
+
+    beds = Bed.objects.filter(hospital=hospital)
+    bookings = BedBooking.objects.filter(hospital=hospital)
+
+    return render(request, 'Hospital_dashboard.html', {
+        'hospital': hospital,
+        'staff': staff,
+        'beds': beds,
+        'bookings': bookings
+    })
+
+
+
+
+
+def manage_beds(request):
+    if 'hospital_staff_id' not in request.session:
+        return redirect('/')
+
+    hospital_id = request.session['hospital_id']
+    beds = Bed.objects.filter(hospital_id=hospital_id)
+
+    return render(request, 'Manage_beds.html', {'beds': beds})
+
+
+
+
+
+
+
+def save_bed(request):
+    if request.method == "POST":
+
+        # 1. Check hospital staff login
+        hospital_id = request.session.get('hospital_id')
+        if not hospital_id:
+            return redirect('/')
+
+        # 2. Get form data
+        bed_type = request.POST.get('bed_type')
+        total_beds = int(request.POST.get('total_beds'))
+        available_beds = int(request.POST.get('available_beds'))
+        price = request.POST.get('price')
+
+        # 3. Validation
+        if available_beds > total_beds:
+            messages.error(request, "Available beds cannot be more than total beds")
+            return redirect('manage_beds')
+
+        # 4. Check if bed already exists for this hospital
+        try:
+            bed = Bed.objects.get(
+                hospital_id=hospital_id,
+                bed_type=bed_type
+            )
+
+            # 5. Update existing bed
+            bed.total_beds = total_beds
+            bed.available_beds = available_beds
+            bed.price_per_day = price
+            bed.save()
+
+            messages.success(request, "Bed details updated successfully")
+
+        except Bed.DoesNotExist:
+            # 6. Create new bed
+            bed = Bed(
+                hospital_id=hospital_id,
+                bed_type=bed_type,
+                total_beds=total_beds,
+                available_beds=available_beds,
+                price_per_day=price
+            )
+            bed.save()
+
+            messages.success(request, "Bed added successfully")
+
+
+        return redirect('manage_beds')
+
+
+
+
+
+def approve_booking(request, booking_id):
+    # Fetch booking safely
+    booking = get_object_or_404(BedBooking, id=booking_id)
+
+    # Prevent approving past-date bookings
+    if booking.booking_date < date.today():
+        messages.error(request, "Cannot approve a booking for a past date.")
+        return redirect('hospital_dashboard')
+
+    #  Prevent double approval
+    if booking.status == 'APPROVED':
+        messages.warning(request, "This booking is already approved.")
+        return redirect('hospital_dashboard')
+
+    bed = booking.bed
+    booking_date = booking.booking_date
+
+    # 🔒 Atomic transaction (real-world safety)
+    with transaction.atomic():
+        approved_count = BedBooking.objects.select_for_update().filter(
+            bed=bed,
+            booking_date=booking_date,
+            status='APPROVED'
+        ).count()
+
+        # ❌ No availability
+        if approved_count >= bed.total_beds:
+            messages.error(
+                request,
+                f"No {bed.bed_type} beds available on {booking_date}"
+            )
+            return redirect('hospital_dashboard')
+
+        # ✅ Approve booking
+        booking.status = 'APPROVED'
+        booking.decision_at = timezone.now()
+        booking.save()
+
+    # 📧 Send Email Notification
+    subject = "Your Bed Booking is Approved"
+    message = f"""
+Hello {booking.patient_name},
+
+Your bed booking has been APPROVED ✅
+
+Hospital: {booking.hospital.name}
+Bed Type: {booking.bed.bed_type}
+Booking Date: {booking.booking_date}
+
+Patient Name: {booking.patient_name}
+Age: {booking.patient_age}
+Emergency: {"Yes" if booking.is_emergency else "No"}
+
+Please reach the hospital on the booked date.
+
+Thank you for using LifeLink Health Services.
+"""
+
+    send_mail(
+        subject,
+        message,
+        'noreply@lifelink.com',
+        [booking.user.Email],
+        fail_silently=False
+    )
+
+    messages.success(request, "Booking approved successfully and email sent.")
+    return redirect('hospital_dashboard')
+
+
+
+
+
+
+def reject_booking(request, booking_id):
+    booking = get_object_or_404(BedBooking, id=booking_id)
+
+    # Prevent re-processing
+    if booking.status != 'PENDING':
+        messages.warning(request, "This booking has already been processed.")
+        return redirect('hospital_dashboard')
+
+    booking.status = 'REJECTED'
+    booking.decision_at = timezone.now()
+    booking.save()
+
+    messages.success(request, "Booking rejected successfully.")
+    return redirect('hospital_dashboard')
+
+
+
+
+
+def get_available_beds(bed, booking_date):
+    """
+    Returns the number of available beds of this type on a given date.
+    """
+    booked_count = BedBooking.objects.filter(
+        bed=bed,
+        booking_date=booking_date,
+        status__in=['PENDING', 'APPROVED']
+    ).aggregate(
+        total=Sum('beds_required')
+    )['total'] or 0
+
+    return max(bed.total_beds - booked_count, 0)
+
+
+
+
+def book_bed_page(request):
+    services = ServiceCategoryDb.objects.all()
+    query = request.GET.get('q', '')
+
+    hospitals = Hospital.objects.filter(is_verified=True)
+    if query:
+        hospitals = hospitals.filter(
+            name__icontains=query
+        ) | hospitals.filter(
+            city__icontains=query
+        ) | hospitals.filter(
+            state__icontains=query
+        )
+
+    today = date.today()
+
+    # Attach available beds count per hospital
+    for hospital in hospitals:
+        beds = Bed.objects.filter(hospital=hospital)
+        hospital.available_beds_today = sum(get_available_beds(bed, today) for bed in beds)
+
+    return render(request, 'Hospital_bed_booking.html', {
+        'services':services,
+        'hospitals': hospitals,
+        'query': query
+    })
+
+
+
+
+
+
+def user_book_bed_page(request, hospital_id):
+    services=ServiceCategoryDb.objects.all()
+
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in to book a bed.")
+        return redirect('Home')
+
+    hospital = get_object_or_404(Hospital, id=hospital_id)
+    beds = Bed.objects.filter(hospital=hospital)
+
+    today = date.today()
+
+    # Attach availability per bed
+    for bed in beds:
+        bed.available_today = get_available_beds(bed, today)
+
+    return render(request, 'User_book_bed.html', {
+        'services':services,
+        'hospital': hospital,
+        'beds': beds,
+        'today_date': today
+    })
 
 
 
@@ -1114,6 +1428,120 @@ def reset_password(request, token):
 
 
 
+def submit_bed_booking(request, hospital_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in to book a bed.")
+        return redirect('Home')
+
+    if request.method != "POST":
+        return redirect('user_book_bed_page', hospital_id=hospital_id)
+
+    user_id = request.session['user_id']
+    bed_id = request.POST.get('bed_id')
+    patient_name = request.POST.get('patient_name')
+    patient_age = request.POST.get('patient_age')
+    is_emergency = 'is_emergency' in request.POST
+    booking_date = request.POST.get('booking_date')
+    beds_required = int(request.POST.get('beds_required', 1))
+
+    if not booking_date:
+        messages.error(request, "Please select a booking date.")
+        return redirect('user_book_bed_page', hospital_id=hospital_id)
+
+    booking_date = date.fromisoformat(booking_date)
+    if booking_date < date.today():
+        messages.error(request, "You cannot book beds for past dates.")
+        return redirect('user_book_bed_page', hospital_id=hospital_id)
+
+    hospital = get_object_or_404(Hospital, id=hospital_id)
+    bed = get_object_or_404(Bed, id=bed_id, hospital=hospital)
+    user = get_object_or_404(UserRegistration, id=user_id)
+
+    # SIMPLE PRICE CALCULATION
+    total_price = bed.price_per_day * beds_required
+
+    # UPDATED DUPLICATE CHECK (CANCELLED BOOKINGS IGNORED)
+    if BedBooking.objects.filter(
+        user=user,
+        bed=bed,
+        booking_date=booking_date,
+        status__in=['PENDING', 'APPROVED']
+    ).exists():
+        messages.warning(
+            request,
+            "You have already booked this bed for the selected date."
+        )
+        return redirect('user_book_bed_page', hospital_id=hospital_id)
+
+    # CHECK AVAILABILITY USING SUM
+    booked_count = BedBooking.objects.filter(
+        bed=bed,
+        booking_date=booking_date,
+        status__in=['PENDING', 'APPROVED']
+    ).aggregate(
+        total=Sum('beds_required')
+    )['total'] or 0
+
+    available = bed.total_beds - booked_count
+
+    if beds_required > available:
+        messages.error(
+            request,
+            f"Only {available} {bed.bed_type} beds available on {booking_date}."
+        )
+        return redirect('user_book_bed_page', hospital_id=hospital_id)
+
+    # CREATE BOOKING
+    BedBooking.objects.create(
+        user=user,
+        hospital=hospital,
+        bed=bed,
+        patient_name=patient_name,
+        patient_age=patient_age,
+        is_emergency=is_emergency,
+        booking_date=booking_date,
+        beds_required=beds_required,
+        total_price=total_price,
+        status='PENDING'
+    )
+
+    messages.success(request, "Booking request submitted successfully!")
+    return redirect('user_dashboard')
+
+
+
+
+
+
+
+
+# User dashboard
+
+
+def user_dashboard(request):
+    services=ServiceCategoryDb.objects.all()
+
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in.")
+        return redirect('Home')
+
+    user_id = request.session['user_id']
+    today = date.today()
+
+    bookings = BedBooking.objects.filter(
+        user_id=user_id,
+        booking_date__gte=today
+    ).exclude(
+        status__in=['CANCELLED', 'REJECTED']
+    ).select_related(
+        'hospital', 'bed'
+    ).order_by('booking_date')
+
+    return render(request, 'user_dashboard.html', {
+        'services':services,
+        'bookings': bookings,
+        'today': today
+    })
 
 
 
@@ -1123,16 +1551,65 @@ def reset_password(request, token):
 
 
 
+def cancel_bed_booking(request, booking_id):
+    if 'user_id' not in request.session:
+        messages.error(request, "Please log in.")
+        return redirect('Home')
+
+    booking = get_object_or_404(
+        BedBooking,
+        id=booking_id,
+        user_id=request.session['user_id']
+    )
+
+    # Cannot cancel on or after booking date
+    if booking.booking_date <= date.today():
+        messages.error(request, "You cannot cancel on or after the booking date.")
+        return redirect('user_dashboard')
+
+    if booking.status == 'CANCELLED':
+        messages.warning(request, "Booking already cancelled.")
+        return redirect('user_dashboard')
+
+    booking.status = 'CANCELLED'
+    booking.save()
+
+    messages.success(request, "Booking cancelled successfully. You can rebook on the same date.")
+    return redirect('user_dashboard')
+
+
+
+# HospitalJoinRequest
+
+def contact_admin(request):
+    if request.method == "POST":
+        hospital_name = request.POST.get('hospital_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+
+        HospitalJoinRequest.objects.create(
+            hospital_name=hospital_name,
+            email=email,
+            phone=phone,
+            message=message
+        )
+
+        messages.success(
+            request,
+            "Your request has been sent to the admin. We will contact you soon."
+        )
+
+    return redirect('service_registration')
 
 
 
 
-
-
-
-
-
-
+def hospital_map(request):
+    hospitals = Hospital.objects.filter(is_active=True)
+    return render(request, "Hospital_map.html", {
+        "hospitals": hospitals
+    })
 
 
 

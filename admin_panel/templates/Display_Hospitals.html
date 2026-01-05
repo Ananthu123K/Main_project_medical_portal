@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html>
+<head>
+    <title>Hospitals List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f8fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td img {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .verified {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .action-btns a {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .action-btns a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Hospitals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Registration No.</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hospital in hospitals %}
+                <tr>
+                    <td>
+                        {% if hospital.image %}
+                            <img src="{{ hospital.image.url }}" alt="{{ hospital.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/100x60.png?text=No+Image" alt="No Image">
+                        {% endif %}
+                    </td>
+                    <td>{{ hospital.name }}</td>
+                    <td>{{ hospital.registration_number }}</td>
+                    <td>{{ hospital.phone }}</td>
+                    <td>{{ hospital.email }}</td>
+                    <td>{{ hospital.city }}</td>
+                    <td>{{ hospital.state }}</td>
+                    <td>
+                        {% if hospital.is_verified %}
+                            <span class="verified">Verified</span>
+                        {% else %}
+                            Not Verified
+                        {% endif %}
+                    </td>
+                    <td class="action-btns">
+                        <a href="{% url 'edit_hospitals' hospital.id %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'delete_hospital' hospital.id %}" class="delete-btn"
+                           onclick="return confirm('Are you sure you want to delete this hospital?');">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
+{% endblock %}

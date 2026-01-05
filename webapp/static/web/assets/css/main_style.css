@@ -313,6 +313,8 @@ h6 {
 
 
 
+/* ---------------- HEADER LOGO ---------------- */
+
 /* Logo Text */
 .logo h1.sitename {
   font-size: 26px;          /* Slightly bigger for prominence */
@@ -321,21 +323,19 @@ h6 {
   margin: 0;
   letter-spacing: 1px;
   transition: color 0.3s ease;
+  padding-left: 6px;        /* small space between emblem and text */
 }
 
 /* Logo Hover Effect */
-.logo:hover h1.sitename {
-  color: var(--nav-hover-color);
-}
+.logo:hover h1.sitename { color: var(--nav-hover-color); }
 
-/* Logo Emblem */
 .logo-emblem {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: var(--nav-hover-color); /* Airbnb pink/red accent */
+  background: var(--nav-hover-color);
   color: #fff;
   border-radius: 50%;
   font-size: 18px;
@@ -343,12 +343,55 @@ h6 {
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
-/* Emblem hover effect */
-.logo:hover .logo-emblem {
-  transform: rotate(10deg);
-  background: #ff1c4b;
+/* Move both emblem and text left */
+.logo-emblem,
+.logo h1.sitename {
+  transform: translateX(-40px);
 }
 
+/* Hover effect for emblem */
+.logo:hover .logo-emblem {
+
+  background: #ff1c4b;
+
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 992px) {
+  .logo-emblem {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .logo h1.sitename {
+    font-size: 22px;
+    padding-left: 5px;
+  }
+
+  .logo-emblem,
+  .logo h1.sitename {
+    transform: translateX(-30px); /* smaller left shift on tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-emblem {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .logo h1.sitename {
+    font-size: 20px;
+    padding-left: 4px;
+  }
+
+  .logo-emblem,
+  .logo h1.sitename {
+    transform: translateX(-20px); /* smaller left shift on mobile */
+  }
+}
 
 /* ==========================
    Header Base
@@ -377,7 +420,9 @@ h6 {
   color: var(--nav-color);
   margin: 0;
   letter-spacing: 1px;
+
 }
+
 
 /* ==========================
    Nav Menu - Desktop
@@ -552,6 +597,7 @@ h6 {
 /* ==========================
    Mobile Navigation
 ========================== */
+
 @media (max-width: 1199px) {
   .mobile-nav-toggle {
     font-size: 28px;
@@ -599,9 +645,9 @@ h6 {
 /*--------------------------------------------------------------
 # Global Footer
 --------------------------------------------------------------*/
-/* Footer Base */
+/* ---------------- FOOTER ---------------- */
 .footer {
-  background-color: #fff; /* clean, modern background */
+  background-color: #fff; /* clean background */
   color: #4a4a4a;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
@@ -615,11 +661,11 @@ h6 {
   padding-bottom: 30px;
 }
 
-/* Logo & About */
+/* Footer Logo & About */
 .footer .footer-about .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0; /* disable gap, we use exact margin-left */
   margin-bottom: 15px;
 }
 
@@ -629,10 +675,12 @@ h6 {
   justify-content: center;
   width: 38px;
   height: 38px;
-  background-color: #ff5a5f; /* Airbnb-like accent */
+  background-color: #ff5a5f; /* accent color */
   color: #fff;
   font-size: 18px;
   border-radius: 50%;
+  flex-shrink: 0; /* prevent shrinking */
+  margin: 0; /* reset default margin */
 }
 
 .footer .footer-about .sitename {
@@ -640,10 +688,13 @@ h6 {
   font-weight: 700;
   color: #222;
   margin: 0;
+  margin-left: 7px; /* exact spacing from emblem */
+  white-space: nowrap; /* prevent wrapping */
 }
 
+/* Footer links */
 .footer .footer-about p a {
-  color: #ff5a5f; /* accent color */
+  color: #ff5a5f;
   text-decoration: none;
 }
 
@@ -651,7 +702,6 @@ h6 {
   text-decoration: underline;
 }
 
-/* Footer Links */
 .footer h4 {
   font-size: 16px;
   font-weight: 600;
@@ -676,7 +726,7 @@ h6 {
 }
 
 .footer .footer-links ul a:hover {
-  color: #ff5a5f; /* accent color */
+  color: #ff5a5f;
 }
 
 /* Footer Bottom */
@@ -692,20 +742,17 @@ h6 {
   color: #777;
 }
 
-/* Responsive */
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
   .footer .footer-about,
   .footer .footer-links {
     text-align: center;
   }
+
   .footer .footer-about .logo {
-    justify-content: center;
+    justify-content: center; /* center emblem + text on mobile */
   }
 }
-
-
-
-
 
 /*--------------------------------------------------------------
 # Preloader
@@ -1217,3 +1264,6 @@ section,
   --nav-link-color: #2c4964; /* default navbar text color */
   --nav-button-bg:#dc3545;  /* button background color in navbar */
 }
+
+
+

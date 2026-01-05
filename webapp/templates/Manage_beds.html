@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Beds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 24px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #ff385c;
+            font-weight: 500;
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff385c;
+        }
+
+        .form-actions {
+            margin-top: 16px;
+        }
+
+        button {
+            background: #ff385c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e03150;
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        thead {
+            background: #f1f1f1;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .price {
+            font-weight: 500;
+        }
+
+        .empty-text {
+            text-align: center;
+            color: #888;
+            padding: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h2>🛏 Manage Beds</h2>
+        <a href="{% url 'hospital_dashboard' %}" class="back-link">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Add / Update Bed -->
+    <div class="card">
+        <h3>Add / Update Bed</h3>
+
+        <form method="POST" action="{% url 'save_bed' %}">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div>
+                    <label>Bed Type</label>
+                    <select name="bed_type" required>
+                        <option value="ICU">ICU</option>
+                        <option value="GENERAL">General</option>
+                        <option value="EMERGENCY">Emergency</option>
+                        <option value="VENTILATOR">Ventilator</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Total Beds</label>
+                    <input type="number" name="total_beds" required>
+                </div>
+
+                <div>
+                    <label>Available Beds</label>
+                    <input type="number" name="available_beds" required>
+                </div>
+
+                <div>
+                    <label>Price Per Day</label>
+                    <input type="number" name="price" step="0.01">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Save Bed</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bed List -->
+    <div class="card">
+        <h3>Existing Beds</h3>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bed Type</th>
+                        <th>Total</th>
+                        <th>Available</th>
+                        <th>Price / Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bed in beds %}
+                    <tr>
+                        <td>{{ bed.bed_type }}</td>
+                        <td>{{ bed.total_beds }}</td>
+                        <td>{{ bed.available_beds }}</td>
+                        <td class="price">₹ {{ bed.price_per_day }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="empty-text">No beds added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

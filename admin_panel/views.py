@@ -1,12 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from admin_panel.models import ServiceCategoryDb
 from django.core.files.storage import FileSystemStorage
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
-from webapp.models import DonorRegistrationDb,ContactDb
 from django.contrib import messages
 from webapp.models import *
+from webapp.models import Hospital
+from django.contrib.auth.hashers import make_password
+
 
 
 
@@ -127,3 +129,142 @@ def delete_requests(request,r_id):
     data=AmbulanceRequest.objects.filter(id=r_id)
     data.delete()
     return redirect('display_requests')
+
+def add_hospitals(request):
+    return render(request,"Add_Hospitals.html")
+
+
+def save_hospital(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        registration_number = request.POST.get('registration_number')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        district = request.POST.get('district')
+        state = request.POST.get('state')
+        is_verified = request.POST.get('is_verified') == 'on'
+        image = request.FILES.get('image')
+
+        obj = Hospital(
+            name=name,
+            registration_number=registration_number,
+            phone=phone,
+            email=email,
+            address=address,
+            city=city,
+            district=district,
+            state=state,
+            is_verified=is_verified,
+            image=image
+        )
+        obj.save()
+
+        messages.success(request, "Hospital added successfully!")
+        return redirect('add_hospitals')
+
+    return redirect('add_hospitals')
+
+def display_hospitals(request):
+    hospitals = Hospital.objects.all()
+    return render(request, 'Display_Hospitals.html', {'hospitals': hospitals})
+
+def edit_hospitals(request, h_id):
+    hospital = Hospital.objects.get(id=h_id)
+    return render(request, "Edit_hospitals.html", {'hospital': hospital})
+
+
+def update_hospital(request, h_id):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        registration_number = request.POST.get('registration_number')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        district = request.POST.get('district')
+        state = request.POST.get('state')
+        is_verified = request.POST.get('is_verified') == 'on'
+
+        # Handle image upload
+        try:
+            img = request.FILES['image']
+            fs = FileSystemStorage()
+            file = fs.save(img.name, img)
+        except MultiValueDictKeyError:
+            # If no new image uploaded, keep the old one
+            file = Hospital.objects.get(id=h_id).image
+
+        # Update hospital using .update()
+        Hospital.objects.filter(id=h_id).update(
+            name=name,
+            registration_number=registration_number,
+            phone=phone,
+            email=email,
+            address=address,
+            city=city,
+            district=district,
+            state=state,
+            is_verified=is_verified,
+            image=file
+        )
+
+        messages.success(request, "Hospital Updated Successfully")
+        return redirect('display_hospitals')
+
+def delete_hospital(request, h_id):
+    hospital = Hospital.objects.get( id=h_id)
+    hospital.delete()
+    messages.success(request, "Hospital deleted successfully!")
+    return redirect('display_hospitals')
+
+
+
+
+
+def hospital_staff_signup_page(request):
+    hospitals = Hospital.objects.all()
+    return render(request, 'Hospitalstaff_signup.html', {
+        'hospitals': hospitals
+    })
+
+def hospital_staff_signup(request):
+    if request.method == "POST":
+        hospital_id = request.POST.get('hospital')
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = make_password(request.POST.get('password'))
+
+        HospitalStaff.objects.create(
+            hospital_id=hospital_id,
+            name=name,
+            email=email,
+            password=password,
+            is_active=True
+        )
+
+        messages.success(request, "Hospital staff account created successfully")
+        return redirect('hospital_staff_signup_page')
+
+
+def staff_list(request):
+    staff = HospitalStaff.objects.select_related('hospital').all()
+    return render(request, 'Display_hospitalstaff.html', {'staff': staff})
+
+
+def delete_staff(request, staff_id):
+    staff = get_object_or_404(HospitalStaff, id=staff_id)
+    staff.delete()
+    return redirect('staff_list')
+
+def bed_booking_list(request):
+    bookings = BedBooking.objects.all()   # admin
+    # bookings = BedBooking.objects.filter(hospital=request.user.hospital)  # for hospital
+    return render(request, 'Bed_booking_list.html', {'bookings': bookings})
+
+
+def delete_bed_booking(request, booking_id):
+    booking = get_object_or_404(BedBooking, id=booking_id)
+    booking.delete()
+    return redirect('bed_booking_list')
